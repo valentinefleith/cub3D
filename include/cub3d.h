@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2024/10/25 10:19:47 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:39:43 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,31 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include "keycodes.h"
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define SUCCESS 0
+#define MLX_ERROR 1
+# define HEIGHT 960
+# define WIDTH 1080
+
+typedef struct s_img
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_img;
+
+typedef struct s_maze {
+	void *mlx;
+	void *win;
+	t_img img;
+}				t_maze;
 
 #endif
