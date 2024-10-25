@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2024/10/25 10:41:56 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:42:52 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ int main() {
 	t_maze maze;
 
 	printf("coucou\n");
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
-		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
-		return MLX_ERROR;
-	}
-	if (init_maze(&maze) == MLX_ERROR)
-		return MLX_ERROR;
+	//maze.mlx = mlx_init();
+	//if (!maze.mlx)
+	//	return MLX_ERROR;
+	//maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
+	//if (!maze.win) {
+	//	mlx_destroy_display(maze.mlx);
+	//	free(maze.mlx);
+	//	return MLX_ERROR;
+	//}
+	//if (init_maze(&maze) == MLX_ERROR)
+	//	return MLX_ERROR;
 
 }

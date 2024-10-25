@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 14:41:29 by vafleith          #+#    #+#              #
-#    Updated: 2024/10/25 10:21:51 by vafleith         ###   ########.fr        #
+#    Updated: 2024/10/25 10:43:05 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3D
 
 CC = cc
 CFLAGS = -Wall -Wextra -g3
-CFLAGS += -Werror
+# CFLAGS += -Werror
 
 MLX_PATH = minilibx-linux
 MLX_NAME = libmlx.a
