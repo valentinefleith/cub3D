@@ -12,7 +12,7 @@
 - [Raycasting - video of CodingTrain](https://thecodingtrain.com/challenges/145-ray-casting-2d)
 - [Rendering raycasting - video of CodingTrain](https://www.youtube.com/watch?v=vYgIKn7iDH8)
 
-## Maths
+# Maths
 
 - [Matrix - CodingTrain](https://www.youtube.com/watch?v=uSzGdfdOoG8&t=133s)
 - [Rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix)
@@ -21,6 +21,7 @@
 
 - [Introduction to vectors](https://mathinsight.org/vector_introduction)
 - [Vectors](https://www.mathsisfun.com/algebra/vectors.html)
+- [Vectors in two- and three-dimensional Cartesian coordinates](https://mathinsight.org/vectors_cartesian_coordinates_2d_3d)
   
 - [Graphing Calculator -GeoGebra](https://www.geogebra.org/graphing)
 - [Math3D visualization](https://www.math3d.org/)
@@ -29,7 +30,6 @@
 
 - [Texture mapping - detailled + schema](http://archive.gamedev.net/archive/reference/articles/article852.html)
 - [Find textures](https://itch.io/)
-- 
 
 # Doom
 - [Play Wolfenstein online](http://users.atw.hu/wolf3d/)
