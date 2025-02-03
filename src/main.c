@@ -19,26 +19,38 @@ void	free_window(t_maze *maze)
 	free(maze->mlx);
 }
 
+// static int init_maze(t_maze *maze) 
+// {
+// 	t_img img;
 
-static int init_maze(t_maze *maze) {
-	t_img img;
+// 	img.img = mlx_new_image(maze->mlx, WIDTH, HEIGHT);
+// 	if (!img.img)
+// 	{
+// 		free_window(maze);
+// 		return MLX_ERROR;
+// 	}
+// 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+// 	maze->img = img;
+// 	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
+// 	return SUCCESS;
+// }
 
-	img.img = mlx_new_image(maze->mlx, WIDTH, HEIGHT);
-	if (!img.img)
+int main(int ac, char **av)
+{
+	// t_maze maze;
+	t_map	map;
+
+	if (init_map(ac, av[1], &map) != SUCCESS)
+		return (KO);
+	int i = 0;
+	printf("******** MAP STORED **********\n");
+	while (map.map[i])
 	{
-		free_window(maze);
-		return MLX_ERROR;
+		printf("%s", map.map[i]);
+		i++;
 	}
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	maze->img = img;
-	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
-	return SUCCESS;
-}
-
-int main() {
-	t_maze maze;
-
-	printf("coucou\n");
+	printf("\n");
+	free_map(map.map);
 	//maze.mlx = mlx_init();
 	//if (!maze.mlx)
 	//	return MLX_ERROR;
@@ -50,5 +62,5 @@ int main() {
 	//}
 	//if (init_maze(&maze) == MLX_ERROR)
 	//	return MLX_ERROR;
-
+	return (SUCCESS);
 }

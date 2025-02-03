@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   map.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,51 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef MAP_H
+# define MAP_H
 
-# include "libft.h"
-# include "get_next_line.h"
-# include "map.h"
-# include "keycodes.h"
+# include "cub3d.h"
 
-# include <math.h>
-# include <mlx.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+# define MISSING_MAP 0
+# define ERROR_MAP 2 // General error like a NULL pointer
+# define NAME_MAP 3
+# define FILE_MAP 4
+# define EMPTY_MAP 5
 
-# define SUCCESS 0
-# define KO 1
-# define MLX_ERROR 2
+typedef struct s_map t_map;
+// typedef struct s_map
+// {
+// 	char	**map;
+//	char	start_dir;
+// 	int		p_x;
+// 	int		p_y;
+// 	int		map_w;
+// 	int		map_h;
+// }			t_map;
 
-# define HEIGHT 960
-# define WIDTH 1080
-
-typedef struct s_img
-{
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_img;
-
-typedef struct s_maze {
-	void *mlx;
-	void *win;
-	t_img img;
-}				t_maze;
-
-typedef struct s_map
-{
-	char	**map;
-	char	start_dir;
-	int		p_x;
-	int		p_y;
-	int		map_w;
-	int		map_h;
-}			t_map;
+int		init_map(int args, char *filename, t_map *map);
+int		check_filename_validity(char *filename);
+int		map_error(int error_code);
+char	**map_parsing(char *map_file, t_map *data);
+int		check_map_valid_symbol(char *line);
+char	**free_map(char **map);
+int		get_map_size(char *filename);
+char	**store_the_map(char *filename, char **map);
 
 #endif
