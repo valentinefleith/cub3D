@@ -12,12 +12,12 @@
 
 #include "cub3d.h"
 
-void	free_window(t_maze *maze)
-{
-	mlx_destroy_window(maze->mlx, maze->win);
-	mlx_destroy_display(maze->mlx);
-	free(maze->mlx);
-}
+// void	free_window(t_maze *maze)
+// {
+// 	mlx_destroy_window(maze->mlx, maze->win);
+// 	mlx_destroy_display(maze->mlx);
+// 	free(maze->mlx);
+// }
 
 // static int init_maze(t_maze *maze) 
 // {
@@ -42,15 +42,6 @@ int main(int ac, char **av)
 
 	if (init_map(ac, av[1], &map) != SUCCESS)
 		return (KO);
-	int i = 0;
-	printf("******** MAP STORED **********\n");
-	while (map.map[i])
-	{
-		printf("%s", map.map[i]);
-		i++;
-	}
-	printf("\n");
-	free_map(map.map);
 	//maze.mlx = mlx_init();
 	//if (!maze.mlx)
 	//	return MLX_ERROR;
@@ -62,5 +53,6 @@ int main(int ac, char **av)
 	//}
 	//if (init_maze(&maze) == MLX_ERROR)
 	//	return MLX_ERROR;
+	free_map(&map);
 	return (SUCCESS);
 }

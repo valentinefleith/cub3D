@@ -39,7 +39,8 @@ INC = -Iinclude -Ilibft -I$(MLX_PATH) -I$(GNL_PATH)
 
 SRC_DIR = src
 
-SRCS = main.c map_parsing.c
+SRCS = main.c parsing/map_init.c parsing/map_parsing.c parsing/map_security.c \
+	parsing/parsing_maze.c debug.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build

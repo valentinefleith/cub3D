@@ -49,12 +49,23 @@ typedef struct s_maze {
 
 typedef struct s_map
 {
-	char	**map;
+	char	**maze;
+	// player's start direction (N,S,W,E)
 	char	start_dir;
+	// player's coordinates
 	int		p_x;
 	int		p_y;
-	int		map_w;
-	int		map_h;
+	// maze's size
+	int		heigth;
+	int		width;
+	// colors in RGB and path for wall's textures
+	int		floor[3];
+	int		celling[3];
+	char	**textures_path;
 }			t_map;
+
+/* DEBUG must delete later */
+void		debug_textures_path(char **tab);
+void 		debug_colors(int floor[3], int ceilling[3]);
 
 #endif

@@ -19,26 +19,41 @@
 # define ERROR_MAP 2 // General error like a NULL pointer
 # define NAME_MAP 3
 # define FILE_MAP 4
-# define EMPTY_MAP 5
+
+# define EMPTY_LINE 5
+# define DOUBLE_SYMB 6
+# define INVALID 7
+# define RANGE_RGB 8
 
 typedef struct s_map t_map;
-// typedef struct s_map
-// {
-// 	char	**map;
-//	char	start_dir;
-// 	int		p_x;
-// 	int		p_y;
-// 	int		map_w;
-// 	int		map_h;
-// }			t_map;
+
+/* map_init.c */
 
 int		init_map(int args, char *filename, t_map *map);
 int		check_filename_validity(char *filename);
+char	**init_tab(int len);
+int		is_line_empty(char *line);
+
+/* map_parsing.c */
+
+int		parsing_env_map_data(char *filename, t_map *map);
+int		parsing_textures_path(char *line, t_map *map);
+int		parsing_colors(char *line, t_map *map);
+int		find_color(char *line);
+int		check_color_symbol(char *line);
+
+/* parsing_maze.c */
+
+int		store_the_maze(int fd, char **map);
+int		check_maze_valid_symbol(char *line);
+int		get_maze_size(int fd, char *prev_line);
+void	skip_beginning(int fd);
+
+/* map_security.c */
+
 int		map_error(int error_code);
-char	**map_parsing(char *map_file, t_map *data);
-int		check_map_valid_symbol(char *line);
-char	**free_map(char **map);
-int		get_map_size(char *filename);
-char	**store_the_map(char *filename, char **map);
+int		free_map(t_map *map);
+char	**free_double_tab(char **map);
+char	**free_path(char **tab);
 
 #endif
