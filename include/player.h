@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:03:44 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 21:57:08 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/10 22:25:15 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef PLAYER_H
+# define PLAYER_H
+
+# define PLAYER_WIDTH_PX 8
+# define PLAYER_MOVE_PX 15
+
+typedef struct s_position {
+	int x;
+	int y;
+}		t_position;
+
+typedef struct s_player {
+	t_position pos;
+	// RAJOUTER PLUS TARD: angle de vue etc.
+}		t_player;
 
 
-int main() {
-	t_maze maze;
 
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
-		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
-		return MLX_ERROR;
-	}
-	init_player_pos(&maze);
-	if (render_one_frame(&maze, true) == MLX_ERROR)
-		return MLX_ERROR;
-	init_hook(&maze);
-	mlx_loop(maze.mlx);
-}
+#endif
+
