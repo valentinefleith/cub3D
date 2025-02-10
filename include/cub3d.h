@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2024/10/25 10:39:43 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:31:47 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "libft.h"
 # include "keycodes.h"
+# include "colors.h"
+
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>

@@ -6,12 +6,11 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 17:44:07 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:32:08 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-# define WHITE 0x00FFFFFF
 
 static int free_window(t_maze* maze) {
 	mlx_destroy_window(maze->mlx, maze->win);
