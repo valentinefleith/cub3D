@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 21:35:10 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:53:49 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # define SUCCESS 0
 #define MLX_ERROR 1
@@ -50,10 +51,11 @@ typedef struct s_pixel {
 
 
 
-int init_maze(t_maze *maze);
+int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
 int free_window(t_maze* maze);
 int exit_program(t_maze *maze);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void raycasting(t_maze *maze);
 
 #endif

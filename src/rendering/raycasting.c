@@ -1,17 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 21:28:56 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 21:47:54 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/10 21:53:51 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_hook(t_maze *maze) {
-	mlx_hook(maze->win, 17, 0, exit_program, maze);
+void raycasting(t_maze *maze) {
+	for (int i = 0; i < WIDTH; i++)
+	{
+		for (int j = 0; j < HEIGHT; j++)
+		{
+			my_mlx_pixel_put(&(maze->img), i, j, RED);
+		}
+	}
 }
