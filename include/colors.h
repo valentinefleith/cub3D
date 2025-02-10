@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:03:44 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 18:31:21 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/10 22:26:20 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef COLORS_H
+# define COLORS_H
 
+# define WHITE 0x00FFFFFF
+# define GREY 0x003A3A3F
+# define RED 0x00FFB6C1
+# define YELLOW 0x00FFFFE0
+# define BLUE 0x00ADD8E6
+# define GREEN 0x0090EE90
 
-int main() {
-	t_maze maze;
-
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
-		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
-		return MLX_ERROR;
-	}
-	init_player_pos(&maze);
-	if (render_one_frame(&maze, true) == MLX_ERROR)
-		return MLX_ERROR;
-	init_hook(&maze);
-	mlx_loop(maze.mlx);
-}
+#endif

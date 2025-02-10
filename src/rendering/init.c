@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:03:44 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 21:28:56 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/10 22:17:17 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-int main() {
-	t_maze maze;
-
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
-		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
-		return MLX_ERROR;
-	}
-	init_player_pos(&maze);
-	if (render_one_frame(&maze, true) == MLX_ERROR)
-		return MLX_ERROR;
-	init_hook(&maze);
-	mlx_loop(maze.mlx);
+void init_hook(t_maze *maze) {
+	mlx_hook(maze->win, 17, 0, exit_program, maze);
+	mlx_key_hook(maze->win, key_events, maze);
 }
