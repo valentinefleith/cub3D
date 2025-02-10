@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:31:21 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:43 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:46:58 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 # define COLORS_H
 
 # define WHITE 0x00FFFFFF
+# define GREY 0x00D3D3D3
+# define RED 0x00FFB6C1
+# define YELLOW 0x00FFFFE0
+# define BLUE 0x00ADD8E6
+# define GREEN 0x0090EE90
 
 #endif

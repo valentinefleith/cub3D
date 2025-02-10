@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:08 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:45:45 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int init_maze(t_maze *maze) {
 	maze->img = img;
 	for (int i = 0; i < WIDTH; i++) {
 		for (int j = 0; j < HEIGHT; j++) {
-			my_mlx_pixel_put(&img, i, j, WHITE);
+			my_mlx_pixel_put(&img, i, j, YELLOW);
 		}
 	}
 	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
