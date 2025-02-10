@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:19:39 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:38:30 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define SUCCESS 0
 #define MLX_ERROR 1
 # define HEIGHT 960
-# define WIDTH 1080
+# define WIDTH 960
 
 typedef struct s_img
 {
