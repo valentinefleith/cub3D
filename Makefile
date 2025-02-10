@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 14:41:29 by vafleith          #+#    #+#              #
-#    Updated: 2024/10/25 10:43:05 by vafleith         ###   ########.fr        #
+#    Updated: 2025/02/10 21:36:18 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ INC = -Iinclude -Ilibft -I$(MLX_PATH) -I$(GNL_PATH)
 
 SRC_DIR = src
 
-SRCS = main.c
+SRCS = main.c rendering/image.c rendering/exit.c rendering/init.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build

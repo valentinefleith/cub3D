@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:18:47 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 21:35:15 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 21:34:16 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/10 21:34:44 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-int main() {
-	t_maze maze;
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
 
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
-		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
-		return MLX_ERROR;
-	}
-	if (init_maze(&maze) == MLX_ERROR)
-		return MLX_ERROR;
-	init_hook(&maze);
-	mlx_loop(maze.mlx);
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
+
