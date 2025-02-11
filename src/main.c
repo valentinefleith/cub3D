@@ -13,9 +13,14 @@
 #include "cub3d.h"
 
 
-int main() {
+int main(int ac, char **av)
+{
 	t_maze maze;
+	t_map map;
 
+	if (init_map(ac, av[1], &map) != SUCCESS)
+		return (KO);
+	maze.map = &map;
 	maze.mlx = mlx_init();
 	if (!maze.mlx)
 		return MLX_ERROR;
@@ -30,4 +35,5 @@ int main() {
 		return MLX_ERROR;
 	init_hook(&maze);
 	mlx_loop(maze.mlx);
+	free_map(&map);
 }

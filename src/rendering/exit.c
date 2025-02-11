@@ -22,6 +22,7 @@ int free_window(t_maze* maze) {
 int exit_program(t_maze *maze) {
 	mlx_destroy_image(maze->mlx, maze->img.img);
 	free_window(maze);
+	free_map(maze->map);
 	exit(SUCCESS);
 	return SUCCESS;
 }

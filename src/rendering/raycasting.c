@@ -20,6 +20,7 @@ static void draw_rectangle(t_maze *maze, t_position center_pos, int width, int h
 	int start_j = center_pos.y - (height / 2);
 
 	for (int i = start_i; i < start_i + width; i++) {
+
 		for (int j = start_j; j < start_j + height; j++) {
 			my_mlx_pixel_put(&(maze->img), i, j, color);
 		}
@@ -28,21 +29,12 @@ static void draw_rectangle(t_maze *maze, t_position center_pos, int width, int h
 
 void	raycasting(t_maze *maze)
 {
-	int map[8][8] = {{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 0, 0, 1, 0, 0, 0, 1},
-		{1, 0, 0, 1, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 0, 0, 1},
-		{1, 0, 0, 0, 0, 0, 0, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1}};
-
 	t_position center_pos;
 	center_pos.y = MAP_SQUARE_SIZE / 2;
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < maze->map->dimensions.width; i++) {
 	center_pos.x = MAP_SQUARE_SIZE / 2;
-		for (int j = 0; j < 8; j++) {
-			if (map[i][j] == 1)
+		for (int j = 0; j < maze->map->dimensions.height; j++) {
+			if (maze->map->maze[i][j] == '1')
 				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE, MAP_SQUARE_SIZE, WHITE);	
 			else
 				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE, MAP_SQUARE_SIZE, GREY);	
@@ -55,5 +47,4 @@ void	raycasting(t_maze *maze)
 	img_center.x = WIDTH / 2;
 	img_center.y = HEIGHT / 2;
 	draw_rectangle(maze, maze->player.pos, PLAYER_WIDTH_PX, PLAYER_WIDTH_PX, GREEN);
-
 }
