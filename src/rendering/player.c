@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 22:00:55 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:10:38 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:26:02 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void init_player_pos(t_maze* maze) {
 	player_position.y = HEIGHT / 2;
 
 	player.pos = player_position;
+	player.looking_angle = M_PI / 2;
 	maze->player = player;
 }

@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 14:41:29 by vafleith          #+#    #+#              #
-#    Updated: 2025/02/10 22:24:02 by vafleith         ###   ########.fr        #
+#    Updated: 2025/02/11 21:45:31 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRC_DIR = src
 
 SRCS = main.c rendering/image.c rendering/exit.c rendering/init.c rendering/raycasting.c \
 	   rendering/player.c rendering/key_events.c parsing/map_init.c parsing/map_parsing.c parsing/map_security.c \
-	parsing/parsing_maze.c debug.c
+	parsing/parsing_maze.c debug.c rendering/draw.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build

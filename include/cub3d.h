@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:38:30 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:45:16 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 # define SUCCESS 0
 # define KO 1
@@ -95,5 +97,15 @@ int key_events(int keycode, t_maze *maze);
 /* DEBUG must delete later */
 void		debug_textures_path(char **tab);
 void 		debug_colors(int floor[3], int ceilling[3]);
+
+
+
+
+void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
+		int height, int color);
+void	draw_line(t_maze *maze, t_position start, t_position end);
+void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
+		int size);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/11 19:23:27 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:44:21 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,36 @@
 
 #define MAP_SQUARE_SIZE 110
 
-static void draw_rectangle(t_maze *maze, t_position center_pos, int width, int height, int color) {
-	int start_i = center_pos.x - (width / 2);
-	int start_j = center_pos.y - (height / 2);
-
-	for (int i = start_i; i < start_i + width; i++) {
-
-		for (int j = start_j; j < start_j + height; j++) {
-			my_mlx_pixel_put(&(maze->img), i, j, color);
-		}
-	}
-}
 
 void	raycasting(t_maze *maze)
 {
-	t_position center_pos;
+	t_position	center_pos;
+	t_position	start;
+	t_position	end;
+
 	center_pos.y = MAP_SQUARE_SIZE / 2;
-	for (int i = 0; i < maze->map->dimensions.height; i++) {
+	for (int i = 0; i < maze->map->dimensions.height; i++)
+	{
 		center_pos.x = MAP_SQUARE_SIZE / 2;
-		for (int j = 0; j < maze->map->dimensions.width; j++) {
+		for (int j = 0; j < maze->map->dimensions.width; j++)
+		{
 			if (maze->map->maze[i][j] == '1')
-				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE, MAP_SQUARE_SIZE, WHITE);	
+				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE,
+					MAP_SQUARE_SIZE, WHITE);
 			else
-				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE, MAP_SQUARE_SIZE, GREY);	
+				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE,
+					MAP_SQUARE_SIZE, GREY);
 			center_pos.x = center_pos.x + MAP_SQUARE_SIZE + 3;
 		}
 		center_pos.y = center_pos.y + MAP_SQUARE_SIZE + 3;
 	}
-
-	draw_rectangle(maze, maze->player.pos, PLAYER_WIDTH_PX, PLAYER_WIDTH_PX, GREEN);
+	draw_rectangle(maze, maze->player.pos, PLAYER_WIDTH_PX, PLAYER_WIDTH_PX,
+		GREEN);
+	start.x = 100;
+	start.y = 200;
+	end.x = 480;
+	end.y = 495;
+	// draw_line(maze, maze->player.pos, end);
+	draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle,
+		70);
 }
