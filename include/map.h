@@ -47,7 +47,7 @@ int		check_color_symbol(char *line);
 int		store_the_maze(int fd, char **map);
 int		check_maze_valid_symbol(char *line);
 int		get_maze_size(int fd, char *prev_line);
-void	skip_beginning(int fd);
+char	*skip_beginning(int fd);
 
 /* map_security.c */
 

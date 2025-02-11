@@ -44,29 +44,6 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
-typedef struct s_maze {
-	void *mlx;
-	void *win;
-	t_img img;
-	t_player player;
-}				t_maze;
-
-//typedef struct s_pixel {
-	//int x;
-	//int y;
-//}			t_pixel;
-
-
-
-int render_one_frame(t_maze *maze, bool initialization);
-void init_hook(t_maze *maze);
-void init_player_pos(t_maze* maze);
-int free_window(t_maze* maze);
-int exit_program(t_maze *maze);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void raycasting(t_maze *maze);
-int key_events(int keycode, t_maze *maze);
-
 typedef struct s_map
 {
 	char	**maze;
@@ -83,6 +60,29 @@ typedef struct s_map
 	int		celling[3];
 	char	**textures_path;
 }			t_map;
+
+typedef struct s_maze {
+	void		*mlx;
+	void		*win;
+	t_img 		img;
+	t_player	player;
+	t_map		*map;
+}				t_maze;
+
+//typedef struct s_pixel {
+	//int x;
+	//int y;
+//}			t_pixel;
+
+int render_one_frame(t_maze *maze, bool initialization);
+void init_hook(t_maze *maze);
+void init_player_pos(t_maze* maze);
+int free_window(t_maze* maze);
+int exit_program(t_maze *maze);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void raycasting(t_maze *maze);
+int key_events(int keycode, t_maze *maze);
+
 
 /* DEBUG must delete later */
 void		debug_textures_path(char **tab);

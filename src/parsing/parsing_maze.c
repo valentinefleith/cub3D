@@ -7,12 +7,10 @@ int	store_the_maze(int fd, char **maze)
 
 	if (!maze)
 		return (map_error(ERROR_MAP), KO);
-	line = NULL;
 	i = 0;
-	skip_beginning(fd);
+	line = skip_beginning(fd);
 	while (1)
 	{
-		line = get_next_line(fd);
 		if (!line)
 			return (close(fd), SUCCESS);
 		if (line && !check_maze_valid_symbol(line))
@@ -22,6 +20,7 @@ int	store_the_maze(int fd, char **maze)
 			return (map_error(ERROR_MAP), free(line), close(fd), KO);
 		i++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (close(fd), SUCCESS);
 }
@@ -57,7 +56,7 @@ int	get_maze_size(int fd, char *prev_line)
 	
 	if (!prev_line)
 		return (map_error(ERROR_MAP), -1);
-	count = 0;
+	count = 1;
 	line = NULL;
 	while (1)
 	{
@@ -72,7 +71,7 @@ int	get_maze_size(int fd, char *prev_line)
 }
 
 /*  Skip the beginning of the file to reach maze content */
-void	skip_beginning(int fd)
+char	*skip_beginning(int fd)
 {
 	char *line;
 
@@ -83,6 +82,5 @@ void	skip_beginning(int fd)
 			free(line);
 		line = get_next_line(fd);
 	}
-	if (line)
-		free(line);
+	return (line);
 }

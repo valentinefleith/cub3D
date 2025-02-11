@@ -73,7 +73,7 @@ int	parsing_colors(char *line, t_map *map)
 	while (line[i] && line[i] != '\n')
 	{
 		color = find_color(&line[i]); // finds and converts color in an int
-		if (color < 0 && color > 255)
+		if (color < 0 || color > 255)
 			return (map_error(RANGE_RGB), 0);
 		if (letter == 1)
 			map->floor[j] = color;
