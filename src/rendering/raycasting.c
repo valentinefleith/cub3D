@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 23:47:31 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:23:27 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	raycasting(t_maze *maze)
 {
 	t_position center_pos;
 	center_pos.y = MAP_SQUARE_SIZE / 2;
-	for (int i = 0; i < maze->map->dimensions.width; i++) {
-	center_pos.x = MAP_SQUARE_SIZE / 2;
-		for (int j = 0; j < maze->map->dimensions.height; j++) {
+	for (int i = 0; i < maze->map->dimensions.height; i++) {
+		center_pos.x = MAP_SQUARE_SIZE / 2;
+		for (int j = 0; j < maze->map->dimensions.width; j++) {
 			if (maze->map->maze[i][j] == '1')
 				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE, MAP_SQUARE_SIZE, WHITE);	
 			else
@@ -43,8 +43,5 @@ void	raycasting(t_maze *maze)
 		center_pos.y = center_pos.y + MAP_SQUARE_SIZE + 3;
 	}
 
-	t_position img_center;
-	img_center.x = WIDTH / 2;
-	img_center.y = HEIGHT / 2;
 	draw_rectangle(maze, maze->player.pos, PLAYER_WIDTH_PX, PLAYER_WIDTH_PX, GREEN);
 }
