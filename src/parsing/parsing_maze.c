@@ -48,6 +48,7 @@ int	check_maze_valid_symbol(char *line)
 
 /*
  This function browses the file to count how many lines are needed for the map.
+ TODO = add the calculation for the width + store that in struct dimension
 */
 int	get_maze_size(int fd, char *prev_line)
 {

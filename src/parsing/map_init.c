@@ -24,6 +24,7 @@ int	init_map(int args, char *filename, t_map *map)
 	return (SUCCESS);
 }
 
+/* Add more security with recoder la fonction python endswith()*/
 int	check_filename_validity(char *filename)
 {
 	if (!filename)

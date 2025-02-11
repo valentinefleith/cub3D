@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2024/10/25 10:39:43 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:38:30 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "get_next_line.h"
 # include "map.h"
 # include "keycodes.h"
+# include "colors.h"
+# include "player.h"
 
 # include <math.h>
 # include <mlx.h>
@@ -24,13 +26,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
 # define SUCCESS 0
 # define KO 1
 # define MLX_ERROR 2
 
 # define HEIGHT 960
-# define WIDTH 1080
+# define WIDTH 960
 
 typedef struct s_img
 {
@@ -45,7 +48,24 @@ typedef struct s_maze {
 	void *mlx;
 	void *win;
 	t_img img;
+	t_player player;
 }				t_maze;
+
+//typedef struct s_pixel {
+	//int x;
+	//int y;
+//}			t_pixel;
+
+
+
+int render_one_frame(t_maze *maze, bool initialization);
+void init_hook(t_maze *maze);
+void init_player_pos(t_maze* maze);
+int free_window(t_maze* maze);
+int exit_program(t_maze *maze);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void raycasting(t_maze *maze);
+int key_events(int keycode, t_maze *maze);
 
 typedef struct s_map
 {
