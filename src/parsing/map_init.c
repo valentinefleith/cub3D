@@ -12,15 +12,14 @@ int	init_map(int args, char *filename, t_map *map)
 	map->textures_path = init_tab(4); 
 	if (parsing_env_map_data(filename, map) != SUCCESS)
 		return (free_path(map->textures_path), KO);
-	if (map->heigth == -1)
+	if (map->dimensions.height == -1)
 		return (map_error(FILE_MAP));
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (map_error(FILE_MAP), free_path(map->textures_path), KO);
-	map->maze = init_tab(map->heigth);
+	map->maze = init_tab(map->dimensions.height);
 	if (store_the_maze(fd, map->maze) != SUCCESS)
 		return (free_map(map), KO);
-	// map->width = WIDTH;
 	return (SUCCESS);
 }
 

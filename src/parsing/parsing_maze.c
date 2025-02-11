@@ -46,28 +46,42 @@ int	check_maze_valid_symbol(char *line)
 }
 
 /*
- This function browses the file to count how many lines are needed for the map.
+ This function browses the file to height how many lines are needed for the map.
  TODO = add the calculation for the width + store that in struct dimension
 */
-int	get_maze_size(int fd, char *prev_line)
+t_dimensions	get_maze_size(int fd, char *prev_line)
 {
-	int 	count;
-	char	*line;
+	t_dimensions dimensions;
+	int 		height;
+	int 		width;
+	char		*line;
 	
+	dimensions.height = -1;
+	dimensions.width = -1;
 	if (!prev_line)
-		return (map_error(ERROR_MAP), -1);
-	count = 1;
+		return (map_error(ERROR_MAP), dimensions);
+	height = 1;
+	width = ft_strlen(prev_line);
 	line = NULL;
 	while (1)
 	{
 		if (line && check_maze_valid_symbol(line))
-			count++;
+			height++;
 		free(line);
 		line = get_next_line(fd);
 		if (!line) // when the file is ended quit the infinite loop
-			return (close(fd), count);
+		{
+			dimensions.height = height;
+			dimensions.width = width - 1; // TODO delete later when no more \n in the line!!!
+			return (close(fd), dimensions);
+		}
+		int current_width = ft_strlen(line);
+		if (current_width > width)
+			width = current_width;
 	}
-	return (close(fd), count);
+	dimensions.height = height;
+	dimensions.width = width;
+	return (close(fd), dimensions);
 }
 
 /*  Skip the beginning of the file to reach maze content */

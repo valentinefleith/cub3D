@@ -44,6 +44,13 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
+typedef struct s_dimensions
+{
+	/* data */
+	int height;
+	int width;
+} t_dimensions;
+
 typedef struct s_map
 {
 	char	**maze;
@@ -53,8 +60,7 @@ typedef struct s_map
 	int		p_x;
 	int		p_y;
 	// maze's size
-	int		heigth;
-	int		width;
+	t_dimensions dimensions;
 	// colors in RGB and path for wall's textures
 	int		floor[3];
 	int		celling[3];
@@ -68,6 +74,8 @@ typedef struct s_maze {
 	t_player	player;
 	t_map		*map;
 }				t_maze;
+
+
 
 //typedef struct s_pixel {
 	//int x;

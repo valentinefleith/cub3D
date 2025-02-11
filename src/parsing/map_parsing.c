@@ -25,7 +25,7 @@ int	parsing_env_map_data(char *filename, t_map *map)
 		}
 		free(line);
 	}
-	map->heigth = get_maze_size(fd, line);
+	map->dimensions = get_maze_size(fd, line);
 	return (close(fd), free(line), SUCCESS);
 }
 
