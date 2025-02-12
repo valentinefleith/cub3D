@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/11 21:45:16 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:34:09 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void 		debug_colors(int floor[3], int ceilling[3]);
 
 void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
 		int height, int color);
-void	draw_line(t_maze *maze, t_position start, t_position end);
+void	draw_line(t_maze *maze, t_position start, t_position end, int color);
 void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size);
+		int size, int color);
 
 
 #endif

@@ -6,13 +6,15 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/11 21:44:21 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:33:07 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "player.h"
 
+// FOR THE VALID.CUB MAP:
+//#define MAP_SQUARE_SIZE 25
 #define MAP_SQUARE_SIZE 110
 
 
@@ -46,5 +48,5 @@ void	raycasting(t_maze *maze)
 	end.y = 495;
 	// draw_line(maze, maze->player.pos, end);
 	draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle,
-		70);
+		70, RED);
 }

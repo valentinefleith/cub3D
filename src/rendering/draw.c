@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:43:50 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/11 21:44:22 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:32:56 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
 	}
 }
 
-void	draw_line(t_maze *maze, t_position start, t_position end)
+void	draw_line(t_maze *maze, t_position start, t_position end, int color)
 {
 	int	delta_x;
 	int	delta_y;
@@ -52,7 +52,7 @@ void	draw_line(t_maze *maze, t_position start, t_position end)
 	error = delta_x - delta_y;
 	while (start.x != end.x || start.y != end.y)
 	{
-		my_mlx_pixel_put(&(maze->img), start.x, start.y, RED);
+		my_mlx_pixel_put(&(maze->img), start.x, start.y, color);
 		error2 = 2 * error;
 		if (error2 > -delta_y)
 		{
@@ -68,11 +68,11 @@ void	draw_line(t_maze *maze, t_position start, t_position end)
 }
 
 void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size)
+		int size, int color)
 {
 	t_position	endpoint;
 
 	endpoint.y = point.y + (int)(size * sin(angle));
 	endpoint.x = point.x + (int)(size * cos(angle));
-	draw_line(maze, point, endpoint);
+	draw_line(maze, point, endpoint, color);
 }
