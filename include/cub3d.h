@@ -19,6 +19,7 @@
 # include "keycodes.h"
 # include "colors.h"
 # include "player.h"
+# include "raycasting.h"
 
 # include <math.h>
 # include <mlx.h>
@@ -36,6 +37,26 @@
 
 # define HEIGHT 960
 # define WIDTH 960
+# define FOV 66
+
+typedef struct s_raycast t_raycast;
+typedef struct s_map t_map;
+typedef struct s_size t_size;
+typedef struct s_vector t_vector;
+
+
+// typedef struct s_vector
+// {
+// 	double			x;
+// 	double			y;
+// }				t_vector;
+
+// typedef struct s_player
+// {
+// 	t_vector	pos; // x,y coordinates in pixels
+// 	double		angle;
+// 	float		fov_rd;
+// }				t_player;
 
 typedef struct s_img
 {
@@ -46,66 +67,38 @@ typedef struct s_img
 	int			endian;
 }				t_img;
 
-typedef struct s_dimensions
-{
-	/* data */
-	int height;
-	int width;
-} t_dimensions;
-
-typedef struct s_map
-{
-	char	**maze;
-	// player's start direction (N,S,W,E)
-	char	start_dir;
-	// player's coordinates
-	int		p_x;
-	int		p_y;
-	// maze's size
-	t_dimensions dimensions;
-	// colors in RGB and path for wall's textures
-	int		floor[3];
-	int		celling[3];
-	char	**textures_path;
-}			t_map;
-
 typedef struct s_maze {
 	void		*mlx;
 	void		*win;
 	t_img 		img;
-	t_player	player;
+	t_vector	player;
 	t_map		*map;
+	t_raycast	*rc;
 }				t_maze;
 
+void	draw(t_maze *game, t_raycast *rc, int x, int wall_orientation);
+void	draw_wall(t_maze *game, int x, int y_start, int y_end, int color);
+void	draw_ceilling(t_maze *game, int x, int y_end);
+void	draw_floor(t_maze *game, int x, int y_start);
 
-
-//typedef struct s_pixel {
-	//int x;
-	//int y;
-//}			t_pixel;
 
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
-void init_player_pos(t_maze* maze);
+// void init_player_pos(t_maze* maze);
+// t_player	init_player(int map_pos_x, int map_pos_y);
 int free_window(t_maze* maze);
 int exit_program(t_maze *maze);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void raycasting(t_maze *maze);
+// void raycasting(t_maze *maze);
 int key_events(int keycode, t_maze *maze);
 
 
-/* DEBUG must delete later */
-void		debug_textures_path(char **tab);
-void 		debug_colors(int floor[3], int ceilling[3]);
 
-
-
-
-void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
-		int height, int color);
-void	draw_line(t_maze *maze, t_position start, t_position end, int color);
-void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size, int color);
+// void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
+// 		int height, int color);
+// void	draw_line(t_maze *maze, t_position start, t_position end, int color);
+// void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
+// 		int size, int color);
 
 
 #endif

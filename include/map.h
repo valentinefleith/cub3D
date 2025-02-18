@@ -14,6 +14,7 @@
 # define MAP_H
 
 # include "cub3d.h"
+# include "player.h"
 
 # define MISSING_MAP 0
 # define ERROR_MAP 2 // General error like a NULL pointer
@@ -25,36 +26,57 @@
 # define INVALID 7
 # define RANGE_RGB 8
 
-typedef struct s_map t_map;
-typedef struct s_dimensions t_dimensions;
+typedef struct s_vector t_vector;
+
+typedef struct s_size
+{
+	int			height;
+	int			width;
+}				t_size;
+
+typedef struct s_map
+{
+	char		**maze;
+	t_vector	player;
+	// maze's size
+	t_size		size;
+	// colors in RGB and path for wall's textures
+	int			floor[3];
+	int			celling[3];
+	char		**textures_path;
+}				t_map;
 
 /* map_init.c */
 
-int		init_map(int args, char *filename, t_map *map);
-int		check_filename_validity(char *filename);
-char	**init_tab(int len);
-int		is_line_empty(char *line);
+int				init_map(int args, char *filename, t_map *map);
+int				check_filename_validity(char *filename);
+char			**init_tab(int len);
+int				is_line_empty(char *line);
 
 /* map_parsing.c */
 
-int		parsing_env_map_data(char *filename, t_map *map);
-int		parsing_textures_path(char *line, t_map *map);
-int		parsing_colors(char *line, t_map *map);
-int		find_color(char *line);
-int		check_color_symbol(char *line);
+int				parsing_env_map_data(char *filename, t_map *map);
+int				parsing_textures_path(char *line, t_map *map);
+int				parsing_colors(char *line, t_map *map);
+int				find_color(char *line);
+int				check_color_symbol(char *line);
 
 /* parsing_maze.c */
 
-int		store_the_maze(int fd, char **map);
-int		check_maze_valid_symbol(char *line);
-t_dimensions		get_maze_size(int fd, char *prev_line);
-char	*skip_beginning(int fd);
+int				store_the_maze(int fd, char **map);
+int				check_maze_valid_symbol(char *line);
+t_size			get_maze_size(int fd, char *prev_line);
+char			*skip_beginning(int fd);
 
 /* map_security.c */
 
-int		map_error(int error_code);
-int		free_map(t_map *map);
-char	**free_double_tab(char **map);
-char	**free_path(char **tab);
+int				map_error(int error_code);
+int				free_map(t_map *map);
+char			**free_double_tab(char **map);
+char			**free_path(char **tab);
+
+/* DEBUG must delete later */
+void		debug_textures_path(char **tab);
+void 		debug_colors(int floor[3], int ceilling[3]);
 
 #endif

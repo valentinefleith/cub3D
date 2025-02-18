@@ -18,18 +18,22 @@
 
 #include <math.h>
 
-typedef struct s_position {
-	int x;
-	int y;
-}		t_position;
+// typedef struct s_position {
+// 	int x;
+// 	int y;
+// }		t_position;
 
-typedef struct s_player {
-	t_position pos;
-	double looking_angle;
-	// RAJOUTER PLUS TARD: angle de vue etc.
-}		t_player;
+// typedef struct s_player {
+// 	t_position pos;
+// 	double looking_angle;
+// 	// RAJOUTER PLUS TARD: angle de vue etc.
+// }		t_player;
 
-
+typedef struct s_vector
+{
+	double			x;
+	double			y;
+}				t_vector;
 
 #endif
 

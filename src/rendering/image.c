@@ -24,7 +24,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 int	render_one_frame(t_maze *maze, bool initialization)
 {
 	t_img	img;
-
 	if (!initialization)
 	{
 		mlx_destroy_image(maze->mlx, maze->img.img);
@@ -38,7 +37,7 @@ int	render_one_frame(t_maze *maze, bool initialization)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
 	maze->img = img;
-	raycasting(maze);
+	raycasting(maze, WIDTH, maze->rc->player);
 	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
 	return (SUCCESS);
 }

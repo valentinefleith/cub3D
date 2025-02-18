@@ -1,78 +1,61 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 21:43:50 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/12 10:32:56 by vafleith         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
-
-void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
-		int height, int color)
+void	draw(t_maze *game, t_raycast *rc, int x, int wall_orientation)
 {
-	int	start_i;
-	int	start_j;
+	double	wall_dist;
+	int		line_height;
+	int		start;
+	int		end;
 
-	start_i = center_pos.x - (width / 2);
-	start_j = center_pos.y - (height / 2);
-	for (int i = start_i; i < start_i + width; i++)
+	if (wall_orientation == 0)
+		wall_dist = rc->step_size.x - rc->delta_dist.x;
+	else
+		wall_dist = rc->step_size.y - rc->delta_dist.y;
+	line_height = (int)(HEIGHT / wall_dist);
+	start = -line_height / 2 + HEIGHT / 2;
+	if (start < 0)
+		start = 0;
+	end = line_height / 2 + HEIGHT / 2;
+	if (end >= HEIGHT)
+		end = HEIGHT - 1;
+	// define wich wall to draw
+	if (wall_orientation == 0)
+		draw_wall(game, x, start, end, BLUE);
+	else
+		draw_wall(game, x, start, end, GREEN);
+	// draw_ceilling(game, x, start);
+	// draw_floor(game, x, end + 1);
+}
+
+void	draw_wall(t_maze *game, int x, int y_start, int y_end, int color)
+{
+	while (y_start <= y_end)
 	{
-		for (int j = start_j; j < start_j + height; j++)
-		{
-			my_mlx_pixel_put(&(maze->img), i, j, color);
-		}
+		my_mlx_pixel_put(&game->img, x, y_start, color);
+		y_start++;
 	}
 }
 
-void	draw_line(t_maze *maze, t_position start, t_position end, int color)
+void	draw_ceilling(t_maze *game, int x, int y_end)
 {
-	int	delta_x;
-	int	delta_y;
-	int	step_x;
-	int	step_y;
-	int	error;
-	int	error2;
+	int y_start;
 
-	delta_x = abs(end.x - start.x);
-	delta_y = abs(end.y - start.y);
-	if (start.x < end.x)
-		step_x = 1;
-	else
-		step_x = -1;
-	if (start.y < end.y)
-		step_y = 1;
-	else
-		step_y = -1;
-	error = delta_x - delta_y;
-	while (start.x != end.x || start.y != end.y)
+	y_start = 0;
+	while (y_start < y_end)
 	{
-		my_mlx_pixel_put(&(maze->img), start.x, start.y, color);
-		error2 = 2 * error;
-		if (error2 > -delta_y)
-		{
-			error -= delta_y;
-			start.x += step_x;
-		}
-		if (error2 < delta_x)
-		{
-			error += delta_x;
-			start.y += step_y;
-		}
+		my_mlx_pixel_put(&game->img, x, y_start, WHITE);
+		y_start++;
 	}
 }
 
-void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size, int color)
+void	draw_floor(t_maze *game, int x, int y_start)
 {
-	t_position	endpoint;
+	int y_end;
 
-	endpoint.y = point.y + (int)(size * sin(angle));
-	endpoint.x = point.x + (int)(size * cos(angle));
-	draw_line(maze, point, endpoint, color);
+	y_end = HEIGHT;
+	while (y_start < y_end)
+	{
+		my_mlx_pixel_put(&game->img, x, y_start, GREY);
+		y_start++;
+	}
 }

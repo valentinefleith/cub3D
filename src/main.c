@@ -15,25 +15,27 @@
 
 int main(int ac, char **av)
 {
-	t_maze maze;
-	t_map map;
+	t_maze		game;
+	t_raycast	rc;
+	t_map		map;
 
 	if (init_map(ac, av[1], &map) != SUCCESS)
 		return (KO);
-	maze.map = &map;
-	maze.mlx = mlx_init();
-	if (!maze.mlx)
+	game.map = &map;
+	game.mlx = mlx_init();
+	if (!game.mlx)
 		return MLX_ERROR;
-	maze.win = mlx_new_window(maze.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!maze.win) {
-		mlx_destroy_display(maze.mlx);
-		free(maze.mlx);
+	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
+	if (!game.win) {
+		mlx_destroy_display(game.mlx);
+		free(game.mlx);
 		return MLX_ERROR;
 	}
-	init_player_pos(&maze);
-	if (render_one_frame(&maze, true) == MLX_ERROR)
+	rc = init_raycasting();
+	game.rc = &rc;
+	if (render_one_frame(&game, true) == MLX_ERROR)
 		return MLX_ERROR;
-	init_hook(&maze);
-	mlx_loop(maze.mlx);
+	init_hook(&game);
+	mlx_loop(game.mlx);
 	free_map(&map);
 }

@@ -11,18 +11,17 @@
 /* ************************************************************************** */
 
 # include "cub3d.h"
-#include "player.h"
+# include "player.h"
+
 
 // For now, position's hardcoded
+// t_player	init_player(int map_pos_x, int map_pos_y)
+// {
+// 	t_player	player;
 
-void init_player_pos(t_maze* maze) {
-	t_player player;
-	t_position player_position;
-
-	player_position.x = WIDTH / 2;
-	player_position.y = HEIGHT / 2;
-
-	player.pos = player_position;
-	player.looking_angle = M_PI / 2;
-	maze->player = player;
-}
+// 	player.pos.x = map_pos_x * TILE_SIZE + TILE_SIZE / 2;
+// 	player.pos.y = map_pos_y * TILE_SIZE + TILE_SIZE / 2;
+// 	player.angle = M_PI; // means player's view direction initially faces the WEST
+// 	player.fov_rd = (FOV * M_PI) / 180; // convert from degrees to radians.
+// 	return (player);
+// }
