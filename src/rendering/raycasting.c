@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/18 17:45:37 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:59:47 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_position get_first_intersect_x(t_position player_pos, double angle, boo
 
 static t_position get_first_intersect_y(t_position player_pos, double angle, bool is_facing_up) {
 	t_position first_intersect;
-	if (is_facing_up)
+	if (!is_facing_up)
 		first_intersect.x = floor(player_pos.x / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
 	else
 		first_intersect.x = floor(player_pos.x / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE + MAP_SQUARE_SIZE;
@@ -54,7 +54,7 @@ static int get_wall_intersection(t_maze *maze, double angle)
 	t_position first_intersect_x = get_first_intersect_x(player_pos, angle, is_facing_up);
 	t_position first_intersect_y = get_first_intersect_y(player_pos, angle, is_facing_up);
 	draw_rectangle(maze, first_intersect_x, 5, 5, RED);
-	if (first_intersect_y.y < HEIGHT && first_intersect_y.x < WIDTH)
+	if (first_intersect_y.y < HEIGHT && first_intersect_y.x < WIDTH && first_intersect_y.y > 0)
 		draw_rectangle(maze, first_intersect_y, 5, 5, BLUE);
 }
 
