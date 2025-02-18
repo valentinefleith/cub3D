@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:51:41 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/12 10:33:07 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:45:37 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,21 @@
 // FOR THE VALID.CUB MAP:
 //#define MAP_SQUARE_SIZE 25
 
+double normalize_angle(double angle) {
+    angle = fmod(angle, 2 * M_PI);
+    if (angle < 0) {
+        angle += 2 * M_PI;
+    }
+    return angle;
+}
 
 static int get_wall_intersection(t_maze *maze, double angle) {
 	t_position player_pos = maze->player.pos;
-	if (angle < 0)
-		angle = (2 * M_PI);
-	bool is_facing_up = (angle > M_PI) ? true: false;
+	angle = normalize_angle(angle);
+	bool is_facing_up = (angle > M_PI && angle < 2 * M_PI) ? true: false;
 	t_position first_intersect;
 
 
-	printf("angle = %f, facing up = %i\n", angle, is_facing_up);
 	if (is_facing_up)
 		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
 	else
