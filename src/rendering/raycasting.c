@@ -16,7 +16,8 @@
 // FOR THE VALID.CUB MAP:
 //#define MAP_SQUARE_SIZE 25
 
-double normalize_angle(double angle) {
+double normalize_angle(double angle) 
+{
     angle = fmod(angle, 2 * M_PI);
     if (angle < 0) {
         angle += 2 * M_PI;
@@ -24,26 +25,43 @@ double normalize_angle(double angle) {
     return angle;
 }
 
-static int get_wall_intersection(t_maze *maze, double angle) {
-	t_position player_pos = maze->player.pos;
-	angle = normalize_angle(angle);
-	bool is_facing_up = (angle > M_PI && angle < 2 * M_PI) ? true: false;
+static t_position get_first_intersect_x(t_position player_pos, double angle, bool is_facing_up) {
 	t_position first_intersect;
-
-
 	if (is_facing_up)
 		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
 	else
 		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE + MAP_SQUARE_SIZE;
 	first_intersect.x = player_pos.x - (player_pos.y - first_intersect.y) / tan(angle);
-	draw_rectangle(maze, first_intersect, 5, 5, RED);
+	return first_intersect;
+}
+
+static t_position get_first_intersect_y(t_position player_pos, double angle, bool is_facing_up) {
+	t_position first_intersect;
+	if (is_facing_up)
+		first_intersect.x = floor(player_pos.x / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
+	else
+		first_intersect.x = floor(player_pos.x / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE + MAP_SQUARE_SIZE;
+	first_intersect.y = player_pos.y - (player_pos.x - first_intersect.x) * tan(angle);
+	printf("INTER_Y.x = %i, INTER_Y.y = %i ANGLE -> %f\n", first_intersect.x, first_intersect.y, angle);
+	return first_intersect;
+}
+
+static int get_wall_intersection(t_maze *maze, double angle) 
+{
+	t_position player_pos = maze->player.pos;
+	angle = normalize_angle(angle);
+	bool is_facing_up = (angle > M_PI && angle < 2 * M_PI) ? true: false;
+	t_position first_intersect_x = get_first_intersect_x(player_pos, angle, is_facing_up);
+	t_position first_intersect_y = get_first_intersect_y(player_pos, angle, is_facing_up);
+	draw_rectangle(maze, first_intersect_x, 5, 5, RED);
+	if (first_intersect_y.y < HEIGHT && first_intersect_y.x < WIDTH)
+		draw_rectangle(maze, first_intersect_y, 5, 5, BLUE);
 }
 
 static void draw_fov(t_maze *maze) {
 	double player_direction = maze->player.looking_angle;
 	double first_ray = player_direction - FOV_RADIANS / 2;
 	double last_ray = player_direction + FOV_RADIANS / 2;
-	printf("ANGLES:\n");
 	double current_angle = first_ray;
 	while (current_angle < last_ray) {
 		int size_til_next_wall = get_wall_intersection(maze, current_angle);
