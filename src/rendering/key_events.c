@@ -27,9 +27,9 @@ static int move_player(t_maze *maze, int keycode) {
 
 static int rotate_player(t_maze *maze, int keycode) {
 	if (keycode == XK_Left)
-		maze->player.looking_angle += 0.1;
+		maze->player.looking_angle = fmod(maze->player.looking_angle + 0.1, 2 * M_PI) ;
 	else
-		maze->player.looking_angle -= 0.1;
+		maze->player.looking_angle = fmod(maze->player.looking_angle - 0.1, 2 * M_PI) ;
 	render_one_frame(maze, false);
 	return SUCCESS;
 }

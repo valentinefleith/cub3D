@@ -37,6 +37,10 @@
 # define HEIGHT 960
 # define WIDTH 960
 
+# define FOV_RADIANS 1.0472
+
+#define MAP_SQUARE_SIZE 110
+
 typedef struct s_img
 {
 	void		*img;
@@ -77,12 +81,10 @@ typedef struct s_maze {
 	t_map		*map;
 }				t_maze;
 
-
-
-//typedef struct s_pixel {
-	//int x;
-	//int y;
-//}			t_pixel;
+typedef struct s_point {
+	int x;
+	int y;
+}			t_point;
 
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
@@ -106,6 +108,7 @@ void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
 void	draw_line(t_maze *maze, t_position start, t_position end, int color);
 void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
 		int size, int color);
+void draw_grid(t_maze *maze);
 
 
 #endif

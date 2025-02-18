@@ -76,3 +76,31 @@ void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
 	endpoint.x = point.x + (int)(size * cos(angle));
 	draw_line(maze, point, endpoint, color);
 }
+void draw_grid(t_maze *maze) {
+	t_position start;
+	start.x = 0;
+	start.y = 0;
+
+	t_position end;
+	end.x = 0;
+	end.y = HEIGHT;
+
+	while (start.x <= WIDTH) {
+		draw_line(maze, start, end, BLACK);
+		start.x += MAP_SQUARE_SIZE;
+		end.x += MAP_SQUARE_SIZE;
+	}
+
+	start.x = 0;
+	start.y = 0;
+
+	end.x = WIDTH;
+	end.y = 0;
+
+	while (start.y <= HEIGHT) {
+		draw_line(maze, start, end, BLACK);
+		start.y += MAP_SQUARE_SIZE;
+		end.y += MAP_SQUARE_SIZE;
+	}
+
+}

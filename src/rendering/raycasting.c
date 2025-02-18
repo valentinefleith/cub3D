@@ -15,14 +15,37 @@
 
 // FOR THE VALID.CUB MAP:
 //#define MAP_SQUARE_SIZE 25
-#define MAP_SQUARE_SIZE 110
 
+
+static int get_wall_intersection(t_maze *maze, double angle) {
+	t_position player_pos = maze->player.pos;
+	bool is_facing_up = (angle > M_PI) ? true: false;
+	t_position first_intersect;
+
+	if (is_facing_up)
+		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
+	else
+		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE + MAP_SQUARE_SIZE;
+	first_intersect.x = player_pos.x - (player_pos.y - first_intersect.y) / tan(angle);
+	draw_rectangle(maze, first_intersect, 5, 5, YELLOW);
+}
+
+static void draw_fov(t_maze *maze) {
+	double player_direction = maze->player.looking_angle;
+	double first_ray = player_direction - FOV_RADIANS / 2;
+	double last_ray = player_direction + FOV_RADIANS / 2;
+
+	double current_angle = first_ray;
+	while (current_angle < last_ray) {
+		int size_til_next_wall = get_wall_intersection(maze, current_angle);
+		draw_line_from_angle(maze, maze->player.pos, current_angle, 100, BLUE);
+		current_angle += 0.1;
+	}
+}
 
 void	raycasting(t_maze *maze)
 {
 	t_position	center_pos;
-	t_position	start;
-	t_position	end;
 
 	center_pos.y = MAP_SQUARE_SIZE / 2;
 	for (int i = 0; i < maze->map->dimensions.height; i++)
@@ -36,17 +59,14 @@ void	raycasting(t_maze *maze)
 			else
 				draw_rectangle(maze, center_pos, MAP_SQUARE_SIZE,
 					MAP_SQUARE_SIZE, GREY);
-			center_pos.x = center_pos.x + MAP_SQUARE_SIZE + 3;
+			center_pos.x = center_pos.x + MAP_SQUARE_SIZE;
 		}
-		center_pos.y = center_pos.y + MAP_SQUARE_SIZE + 3;
+		center_pos.y = center_pos.y + MAP_SQUARE_SIZE;
 	}
+	draw_grid(maze);
 	draw_rectangle(maze, maze->player.pos, PLAYER_WIDTH_PX, PLAYER_WIDTH_PX,
 		GREEN);
-	start.x = 100;
-	start.y = 200;
-	end.x = 480;
-	end.y = 495;
-	// draw_line(maze, maze->player.pos, end);
 	draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle,
 		70, RED);
+	draw_fov(maze);
 }

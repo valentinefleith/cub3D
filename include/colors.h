@@ -14,6 +14,7 @@
 # define COLORS_H
 
 # define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
 # define GREY 0x003A3A3F
 # define RED 0x00FFB6C1
 # define YELLOW 0x00FFFFE0
