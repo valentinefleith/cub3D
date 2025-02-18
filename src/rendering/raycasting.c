@@ -19,22 +19,26 @@
 
 static int get_wall_intersection(t_maze *maze, double angle) {
 	t_position player_pos = maze->player.pos;
+	if (angle < 0)
+		angle = (2 * M_PI);
 	bool is_facing_up = (angle > M_PI) ? true: false;
 	t_position first_intersect;
 
+
+	printf("angle = %f, facing up = %i\n", angle, is_facing_up);
 	if (is_facing_up)
 		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
 	else
 		first_intersect.y = floor(player_pos.y / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE + MAP_SQUARE_SIZE;
 	first_intersect.x = player_pos.x - (player_pos.y - first_intersect.y) / tan(angle);
-	draw_rectangle(maze, first_intersect, 5, 5, YELLOW);
+	draw_rectangle(maze, first_intersect, 5, 5, RED);
 }
 
 static void draw_fov(t_maze *maze) {
 	double player_direction = maze->player.looking_angle;
 	double first_ray = player_direction - FOV_RADIANS / 2;
 	double last_ray = player_direction + FOV_RADIANS / 2;
-
+	printf("ANGLES:\n");
 	double current_angle = first_ray;
 	while (current_angle < last_ray) {
 		int size_til_next_wall = get_wall_intersection(maze, current_angle);

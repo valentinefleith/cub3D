@@ -23,6 +23,7 @@ void init_player_pos(t_maze* maze) {
 	player_position.y = HEIGHT / 2;
 
 	player.pos = player_position;
-	player.looking_angle = M_PI / 2;
+	player.looking_angle = 0;
+	//player.looking_angle = M_PI / 2;
 	maze->player = player;
 }
