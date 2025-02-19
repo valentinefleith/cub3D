@@ -34,8 +34,8 @@
 # define KO 1
 # define MLX_ERROR 2
 
-# define HEIGHT 960
-# define WIDTH 960
+# define HEIGHT 880
+# define WIDTH 880
 
 # define FOV_RADIANS 1.0472
 
