@@ -13,7 +13,7 @@ static t_position get_first_intersect_y(t_position player_pos, double angle, boo
 {
 	t_position	first_intersect;
 
-	// printf("is facing up = %d\n",)
+	(void)is_facing_up;
 	if (angle > M_PI / 2 && angle < 3 * M_PI / 2) // is_left
 		first_intersect.x = floor(player_pos.x / MAP_SQUARE_SIZE) * MAP_SQUARE_SIZE - 1;
 	else
@@ -39,7 +39,12 @@ static t_position get_first_intersect_x(t_position player_pos, double angle, boo
 
 static bool is_facing_up(double angle)
 {
-	return (angle > M_PI && angle < 2 *  M_PI);
+	return (angle > M_PI && angle < 2 * M_PI);
+}
+
+static bool is_facing_left(double angle)
+{
+	return (angle > M_PI / 2 || angle < 3 * M_PI / 2);
 }
 
 static int	find_x_step(double angle)
@@ -64,14 +69,12 @@ static bool is_wall_point(t_map *map, t_position point)
 		return (false);
 	grid.x = floor(point.x / MAP_SQUARE_SIZE);
 	grid.y = floor(point.y / MAP_SQUARE_SIZE);
-	// printf("x = %i, y = %i\n", grid.x, grid.y);
-	// if (grid.x > map->dimensions.width || grid.y > map->dimensions.height
-	// 	|| grid.x < 0 || grid.y < 0)
-	// 	return (true);
-	if (point.x > WIDTH || point.y > HEIGHT
-		|| point.x < 0 || point.y < 0)
+	if (grid.x > map->dimensions.width || grid.y > map->dimensions.height
+		|| grid.x < 0 || grid.y < 0)
 		return (true);
-	return (map->maze[grid.x][grid.y] == '1');
+	if (map->maze[grid.y] && (int)ft_strlen(map->maze[grid.y]) >= grid.x)
+		return (map->maze[grid.y][grid.x] == '1');
+	return (false);
 }
 static t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, bool facing_up, t_position point)
 {
@@ -85,7 +88,7 @@ static t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle,
 		point.x -= x_step;
 		point.y += y_step;
 		// printf("x = %d, y")
-		draw_rectangle(maze, point, 5, 5, RED);
+		// draw_rectangle(maze, point, 5, 5, RED);
 		// if (point.y < HEIGHT && point.y >= 0)
 	}
 	return point;
@@ -98,15 +101,22 @@ static t_position get_wall_point_vert(t_maze *maze, t_map *map, double angle, bo
 	int			y_step;
 	
 	// TODO: UPDATE NAMES PROPERLY PLEASE
-	y_step = find_x_step(angle);
-	x_step = find_y_step(facing_up);
+	// printf("x = %d, y = %d\n", x_step, y_step);
+	x_step = MAP_SQUARE_SIZE;
+	// if (is_facing_left(angle))
+	// 	x_step *= -1;
+	y_step = MAP_SQUARE_SIZE * tan(angle);
+	// if ((facing_up && y_step > 0))
+	if ((facing_up && y_step > 0) || (!facing_up && y_step < 0))
+		x_step *= -1;
+		// y_step *= -1;
+	// printf("x = %d, y = %d\n", x_step, y_step);
 	while (!is_wall_point(map, point))
 	{
 		point.x += x_step;
-		point.y -= y_step;
+		point.y += y_step;
 		if (point.y < HEIGHT && point.y >= 0)
 			draw_rectangle(maze, point, 9, 9, BLACK);
-
 	}
 	return point;
 	/*
@@ -154,7 +164,7 @@ static int	find_wall_distance(t_maze *maze, double angle)
 	horizontal_wall = get_wall_point_horizon(maze, maze->map, angle, facing_up, horizontal_first);
 
 	vertical_first = get_first_intersect_y(maze->player.pos, angle, facing_up);
-	printf("x = %d, y = %d // angle = %f\n", vertical_first.x, vertical_first.y, angle);
+	// printf("x = %d, y = %d // angle = %f\n", vertical_first.x, vertical_first.y, angle);
 	vertical_wall = get_wall_point_vert(maze, maze->map, angle, facing_up, vertical_first);
 	if (vertical_first.x < WIDTH && vertical_first.x > 0 && vertical_first.y < HEIGHT && vertical_first.y > 0)
 		draw_rectangle(maze, vertical_first, 5, 5, BLACK);
