@@ -74,6 +74,9 @@ void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
 
 	endpoint.y = point.y + (int)(size * sin(angle));
 	endpoint.x = point.x + (int)(size * cos(angle));
+	// printf("ENDPOINT.X = %d // ENDPOINT.Y = %d // ANGLE = %f\n", endpoint.y, endpoint.x, angle);
+	if (point.y < 0 || point.x > WIDTH || point.x < 0 || point.y > HEIGHT || endpoint.y < 0 || endpoint.y > HEIGHT)
+		return ;
 	draw_line(maze, point, endpoint, color);
 }
 void draw_grid(t_maze *maze) {
