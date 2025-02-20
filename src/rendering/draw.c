@@ -90,8 +90,8 @@ void draw_grid(t_maze *maze) {
 
 	while (start.x <= WIDTH) {
 		draw_line(maze, start, end, BLACK);
-		start.x += MAP_SQUARE_SIZE;
-		end.x += MAP_SQUARE_SIZE;
+		start.x += TILE_SIZE;
+		end.x += TILE_SIZE;
 	}
 
 	start.x = 0;
@@ -102,8 +102,8 @@ void draw_grid(t_maze *maze) {
 
 	while (start.y <= HEIGHT) {
 		draw_line(maze, start, end, BLACK);
-		start.y += MAP_SQUARE_SIZE;
-		end.y += MAP_SQUARE_SIZE;
+		start.y += TILE_SIZE;
+		end.y += TILE_SIZE;
 	}
 
 }

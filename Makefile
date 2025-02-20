@@ -39,9 +39,10 @@ INC = -Iinclude -Ilibft -I$(MLX_PATH) -I$(GNL_PATH)
 
 SRC_DIR = src
 
-SRCS = main.c rendering/image.c rendering/exit.c rendering/init.c rendering/raycasting.c \
-	   rendering/player.c rendering/key_events.c parsing/map_init.c parsing/map_parsing.c parsing/map_security.c \
-	parsing/parsing_maze.c debug.c rendering/draw.c
+SRCS = main.c rendering/image.c rendering/exit.c rendering/init.c rendering/player.c rendering/key_events.c rendering/draw.c \
+	   parsing/map_init.c parsing/map_parsing.c parsing/map_security.c parsing/parsing_maze.c \
+	   debug.c \
+	   raycasting/get_direction.c raycasting/get_point.c raycasting/raycasting.c raycasting/utils.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build

@@ -19,6 +19,7 @@
 # include "keycodes.h"
 # include "colors.h"
 # include "player.h"
+# include "raycasting.h"
 
 # include <math.h>
 # include <mlx.h>
@@ -39,7 +40,7 @@
 
 # define FOV_RADIANS 1.0472
 
-#define MAP_SQUARE_SIZE 110
+#define TILE_SIZE 110
 
 typedef struct s_img
 {
@@ -52,26 +53,25 @@ typedef struct s_img
 
 typedef struct s_dimensions
 {
-	/* data */
-	int height;
-	int width;
+	int			height;
+	int			width;
 } t_dimensions;
 
 typedef struct s_map
 {
-	char	**maze;
+	char		**maze;
 	// player's start direction (N,S,W,E)
-	char	start_dir;
+	char		start_dir;
 	// player's coordinates
-	int		p_x;
-	int		p_y;
+	int			p_x;
+	int			p_y;
 	// maze's size
 	t_dimensions dimensions;
 	// colors in RGB and path for wall's textures
-	int		floor[3];
-	int		celling[3];
-	char	**textures_path;
-}			t_map;
+	int			floor[3];
+	int			celling[3];
+	char		**textures_path;
+}				t_map;
 
 typedef struct s_maze {
 	void		*mlx;
@@ -82,8 +82,8 @@ typedef struct s_maze {
 }				t_maze;
 
 typedef struct s_point {
-	int x;
-	int y;
+	int			x;
+	int			y;
 }			t_point;
 
 int render_one_frame(t_maze *maze, bool initialization);
@@ -92,7 +92,7 @@ void init_player_pos(t_maze* maze);
 int free_window(t_maze* maze);
 int exit_program(t_maze *maze);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void raycasting(t_maze *maze);
+// void raycasting(t_maze *maze);
 int key_events(int keycode, t_maze *maze);
 
 
