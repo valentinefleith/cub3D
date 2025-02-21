@@ -31,6 +31,7 @@ int main(int ac, char **av)
 		return MLX_ERROR;
 	}
 	init_player_pos(&maze);
+	maze.plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2);
 	if (render_one_frame(&maze, true) == MLX_ERROR)
 		return MLX_ERROR;
 	init_hook(&maze);

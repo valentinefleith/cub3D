@@ -12,7 +12,9 @@
 
 #include "cub3d.h"
 
-void init_hook(t_maze *maze) {
+void init_hook(t_maze *maze)
+{
 	mlx_hook(maze->win, 17, 0, exit_program, maze);
-	mlx_key_hook(maze->win, key_events, maze);
+	mlx_hook(maze->win, KeyRelease, KeyReleaseMask, &key_events, maze);
+	// mlx_key_hook(maze->win, key_events, maze);
 }

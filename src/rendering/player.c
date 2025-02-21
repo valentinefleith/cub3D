@@ -16,14 +16,12 @@
 // For now, position's hardcoded
 
 void init_player_pos(t_maze* maze) {
-	t_player player;
-	t_position player_position;
+	t_player	player;
+	t_position	player_position;
 
-	player_position.x = WIDTH / 2;
-	player_position.y = HEIGHT / 2;
-
+	player_position.x = 2 * TILE_SIZE + TILE_SIZE / 2;
+	player_position.y = 2 * TILE_SIZE + TILE_SIZE / 2;
 	player.pos = player_position;
-	player.looking_angle = 0;
-	//player.looking_angle = M_PI / 2;
+	player.looking_angle = M_PI;
 	maze->player = player;
 }

@@ -25,8 +25,8 @@ t_position get_first_x_point(t_position player_pos, double angle, t_dir directio
 	return (first_point);
 }
 
-// t_position get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_position point)
-t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)// proto to debug
+// t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)// proto to debug
+t_position get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_position point)
 {
 	int	x_step;
 	int	y_step;
@@ -39,7 +39,7 @@ t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir 
 		y_step = -TILE_SIZE;
 	while (!is_wall_point(map, point))
 	{
-		draw_rectangle(maze, point, 5, 5, RED);
+		// draw_rectangle(maze, point, 5, 5, RED);
 		point.x -= x_step;
 		point.y += y_step;
 	}
@@ -47,7 +47,8 @@ t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir 
 
 }
 
-t_position	get_wall_point_vert(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)
+// t_position	get_wall_point_vert(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)
+t_position	get_wall_point_vert(t_map *map, double angle, t_dir direction, t_position point)
 {
 	int	x_step;
 	int	y_step;
@@ -62,7 +63,7 @@ t_position	get_wall_point_vert(t_maze *maze, t_map *map, double angle, t_dir dir
 	while (!is_wall_point(map, point))
 	{
 		if (point.y < HEIGHT && point.y >= 0)
-			draw_rectangle(maze, point, 5, 5, BLACK);
+			// draw_rectangle(maze, point, 5, 5, BLACK);
 		point.x += x_step;
 		point.y += y_step;
 	}

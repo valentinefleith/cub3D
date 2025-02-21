@@ -38,9 +38,16 @@
 # define HEIGHT 880
 # define WIDTH 880
 
-# define FOV_RADIANS 1.0472
 
-#define TILE_SIZE 110
+# define _USE_MATH_DEFINES
+# define ROTATION_SPEED 0.045
+# define PLAYER_SPEED 4
+
+# define FOV 60
+# define FOV_RADIANS 1.0472
+// # define FOV_RADIANS (FOV * M_PI) / 180
+
+#define TILE_SIZE 30
 
 typedef struct s_img
 {
@@ -79,6 +86,7 @@ typedef struct s_maze {
 	t_img 		img;
 	t_player	player;
 	t_map		*map;
+	int			plane_distance;
 }				t_maze;
 
 typedef struct s_point {
@@ -86,6 +94,8 @@ typedef struct s_point {
 	int			y;
 }			t_point;
 
+
+void	draw_wall(t_maze *maze, int wall_height, int slice);
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
 void init_player_pos(t_maze* maze);
