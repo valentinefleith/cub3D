@@ -12,26 +12,21 @@
 
 #include "cub3d.h"
 
-void	draw_wall(t_maze *maze, int wall_height, int wall_slice)
+void	draw_wall(t_maze *maze, double wall_height, int wall_slice)
 {
-	int	start;
-	int	end;
+	int	y;
+	int	end_y;
 
-	start = (HEIGHT / 2) + (wall_height / 2);
-	end = (HEIGHT / 2) - (wall_height / 2);
-	if (HEIGHT < start)
-		start = HEIGHT;
-	if (end < 0)
-		end = 0;
-	// while (end < start)
-	// {
-	// 	my_mlx_pixel_put(&(maze->img), ray_angle, end, RED);
-	// 	end++;
-	// }
-	while (end < start)
+	end_y = (HEIGHT / 2) + (wall_height / 2);
+	if (HEIGHT < end_y)
+		end_y = HEIGHT;
+	y = (HEIGHT / 2) - (wall_height / 2);
+	if (y < 0)
+		y = 0;
+	while (y < end_y)
 	{
-		my_mlx_pixel_put(&(maze->img), wall_slice, end, RED);
-		end++;
+		my_mlx_pixel_put(&(maze->img), wall_slice, y, RED);
+		y++;
 	}
 }
 

@@ -12,10 +12,10 @@
 
 #include "cub3d.h"
 
-static int	update_maze_coordinates(t_maze *maze, double x_angle, double y_angle, t_position player_pos)
+static int	update_maze_coordinates(t_maze *maze, double x_angle, double y_angle, t_vector player_pos)
 {
 	t_position	grid;
-	t_position	new_pos;
+	t_vector	new_pos;
 
 	if (!maze)
 		return (KO);

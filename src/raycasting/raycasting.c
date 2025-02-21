@@ -20,8 +20,8 @@ void	raycasting(t_maze *maze)
 	while (x < WIDTH)
 	{
 		distance = find_wall_distance(maze, normalize_angle(current_angle));
-		distance = distance * cos(current_angle - maze->player.looking_angle);
-		wall_height = (TILE_SIZE / distance) * maze->plane_distance;
+		distance = distance * cos(current_angle - maze->player.looking_angle); // correct fish-eye
+		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
 		// printf("dist = %d // height = %d // angle = %f\n", distance, wall_height, current_angle);
 		draw_wall(maze, wall_height, x);
 		// draw_line_from_angle(maze, maze->player.pos, current_angle, distance, BLUE);
@@ -33,10 +33,10 @@ void	raycasting(t_maze *maze)
 
 double	find_wall_distance(t_maze *maze, double angle)
 {
-	t_position	vertical_wall;
-	t_position	horizontal_wall;
-	t_position	vertical_first;
-	t_position	horizontal_first;
+	t_vector	vertical_wall;
+	t_vector	horizontal_wall;
+	t_vector	vertical_first;
+	t_vector	horizontal_first;
 	t_dir 		direction;
 	double		distance;
 
@@ -53,9 +53,9 @@ double	find_wall_distance(t_maze *maze, double angle)
 	return (distance);
 }
 
-bool is_wall_point(t_map *map, t_position point)
+bool is_wall_point(t_map *map, t_vector point)
 {
-	t_position	grid;
+	t_point	grid;
 
 	if (!map)
 		return (false);
@@ -69,11 +69,11 @@ bool is_wall_point(t_map *map, t_position point)
 	return (false);
 }
 
-double	compute_distance(t_position a, t_position b)
+double	compute_distance(t_vector a, t_vector b)
 {
 	double	norm;
 
-	t_position vector;
+	t_vector vector;
 	vector.x = b.x - a.x;
 	vector.y = b.y - a.y;
 	norm = sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -81,7 +81,7 @@ double	compute_distance(t_position a, t_position b)
 	return (norm);
 }
 
-double	get_smallest_distance(t_position target, t_position a, t_position b)
+double	get_smallest_distance(t_vector target, t_vector a, t_vector b)
 {
 	double distance_1;
 	double distance_2;

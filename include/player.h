@@ -17,17 +17,16 @@
 # define PLAYER_MOVE_PX 15
 
 #include <math.h>
+#include "cub3d.h"
 
-typedef struct s_position {
+typedef struct s_vector t_vector;
+
+typedef struct s_position
+{
 	int x;
 	int y;
 }		t_position;
 
-typedef struct s_player {
-	t_position pos;
-	double looking_angle;
-	// RAJOUTER PLUS TARD: angle de vue etc.
-}		t_player;
 
 
 

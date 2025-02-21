@@ -49,6 +49,19 @@
 
 #define TILE_SIZE 30
 
+typedef struct s_vector
+{
+	double x;
+	double y;
+}			t_vector;
+
+typedef struct s_player
+{
+	t_vector	pos;
+	double		looking_angle;
+	// RAJOUTER PLUS TARD: angle de vue etc.
+}		t_player;
+
 typedef struct s_img
 {
 	void		*img;
@@ -95,7 +108,7 @@ typedef struct s_point {
 }			t_point;
 
 
-void	draw_wall(t_maze *maze, int wall_height, int slice);
+void	draw_wall(t_maze *maze, double wall_height, int slice);
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
 void init_player_pos(t_maze* maze);

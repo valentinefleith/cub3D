@@ -1,9 +1,9 @@
 #include "cub3d.h"
 #include "raycasting.h"
 
-t_position get_first_y_point(t_position player, double angle, t_dir direction)
+t_vector get_first_y_point(t_vector player, double angle, t_dir direction)
 {
-	t_position	first_point;
+	t_vector	first_point;
 
 	if (direction == left)
 		first_point.x = floor(player.x / TILE_SIZE) * TILE_SIZE - 1;
@@ -13,9 +13,9 @@ t_position get_first_y_point(t_position player, double angle, t_dir direction)
 	return (first_point);
 }
 
-t_position get_first_x_point(t_position player_pos, double angle, t_dir direction)
+t_vector get_first_x_point(t_vector player_pos, double angle, t_dir direction)
 {
-	t_position	first_point;
+	t_vector	first_point;
 
 	if (direction == up)
 		first_point.y = floor(player_pos.y / TILE_SIZE) * TILE_SIZE - 1;
@@ -25,8 +25,8 @@ t_position get_first_x_point(t_position player_pos, double angle, t_dir directio
 	return (first_point);
 }
 
-// t_position get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)// proto to debug
-t_position get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_position point)
+// t_vector get_wall_point_horizon(t_maze *maze, t_map *map, double angle, t_dir direction, t_vector point)// proto to debug
+t_vector get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_vector point)
 {
 	int	x_step;
 	int	y_step;
@@ -47,8 +47,8 @@ t_position get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_p
 
 }
 
-// t_position	get_wall_point_vert(t_maze *maze, t_map *map, double angle, t_dir direction, t_position point)
-t_position	get_wall_point_vert(t_map *map, double angle, t_dir direction, t_position point)
+// t_vector	get_wall_point_vert(t_maze *maze, t_map *map, double angle, t_dir direction, t_vector point)
+t_vector	get_wall_point_vert(t_map *map, double angle, t_dir direction, t_vector point)
 {
 	int	x_step;
 	int	y_step;

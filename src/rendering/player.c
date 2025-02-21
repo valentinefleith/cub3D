@@ -17,7 +17,7 @@
 
 void init_player_pos(t_maze* maze) {
 	t_player	player;
-	t_position	player_position;
+	t_vector	player_position;
 
 	player_position.x = 2 * TILE_SIZE + TILE_SIZE / 2;
 	player_position.y = 2 * TILE_SIZE + TILE_SIZE / 2;
