@@ -3,33 +3,35 @@
 
 void	raycasting(t_maze *maze)
 {
-	double	player_direction;
-	double	first_ray;
-	double	current_angle;
-	double	distance;
-	int		wall_height;
-	int		x;
+	t_vector	wall_point;
+	double		current_angle;
+	double		distance;
+	int			wall_height;
+	int			x;
 	
-	player_direction = maze->player.looking_angle;
-	first_ray = player_direction - (FOV_RADIANS / 2);
-	// last_ray = player_direction + FOV_RADIANS / 2;
-	current_angle = first_ray;
-
-	// while (current_angle < last_ray)
+	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2);
 	x = 0;
 	while (x < WIDTH)
 	{
-		distance = find_wall_distance(maze, normalize_angle(current_angle));
+		// distance = find_wall_distance(maze, normalize_angle(current_angle));
+		wall_point = find_wall_distance(maze, normalize_angle(current_angle));
+		distance = find_wall_distance(wall_point);
 		distance = distance * cos(current_angle - maze->player.looking_angle); // correct fish-eye
 		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
+		if (*(maze->img.orientation) == 1)
+			maze->img.x = get_x_bitmap(maze->img, wall_point.x);
 		// printf("dist = %d // height = %d // angle = %f\n", distance, wall_height, current_angle);
 		draw_wall(maze, wall_height, x);
 		// draw_line_from_angle(maze, maze->player.pos, current_angle, distance, BLUE);
-	 	// current_angle += 0.1;
 		current_angle += FOV_RADIANS / WIDTH;
 		x++;
 	}
 }
+
+// static double	get_x_bitmap(t_img img, double wall_point)
+// {
+// 	return (fmodf(wall_point * (img.width / TILE_SIZE), img.width));
+// }
 
 double	find_wall_distance(t_maze *maze, double angle)
 {
@@ -49,7 +51,7 @@ double	find_wall_distance(t_maze *maze, double angle)
 	vertical_first = get_first_y_point(maze->player.pos, angle, direction);
 	// vertical_wall = get_wall_point_vert(maze, maze->map, angle, direction, vertical_first);
 	vertical_wall = get_wall_point_vert(maze->map, angle, direction, vertical_first);
-	distance = get_smallest_distance(maze->player.pos, horizontal_wall, vertical_wall);
+	distance = get_smallest_distance(maze->player.pos, horizontal_wall, vertical_wall, maze->img.orientation);
 	return (distance);
 }
 
@@ -81,12 +83,16 @@ double	compute_distance(t_vector a, t_vector b)
 	return (norm);
 }
 
-double	get_smallest_distance(t_vector target, t_vector a, t_vector b)
+double	get_smallest_distance(t_vector target, t_vector a, t_vector b, int *orientation)
 {
 	double distance_1;
 	double distance_2;
 
 	distance_1 = compute_distance(target, a);
 	distance_2 = compute_distance(target, b);
+	// if (distance_1 > distance_2)
+	// 	*orientation = 1;
+	// else
+	// 	*orientation = 2;
 	return (fmin(distance_1, distance_2));
 }

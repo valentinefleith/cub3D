@@ -96,7 +96,9 @@ void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
 		return ;
 	draw_line(maze, point, endpoint, color);
 }
-void draw_grid(t_maze *maze) {
+
+void draw_grid(t_maze *maze)
+{
 	t_position start;
 	start.x = 0;
 	start.y = 0;

@@ -47,7 +47,7 @@
 # define FOV_RADIANS 1.0472
 // # define FOV_RADIANS (FOV * M_PI) / 180
 
-#define TILE_SIZE 30
+#define TILE_SIZE 64
 
 typedef struct s_vector
 {
@@ -69,6 +69,11 @@ typedef struct s_img
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	int			width;
+	int			height;
+	double		x;
+	double		y;
+	int			*orientation;
 }				t_img;
 
 typedef struct s_dimensions
@@ -93,7 +98,8 @@ typedef struct s_map
 	char		**textures_path;
 }				t_map;
 
-typedef struct s_maze {
+typedef struct s_maze
+{
 	void		*mlx;
 	void		*win;
 	t_img 		img;
@@ -102,7 +108,8 @@ typedef struct s_maze {
 	int			plane_distance;
 }				t_maze;
 
-typedef struct s_point {
+typedef struct s_point
+{
 	int			x;
 	int			y;
 }			t_point;

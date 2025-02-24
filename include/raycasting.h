@@ -21,10 +21,10 @@ typedef struct s_vector t_vector;
 /* RAYCASTING ****************************************************************/
 
 void		raycasting(t_maze *maze);
-double			find_wall_distance(t_maze *maze, double angle);
+double		find_wall_distance(t_maze *maze, double angle);
 bool		is_wall_point(t_map *map, t_vector point);
-double			compute_distance(t_vector a, t_vector b);
-double			get_smallest_distance(t_vector target, t_vector a, t_vector b);
+double		compute_distance(t_vector a, t_vector b);
+double		get_smallest_distance(t_vector target, t_vector a, t_vector b, int *orientation);
 
 /* GET DIRECTION *************************************************************/
 

@@ -48,7 +48,7 @@ int	parsing_textures_path(char *line, t_map *map)
 	{
 		if (map->textures_path[cell]) // means that's already assigned = data en doublon
 			return (map_error(DOUBLE_SYMB), 0);
-		map->textures_path[cell] = ft_strdup(&line[5]);
+		map->textures_path[cell] = ft_substr(line, 5, ft_strlen(line) - 1);
 		if (!map->textures_path[cell])
 			return (0);
 		return (1);

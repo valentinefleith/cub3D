@@ -15,7 +15,7 @@ int	store_the_maze(int fd, char **maze)
 			return (close(fd), SUCCESS);
 		if (line && !check_maze_valid_symbol(line))
 			return (map_error(EMPTY_LINE), free(line), close(fd), KO);
-		maze[i] = ft_strdup(line);
+		maze[i] = ft_substr(line, 0, ft_strlen(line) - 1);
 		if (!maze[i])
 			return (map_error(ERROR_MAP), free(line), close(fd), KO);
 		i++;
@@ -72,7 +72,8 @@ t_dimensions	get_maze_size(int fd, char *prev_line)
 		if (!line) // when the file is ended quit the infinite loop
 		{
 			dimensions.height = height;
-			dimensions.width = width - 1; // TODO delete later when no more \n in the line!!!
+			// dimensions.width = width - 1; // TODO delete later when no more \n in the line!!!
+			dimensions.width = width;
 			return (close(fd), dimensions);
 		}
 		int current_width = ft_strlen(line);

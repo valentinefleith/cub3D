@@ -30,6 +30,7 @@ int	render_one_frame(t_maze *maze, bool initialization)
 		mlx_destroy_image(maze->mlx, maze->img.img);
 	}
 	img.img = mlx_new_image(maze->mlx, WIDTH, HEIGHT);
+	// img.img = mlx_xpm_file_to_image(maze->mlx, "./assets/north", &img.width, &img.height);
 	if (!img.img)
 	{
 		free_window(maze);
