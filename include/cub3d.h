@@ -73,7 +73,8 @@ typedef struct s_img
 	int			height;
 	double		x;
 	double		y;
-	int			*orientation;
+	int			orientation;
+	int			*textures[4];
 }				t_img;
 
 typedef struct s_dimensions
@@ -114,8 +115,9 @@ typedef struct s_point
 	int			y;
 }			t_point;
 
-
-void	draw_wall(t_maze *maze, double wall_height, int slice);
+void	setup_texture(t_maze *maze, t_vector wall_point, double wall_height, int y, int x);
+void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x);
+// void	draw_wall(t_maze *maze, double wall_height, int slice);
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);
 void init_player_pos(t_maze* maze);

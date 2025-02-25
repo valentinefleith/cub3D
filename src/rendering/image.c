@@ -38,6 +38,13 @@ int	render_one_frame(t_maze *maze, bool initialization)
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
+	img.textures[0] = mlx_xpm_file_to_image(maze->mlx, "./assets/north.xpm", &img.width, &img.height);
+	if (!img.textures[0])
+	{
+		free_window(maze);
+		return (MLX_ERROR);
+	}
+	printf("TEXTURE LOADED = SUCCESS\n");
 	maze->img = img;
 	raycasting(maze);
 	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);

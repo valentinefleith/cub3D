@@ -12,10 +12,32 @@
 
 #include "cub3d.h"
 
-void	draw_wall(t_maze *maze, double wall_height, int wall_slice)
+void	setup_texture(t_maze *maze, t_vector wall_point, double wall_height, int y, int x)
+{
+	int	offset;
+	// Get the pixel coordinates in the texture
+	if (maze->img.orientation == 1)
+		maze->img.x = fmodf(wall_point.x * maze->img.width / TILE_SIZE, maze->img.width);
+	else
+		maze->img.x = fmodf(wall_point.y * maze->img.width / TILE_SIZE, maze->img.width);
+		// Calculate the scale from screen to texture
+	offset = maze->img.height / wall_height;
+	maze->img.y = ((offset * TILE_SIZE) / wall_height) / maze->img.line_length;
+	int px_y = maze->img.y;
+	int px_x = maze->img.x;
+	int color = *(int *)(maze->img.textures[0] + (px_y * maze->img.line_length + px_x * (maze->img.bits_per_pixel / 8)));
+	my_mlx_pixel_put(&(maze->img), x, y, color);
+	// Set main image data to the texture image data based on px_x and px_y
+	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8];
+	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8 + 1] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8 + 1];
+	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8 + 2] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8 + 2];
+}
+
+void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 {
 	int	y;
 	int	end_y;
+	int	offset;
 
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
@@ -23,9 +45,24 @@ void	draw_wall(t_maze *maze, double wall_height, int wall_slice)
 	y = (HEIGHT / 2) - (wall_height / 2);
 	if (y < 0)
 		y = 0;
+	// Get the pixel coordinates in the texture
+	if (maze->img.orientation == 1)
+		maze->img.x = fmodf(wall_point.x * maze->img.width / TILE_SIZE, maze->img.width);
+	else
+		maze->img.x = fmodf(wall_point.y * maze->img.width / TILE_SIZE, maze->img.width);
+	// Calculate the scale from screen to texture
+	// offset = maze->img.height / wall_height;
+	offset = (y - HEIGHT / 2 + wall_height / 2) *  1.0 * TILE_SIZE / maze->img.line_length;
+	maze->img.y = ((offset * TILE_SIZE) / wall_height) / maze->img.line_length;
+	int px_y = maze->img.y;
+	int px_x = maze->img.x;
 	while (y < end_y)
 	{
-		my_mlx_pixel_put(&(maze->img), wall_slice, y, RED);
+		offset += 1.0 * TILE_SIZE / maze->img.line_length;
+		// int color = maze->img.textures[0][TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x];
+		// maze->img.addr[TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x] = maze->img.textures[0][TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x];
+		// setup_texture(maze, wall_point, wall_height, y, x);
+		// my_mlx_pixel_put(&(maze->img), x, y, RED);
 		y++;
 	}
 }
