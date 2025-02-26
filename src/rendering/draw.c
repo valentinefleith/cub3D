@@ -14,8 +14,17 @@
 
 static void	setup_texture(t_maze *maze, t_vector wall_point, double angle)
 {
+	// Determiner la position exacte où le rayon frappe le mur à l'horizontal == position relative
+	if (maze->texture.orientation == 1)
+		maze->texture.x = fmodf(wall_point.x * (maze->texture.width / TILE_SIZE), maze->texture.width);
+	else
+		maze->texture.x = fmodf(wall_point.y * (maze->texture.width / TILE_SIZE), maze->texture.width);
+	// Inverse la texture selon la direction du joueur
+	if (angle > 0)
+		maze->texture.x = maze->texture.width - maze->texture.x - 1;
+	else if (angle < 0)
+		maze->texture.x = maze->texture.width - maze->texture.x - 1;
 	// texture = maze->img;
-	// Determiner la position exacte où le rayon frappe le mur == position relative
 	// if (maze->texture.orientation == 1) // le point est à l'horizontal
 	// {
 	// 	horizontal_point = wall_point.x - floor(wall_point.x);
@@ -30,51 +39,72 @@ static void	setup_texture(t_maze *maze, t_vector wall_point, double angle)
 	// 	if (angle < 0)
 	// 		maze->texture.x = maze->texture.width - maze->texture.x - 1;
 	// }
-	if (maze->texture.orientation == 1)
-		maze->texture.x = fmodf(wall_point.x * (maze->texture.width / TILE_SIZE), maze->texture.width);
-	else
-		maze->texture.x = fmodf(wall_point.y * (maze->texture.width / TILE_SIZE), maze->texture.width);
-	if (angle > 0)
-		maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	else if (angle < 0)
-		maze->texture.x = maze->texture.width - maze->texture.x - 1;
 }
 
-
+// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
 static int	get_px_color(t_img texture, int x, int y)
 {
 	return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+}
+
+static void	draw_floor(t_maze *maze, int x, int start)
+{
+	while (start < HEIGHT)
+	{
+		my_mlx_pixel_put(&(maze->img), x, start, GREEN);
+		start++;
+	}
+}
+
+static void	draw_ceilling(t_maze *maze, int x, int end)
+{
+	int	start;
+
+	start = 0;
+	while (start < end)
+	{
+		my_mlx_pixel_put(&(maze->img), x, start, BLUE);
+		start++;
+	}
 }
 
 void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x, double angle)
 {
 	int		y;
 	int		end_y;
-	double	pos;
-	double	step;
+	double	px_pos;
+	double	scale;
 	int		px_color;
 
+	// On veut dessinner une ligne verticale, y c'est le début(le haut) de la ligne, end_y c'est la fin(le bas) de la ligne
 	y = (HEIGHT / 2) - (wall_height / 2);
 	if (y < 0)
 		y = 0;
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
+	// Trouver la position relative du point à dessinner à l'horizontal, et bien-sur scale avec la taille de la texture
 	setup_texture(maze, wall_point, angle);
-	step = maze->texture.height / wall_height;
-	pos = (y - HEIGHT / 2 + wall_height / 2) * step;
+	// On veut trouver la position dans la texture et scale en selon la hauteur de la ligne à dessinner
+	scale = maze->texture.height / wall_height;
+	px_pos = (y - HEIGHT / 2 + wall_height / 2) * scale;
+	draw_floor(maze, x, end_y);
+	draw_ceilling(maze, x, y);
 	while (y < end_y)
 	{
-		maze->texture.y = (int)pos % TILE_SIZE;
+		// convertit px_pos pour l'alignement et respecter la taille des tiles
+		maze->texture.y = (int)px_pos % TILE_SIZE;
 		if (maze->texture.y < 0)
 			maze->texture.y = 0;
 		px_color = get_px_color(maze->texture, maze->texture.x, maze->texture.y);
 		if (px_color > 0)
 			my_mlx_pixel_put(&(maze->img), x, y, px_color);
-		pos += step;
+		// on incremente la position du pixel avec le scaling
+		px_pos += scale;
 		y++;
 	}
 }
+
 
 void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
 		int height, int color)

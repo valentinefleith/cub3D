@@ -32,7 +32,7 @@ int	render_one_frame(t_maze *maze, bool initialization)
 	}
 	else
 	{
-		texture.img = mlx_xpm_file_to_image(maze->mlx, "./assets/north.xpm", &texture.width, &texture.height);
+		texture.img = mlx_xpm_file_to_image(maze->mlx, "./assets/south.xpm", &texture.width, &texture.height);
 		if (!texture.img)
 		{
 			free_window(maze);
