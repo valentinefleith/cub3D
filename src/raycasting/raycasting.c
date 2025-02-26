@@ -16,7 +16,7 @@ void	raycasting(t_maze *maze)
 		wall_point = find_wall_point(maze, normalize_angle(current_angle));
 		distance = get_wall_distance(maze->player.pos, wall_point, maze->player.looking_angle, current_angle);
 		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
-		draw_wall(maze, wall_point, wall_height, x);
+		draw_wall(maze, wall_point, wall_height, x, current_angle);
 		current_angle += FOV_RADIANS / WIDTH;
 		x++;
 	}
@@ -35,7 +35,7 @@ t_vector	find_wall_point(t_maze *maze, double angle)
 	direction = get_vertical_direction(angle);
 	vertical_point = get_first_y_point(maze->player.pos, angle, direction);
 	vertical_point = get_wall_point_vert(maze->map, angle, direction, vertical_point);
-	closest_point = get_closest_point(maze->player.pos, horizontal_point, vertical_point, &maze->img.orientation);
+	closest_point = get_closest_point(maze->player.pos, horizontal_point, vertical_point, &maze->texture.orientation);
 	return (closest_point);
 }
 

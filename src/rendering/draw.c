@@ -12,57 +12,66 @@
 
 #include "cub3d.h"
 
-void	setup_texture(t_maze *maze, t_vector wall_point, double wall_height, int y, int x)
+static void	setup_texture(t_maze *maze, t_vector wall_point, double angle)
 {
-	int	offset;
-	// Get the pixel coordinates in the texture
-	if (maze->img.orientation == 1)
-		maze->img.x = fmodf(wall_point.x * maze->img.width / TILE_SIZE, maze->img.width);
+	// texture = maze->img;
+	// Determiner la position exacte où le rayon frappe le mur == position relative
+	// if (maze->texture.orientation == 1) // le point est à l'horizontal
+	// {
+	// 	horizontal_point = wall_point.x - floor(wall_point.x);
+	// 	maze->texture.x = (int)(horizontal_point * maze->texture.width);
+	// 	if (angle > 0)
+	// 		maze->texture.x = maze->texture.width - maze->texture.x - 1;
+	// }
+	// else
+	// {
+	// 	horizontal_point = wall_point.y - floor(wall_point.y);
+	// 	maze->texture.x = (int)(horizontal_point * maze->texture.width);
+	// 	if (angle < 0)
+	// 		maze->texture.x = maze->texture.width - maze->texture.x - 1;
+	// }
+	if (maze->texture.orientation == 1)
+		maze->texture.x = fmodf(wall_point.x * (maze->texture.width / TILE_SIZE), maze->texture.width);
 	else
-		maze->img.x = fmodf(wall_point.y * maze->img.width / TILE_SIZE, maze->img.width);
-		// Calculate the scale from screen to texture
-	offset = maze->img.height / wall_height;
-	maze->img.y = ((offset * TILE_SIZE) / wall_height) / maze->img.line_length;
-	int px_y = maze->img.y;
-	int px_x = maze->img.x;
-	int color = *(int *)(maze->img.textures[0] + (px_y * maze->img.line_length + px_x * (maze->img.bits_per_pixel / 8)));
-	my_mlx_pixel_put(&(maze->img), x, y, color);
-	// Set main image data to the texture image data based on px_x and px_y
-	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8];
-	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8 + 1] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8 + 1];
-	// maze->img.addr[px_y + px_x * maze->img.bits_per_pixel / 8 + 2] = maze->img.textures[0][px_x + px_y * maze->img.bits_per_pixel / 8 + 2];
+		maze->texture.x = fmodf(wall_point.y * (maze->texture.width / TILE_SIZE), maze->texture.width);
+	if (angle > 0)
+		maze->texture.x = maze->texture.width - maze->texture.x - 1;
+	else if (angle < 0)
+		maze->texture.x = maze->texture.width - maze->texture.x - 1;
 }
 
-void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
-{
-	int	y;
-	int	end_y;
-	int	offset;
 
-	end_y = (HEIGHT / 2) + (wall_height / 2);
-	if (HEIGHT < end_y)
-		end_y = HEIGHT;
+static int	get_px_color(t_img texture, int x, int y)
+{
+	return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+}
+
+void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x, double angle)
+{
+	int		y;
+	int		end_y;
+	double	pos;
+	double	step;
+	int		px_color;
+
 	y = (HEIGHT / 2) - (wall_height / 2);
 	if (y < 0)
 		y = 0;
-	// Get the pixel coordinates in the texture
-	if (maze->img.orientation == 1)
-		maze->img.x = fmodf(wall_point.x * maze->img.width / TILE_SIZE, maze->img.width);
-	else
-		maze->img.x = fmodf(wall_point.y * maze->img.width / TILE_SIZE, maze->img.width);
-	// Calculate the scale from screen to texture
-	// offset = maze->img.height / wall_height;
-	offset = (y - HEIGHT / 2 + wall_height / 2) *  1.0 * TILE_SIZE / maze->img.line_length;
-	maze->img.y = ((offset * TILE_SIZE) / wall_height) / maze->img.line_length;
-	int px_y = maze->img.y;
-	int px_x = maze->img.x;
+	end_y = (HEIGHT / 2) + (wall_height / 2);
+	if (HEIGHT < end_y)
+		end_y = HEIGHT;
+	setup_texture(maze, wall_point, angle);
+	step = maze->texture.height / wall_height;
+	pos = (y - HEIGHT / 2 + wall_height / 2) * step;
 	while (y < end_y)
 	{
-		offset += 1.0 * TILE_SIZE / maze->img.line_length;
-		// int color = maze->img.textures[0][TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x];
-		// maze->img.addr[TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x] = maze->img.textures[0][TILE_SIZE * ((int)offset & (TILE_SIZE - 1)) + px_x];
-		// setup_texture(maze, wall_point, wall_height, y, x);
-		// my_mlx_pixel_put(&(maze->img), x, y, RED);
+		maze->texture.y = (int)pos % TILE_SIZE;
+		if (maze->texture.y < 0)
+			maze->texture.y = 0;
+		px_color = get_px_color(maze->texture, maze->texture.x, maze->texture.y);
+		if (px_color > 0)
+			my_mlx_pixel_put(&(maze->img), x, y, px_color);
+		pos += step;
 		y++;
 	}
 }

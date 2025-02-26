@@ -24,13 +24,24 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 int	render_one_frame(t_maze *maze, bool initialization)
 {
 	t_img	img;
+	t_img	texture;
 
 	if (!initialization)
 	{
 		mlx_destroy_image(maze->mlx, maze->img.img);
 	}
+	else
+	{
+		texture.img = mlx_xpm_file_to_image(maze->mlx, "./assets/north.xpm", &texture.width, &texture.height);
+		if (!texture.img)
+		{
+			free_window(maze);
+			return (MLX_ERROR);
+		}
+		texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
+		maze->texture = texture;
+	}
 	img.img = mlx_new_image(maze->mlx, WIDTH, HEIGHT);
-	// img.img = mlx_xpm_file_to_image(maze->mlx, "./assets/north", &img.width, &img.height);
 	if (!img.img)
 	{
 		free_window(maze);
@@ -38,13 +49,6 @@ int	render_one_frame(t_maze *maze, bool initialization)
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
-	img.textures[0] = mlx_xpm_file_to_image(maze->mlx, "./assets/north.xpm", &img.width, &img.height);
-	if (!img.textures[0])
-	{
-		free_window(maze);
-		return (MLX_ERROR);
-	}
-	printf("TEXTURE LOADED = SUCCESS\n");
 	maze->img = img;
 	raycasting(maze);
 	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
