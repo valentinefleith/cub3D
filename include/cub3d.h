@@ -37,6 +37,8 @@
 
 # define HEIGHT 880
 # define WIDTH 880
+// # define HEIGHT 960
+// # define WIDTH 1620
 
 
 # define _USE_MATH_DEFINES

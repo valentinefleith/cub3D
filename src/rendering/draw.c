@@ -71,18 +71,18 @@ void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 	setup_texture(maze, wall_point);
 	// On veut trouver la position dans la texture et scale en selon la hauteur de la ligne à dessinner
 	scale = (double)maze->texture.height / wall_height;
-	maze->texture.y = (y - (HEIGHT / 2) + (wall_height / 2)) * scale;
+	maze->texture.y = (y - HEIGHT / 2 + wall_height / 2) * scale;
 	if (maze->texture.y < 0)
 		maze->texture.y = 0;
-	// draw_floor(maze, x, end_y);
-	// draw_ceilling(maze, x, y);
+	draw_floor(maze, x, end_y);
+	draw_ceilling(maze, x, y);
 	while (y < end_y)
 	{
-		// on incremente la position du pixel avec le scaling
-		maze->texture.y += scale;
 		px_color = get_px_color(maze->texture, (int)maze->texture.x, (int)maze->texture.y);
 		if (px_color > 0)
 			my_mlx_pixel_put(&(maze->img), x, y, px_color);
+		// on incremente la position du pixel avec le scaling
+		maze->texture.y += scale;
 		y++;
 	}
 }
