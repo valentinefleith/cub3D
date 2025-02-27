@@ -34,5 +34,5 @@ t_vector	get_closest_point(t_vector target, t_vector a, t_vector b, int *orienta
 		return (a);
 	}
 	*orientation = 2;
-	return (b);	
+	return (b);
 }
