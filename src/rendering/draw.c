@@ -12,42 +12,18 @@
 
 #include "cub3d.h"
 
-static void	setup_texture(t_maze *maze, t_vector wall_point, double angle, double distance)
+static void	setup_texture(t_maze *maze, t_vector wall_point)
 {
-	// if (maze->texture.orientation == 1)
-	// 	maze->texture.x = (int)(wall_point.x) % TILE_SIZE;
-	// else
-	// 	maze->texture.x = (int)(wall_point.y) % TILE_SIZE;
-	// maze->texture.x = (maze->texture.x * maze->texture.width) / TILE_SIZE;
-
-	// if (angle > 0 || angle < 0)
-	// 	maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	// Determiner la position exacte où le rayon frappe le mur à l'horizontal == position relative
-	if (maze->texture.orientation == 1)
+	// Determiner la position exacte où le rayon frappe le mur == position relative
+	if (maze->texture.orientation == 1) // Point d'intersection du mur etait à l'horizontal
 		maze->texture.x = (int)fmodf(wall_point.x * (maze->texture.width / TILE_SIZE), maze->texture.width);
 	else
 		maze->texture.x = (int)fmodf(wall_point.y * (maze->texture.width / TILE_SIZE), maze->texture.width);
 	// Inverse la texture selon la direction du joueur
 	// if (angle > 0)
-	// 	maze->texture.x = maze->texture.width - maze->texture.x - 1;
+		// maze->texture.x = maze->texture.width - maze->texture.x - 1;
 	// else if (angle < 0)
 	// 	maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	// double horizontal_point;
-	// if (maze->texture.orientation == 1) // le point est à l'horizontal
-	// {
-	// 	// horizontal_point = wall_point.x - floor(wall_point.x);
-	// 	horizontal_point = maze->player.pos.x + distance * angle;
-	// 	maze->texture.x = (int)(horizontal_point * maze->texture.width);
-	// 	if (angle > 0)
-	// 		maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	// }
-	// else
-	// {
-	// 	horizontal_point = wall_point.y - floor(wall_point.y);
-	// 	maze->texture.x = (int)(horizontal_point * maze->texture.width);
-	// 	if (angle < 0)
-	// 		maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	// }
 }
 
 // On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
@@ -77,11 +53,10 @@ static void	draw_ceilling(t_maze *maze, int x, int end)
 	}
 }
 
-void	draw_wall(t_maze *maze, double distance, t_vector wall_point, double wall_height, int x, double angle)
+void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 {
 	int		y;
 	int		end_y;
-	double	px_pos;
 	double	scale;
 	int		px_color;
 
@@ -92,27 +67,22 @@ void	draw_wall(t_maze *maze, double distance, t_vector wall_point, double wall_h
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
-	// Trouver la position relative du point à dessinner à l'horizontal, et bien-sur scale avec la taille de la texture
-	setup_texture(maze, wall_point, angle, distance);
+	// Trouver la position relative du point horizontal à dessinner, et bien-sur scale avec la taille de la texture
+	setup_texture(maze, wall_point);
 	// On veut trouver la position dans la texture et scale en selon la hauteur de la ligne à dessinner
 	scale = (double)maze->texture.height / wall_height;
 	maze->texture.y = (y - (HEIGHT / 2) + (wall_height / 2)) * scale;
-	// px_pos = (y - HEIGHT / 2 + wall_height / 2) * scale;
-	draw_floor(maze, x, end_y);
-	draw_ceilling(maze, x, y);
+	if (maze->texture.y < 0)
+		maze->texture.y = 0;
+	// draw_floor(maze, x, end_y);
+	// draw_ceilling(maze, x, y);
 	while (y < end_y)
 	{
-		// convertit px_pos pour l'alignement et respecter la taille des tiles
-		// maze->texture.y = (int)px_pos % TILE_SIZE;
-		// maze->texture.y = (int)px_pos % (maze->texture.height - 1);
 		// on incremente la position du pixel avec le scaling
-		// px_pos += scale;
-		if (maze->texture.y < 0)
-			maze->texture.y = 0;
+		maze->texture.y += scale;
 		px_color = get_px_color(maze->texture, (int)maze->texture.x, (int)maze->texture.y);
 		if (px_color > 0)
 			my_mlx_pixel_put(&(maze->img), x, y, px_color);
-		maze->texture.y += scale;
 		y++;
 	}
 }

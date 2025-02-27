@@ -115,7 +115,7 @@ typedef struct s_point
 	int			y;
 }			t_point;
 
-void	draw_wall(t_maze *maze, double distance, t_vector wall_point, double wall_height, int x, double angle);
+void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x);
 // void	draw_wall(t_maze *maze, double wall_height, int slice);
 int render_one_frame(t_maze *maze, bool initialization);
 void init_hook(t_maze *maze);

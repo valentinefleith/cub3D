@@ -18,7 +18,7 @@ void	raycasting(t_maze *maze)
 		if (distance < 0.1)
 			distance = 0.1;
 		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
-		draw_wall(maze, distance, wall_point, wall_height, x, normalize_angle(current_angle));
+		draw_wall(maze, wall_point, wall_height, x);
 		current_angle += FOV_RADIANS / WIDTH;
 		x++;
 	}
