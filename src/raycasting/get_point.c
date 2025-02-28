@@ -31,7 +31,7 @@ t_vector get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_vec
 	double	x_step;
 	double	y_step;
 	
-	x_step = floor(TILE_SIZE / tan(angle));
+	x_step = TILE_SIZE / tan(angle);
 	if (direction == down)
 		x_step = -x_step;
 	y_step = TILE_SIZE;
@@ -43,7 +43,7 @@ t_vector get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_vec
 		point.x -= x_step;
 		point.y += y_step;
 	}
-	return point;
+	return (point);
 
 }
 
@@ -62,10 +62,10 @@ t_vector	get_wall_point_vert(t_map *map, double angle, t_dir direction, t_vector
 		y_step *= -1;
 	while (!is_wall_point(map, point))
 	{
-		if (point.y < HEIGHT && point.y >= 0)
+		// if (point.y < HEIGHT && point.y >= 0)
 			// draw_rectangle(maze, point, 5, 5, BLACK);
 		point.x += x_step;
 		point.y += y_step;
 	}
-	return point;
+	return (point);
 }

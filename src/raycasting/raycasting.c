@@ -21,7 +21,7 @@ void	raycasting(t_maze *maze)
 		draw_wall(maze, wall_point, wall_height, x);
 		// printf("WALL POINT x(%f) / y(%f)\n", wall_point.x, wall_point.y);
 		// printf("DISTANCE %f\n", distance);
-		// printf("WALL HEIGHT %f\n\n", wall_height);
+		printf("WALL HEIGHT %f\n\n", wall_height);
 		current_angle += FOV_RADIANS / WIDTH;
 		x++;
 	}

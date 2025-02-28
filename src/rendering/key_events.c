@@ -19,8 +19,8 @@ static int	update_maze_coordinates(t_maze *maze, double x_angle, double y_angle,
 
 	if (!maze)
 		return (KO);
-	new_pos.x = roundf((x_angle * PLAYER_SPEED) + player_pos.x);
-	new_pos.y = roundf((y_angle * PLAYER_SPEED) + player_pos.y);
+	new_pos.x = round((x_angle * PLAYER_SPEED) + player_pos.x);
+	new_pos.y = round((y_angle * PLAYER_SPEED) + player_pos.y);
 	grid.x = (new_pos.x / TILE_SIZE);
 	grid.y = (new_pos.y / TILE_SIZE);
 	// printf("x = %d / y = %d\n", grid.x, grid.y);
