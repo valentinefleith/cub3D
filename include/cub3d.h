@@ -24,6 +24,7 @@
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -108,7 +109,7 @@ typedef struct s_maze
 	t_img 		texture;
 	t_player	player;
 	t_map		*map;
-	int			plane_distance;
+	double		plane_distance;
 }				t_maze;
 
 typedef struct s_point

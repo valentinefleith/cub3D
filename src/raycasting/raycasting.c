@@ -6,7 +6,7 @@ void	raycasting(t_maze *maze)
 	t_vector	wall_point;
 	double		current_angle;
 	double		distance;
-	int			wall_height;
+	double			wall_height;
 	int			x;
 	
 	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2);
@@ -17,8 +17,11 @@ void	raycasting(t_maze *maze)
 		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), normalize_angle(current_angle));
 		if (distance < 0.1)
 			distance = 0.1;
-		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
+		wall_height = ((double)TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
 		draw_wall(maze, wall_point, wall_height, x);
+		// printf("WALL POINT x(%f) / y(%f)\n", wall_point.x, wall_point.y);
+		// printf("DISTANCE %f\n", distance);
+		printf("WALL HEIGHT %f\n\n", wall_height);
 		current_angle += FOV_RADIANS / WIDTH;
 		x++;
 	}
