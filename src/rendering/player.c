@@ -21,6 +21,7 @@ void init_player_pos(t_maze* maze) {
 
 	player_position.x = 2 * TILE_SIZE + TILE_SIZE / 2;
 	player_position.y = 2 * TILE_SIZE + TILE_SIZE / 2;
+	// printf("x = %f / y = %f\n", player_position.x, player_position.y);
 	player.pos = player_position;
 	player.looking_angle = M_PI;
 	maze->player = player;
