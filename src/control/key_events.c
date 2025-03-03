@@ -15,18 +15,18 @@
 
 int	key_press(int keycode, t_maze *game)
 {
-	if (keycode == XK_s)
-		game->player.keys_pressed[1] = true;
-	else if (keycode == XK_w)
-		game->player.keys_pressed[0] = true;
+	if (keycode == XK_w)
+		game->player.keys_pressed[front] = true;
+	else if (keycode == XK_s)
+		game->player.keys_pressed[back] = true;
 	else if (keycode == XK_a)
-		game->player.keys_pressed[2] = true;
+		game->player.keys_pressed[left] = true;
 	else if (keycode == XK_d)
-		game->player.keys_pressed[3] = true;
+		game->player.keys_pressed[right] = true;
 	else if (keycode == XK_Right)
-		game->player.keys_pressed[5] = true;
+		game->player.keys_pressed[right_rotation] = true;
 	else if (keycode == XK_Left)
-		game->player.keys_pressed[4] = true;
+		game->player.keys_pressed[left_rotation] = true;
 	else
 		return (KO);
 	return (SUCCESS);
@@ -34,28 +34,19 @@ int	key_press(int keycode, t_maze *game)
 
 int	key_release(int keycode, t_maze *game)
 {
-	if (keycode == XK_s)
-		game->player.keys_pressed[1] = false;
-	else if (keycode == XK_w)
-		game->player.keys_pressed[0] = false;
+	if (keycode == XK_w)
+		game->player.keys_pressed[front] = false;
+	else if (keycode == XK_s)
+		game->player.keys_pressed[back] = false;
 	else if (keycode == XK_a)
-		game->player.keys_pressed[2] = false;
+		game->player.keys_pressed[left] = false;
 	else if (keycode == XK_d)
-		game->player.keys_pressed[3] = false;
+		game->player.keys_pressed[right] = false;
 	else if (keycode == XK_Right)
-		game->player.keys_pressed[5] = false;
+		game->player.keys_pressed[right_rotation] = false;
 	else if (keycode == XK_Left)
-		game->player.keys_pressed[4] = false;
+		game->player.keys_pressed[left_rotation] = false;
 	else
 		return (KO);
 	return (SUCCESS);
 }
-
-// int key_events(int keycode, t_maze *maze)
-// {
-// 	if (keycode == XK_s || keycode == XK_w || keycode == XK_a || keycode == XK_d)
-// 		return (move_player(maze, keycode, maze->player.looking_angle));
-// 	if (keycode == XK_Right || keycode == XK_Left)
-// 		return (rotate_player(maze, keycode));
-// 	return 0;
-// }

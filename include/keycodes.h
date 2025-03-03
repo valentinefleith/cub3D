@@ -25,12 +25,12 @@
 
 typedef enum e_key
 {
-	up,
-	down,
+	front,
+	back,
 	left,
 	right,
-	left_rotation,
 	right_rotation,
+	left_rotation,
 }	t_key;
 
 #endif

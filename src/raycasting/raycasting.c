@@ -17,8 +17,8 @@ void	raycasting(t_maze *maze)
 	{
 		wall_point = find_wall_point(maze, normalize_angle(current_angle));
 		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), normalize_angle(current_angle));
-		if (distance < 0.1)
-			distance = 0.1;
+		// if (distance < 0.1)
+		// 	distance = 0.1;
 		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
 		draw_wall(maze, wall_point, wall_height, x);
 		// printf("WALL POINT x(%f) / y(%f)\n", wall_point.x, wall_point.y);

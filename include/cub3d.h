@@ -41,15 +41,15 @@
 # define _USE_MATH_DEFINES
 
 # define HEIGHT 880
-# define WIDTH 880
-# define TILE_SIZE 64.0
+# define WIDTH 1000
+# define TILE_SIZE 30.0
 
 # define ROTATION_SPEED 0.025
 # define PLAYER_SPEED 1
 
 # define FOV 60.0
-// # define FOV_RADIANS 1.0472
-# define FOV_RADIANS ((FOV) * M_PI) / 180.0
+# define FOV_RADIANS 1.0472
+// # define FOV_RADIANS ((FOV) * M_PI) / 180.0
 
 typedef enum e_direction t_dir;
 typedef enum e_key t_key;
