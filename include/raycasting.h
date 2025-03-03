@@ -4,13 +4,12 @@
 # include "cub3d.h"
 # include <stdbool.h>
 
-
 typedef enum e_direction
 {
-	up,
-	down,
-	left,
-	right
+	facing_up,
+	facing_down,
+	facing_left,
+	facing_right
 }			t_dir;
 
 typedef struct s_maze t_maze;

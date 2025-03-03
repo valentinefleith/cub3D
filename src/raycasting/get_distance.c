@@ -6,7 +6,6 @@ double	get_wall_distance(t_vector player_point, t_vector wall_point, double play
 	double	distance;
 
 	distance = compute_distance(player_point, wall_point);
-	// distance = distance * pow(cos(current_angle - player_angle), 0.9);
 	distance = distance * cos(current_angle - player_angle); // correct fish-eye
 	return (distance);
 }

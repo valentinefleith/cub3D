@@ -12,11 +12,12 @@
 
 #include "cub3d.h"
 
-int free_window(t_maze* maze) {
+int free_window(t_maze* maze)
+{
 	mlx_destroy_window(maze->mlx, maze->win);
 	mlx_destroy_display(maze->mlx);
 	free(maze->mlx);
-	return SUCCESS;
+	return 0;
 }
 
 int exit_program(t_maze *maze)
@@ -25,7 +26,7 @@ int exit_program(t_maze *maze)
 	mlx_destroy_image(maze->mlx, maze->texture.img);
 	free_window(maze);
 	free_map(maze->map);
-	exit(SUCCESS);
+	exit(0);
 	return SUCCESS;
 }
 

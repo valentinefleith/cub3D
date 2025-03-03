@@ -12,60 +12,33 @@
 
 #include "cub3d.h"
 
-static void	setup_texture(t_maze *maze, t_vector wall_point)
+static double	setup_texture_coord(t_maze *maze, t_vector wall_point, double wall_height)
 {
-	printf("orientation = %d\n", maze->texture.orientation);
+	double	pixel_scaling;
 	// Determiner la position exacte où le rayon frappe le mur == position relative
 	if (maze->texture.orientation == 1) // Point d'intersection du mur etait à l'horizontal
-		maze->texture.x = fmodf(wall_point.x * (maze->texture.width / TILE_SIZE), maze->texture.width);
+		maze->texture.x = fmodf(wall_point.x * (double)(maze->texture.width / TILE_SIZE), (double)maze->texture.width);
 	else
-		maze->texture.x = fmodf(wall_point.y * (maze->texture.width / TILE_SIZE), maze->texture.width);
+		maze->texture.x = fmodf(wall_point.y * (double)(maze->texture.width / TILE_SIZE), (double)maze->texture.width);
 	// Inverse la texture selon la direction du joueur
 	// if (angle > 0)
 		// maze->texture.x = maze->texture.width - maze->texture.x - 1;
 	// else if (angle < 0)
 	// 	maze->texture.x = maze->texture.width - maze->texture.x - 1;
-	if (maze->texture.x < 0)
-		maze->texture.x += maze->texture.width;
-}
-
-// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
-static int	get_px_color(t_img texture, int x, int y)
-{
-	uint8_t *pixel;
-
-	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
-	return *(int32_t *)pixel;
-	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
-}
-
-static void	draw_floor(t_maze *maze, int x, int start)
-{
-	while (start < HEIGHT)
-	{
-		my_mlx_pixel_put(&(maze->img), x, start, GREEN);
-		start++;
-	}
-}
-
-static void	draw_ceilling(t_maze *maze, int x, int end)
-{
-	int	start;
-
-	start = 0;
-	while (start < end)
-	{
-		my_mlx_pixel_put(&(maze->img), x, start, BLUE);
-		start++;
-	}
+	// if (maze->texture.x < 0)
+	// 	maze->texture.x += (double)maze->texture.width;
+	// On veut trouver la position dans la texture et scale selon la hauteur de la ligne à dessinner
+	maze->texture.y = 0;
+	pixel_scaling = (double)maze->texture.height / wall_height;
+	return (pixel_scaling);
 }
 
 void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 {
 	int		y;
 	int		end_y;
-	double	scale;
 	int		px_color;
+	double	scale;
 
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
@@ -76,13 +49,8 @@ void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
-	// Trouver la position relative du point horizontal à dessinner, et bien-sur scale avec la taille de la texture
-	setup_texture(maze, wall_point);
-	// On veut trouver la position dans la texture et scale selon la hauteur de la ligne à dessinner
-	scale = (double)maze->texture.height / wall_height;
-	maze->texture.y = 0;
+	scale = setup_texture_coord(maze, wall_point, wall_height);
 	draw_ceilling(maze, x, y);
-	printf("x = %f(%d) // y = %f(%d) / scale %f\n", maze->texture.x, (int)maze->texture.x, maze->texture.y, (int)maze->texture.y, scale);
 	while (y < end_y)
 	{
 		px_color = get_px_color(maze->texture, maze->texture.x, maze->texture.y);
@@ -93,103 +61,35 @@ void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 		y++;
 	}
 	draw_floor(maze, x, end_y);
-	printf("x = %f(%d) // y = %f(%d)\n", maze->texture.x, (int)maze->texture.x, maze->texture.y, (int)maze->texture.y);
 }
 
-
-void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
-		int height, int color)
+// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
+int	get_px_color(t_img texture, int x, int y)
 {
-	int	start_i;
-	int	start_j;
+	uint8_t *pixel;
 
-	start_i = center_pos.x - (width / 2);
-	start_j = center_pos.y - (height / 2);
-	for (int i = start_i; i < start_i + width; i++)
+	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
+	return *(int32_t *)pixel;
+	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+}
+
+void	draw_floor(t_maze *maze, int x, int start)
+{
+	while (start < HEIGHT)
 	{
-		for (int j = start_j; j < start_j + height; j++)
-		{
-			my_mlx_pixel_put(&(maze->img), i, j, color);
-		}
+		my_mlx_pixel_put(&(maze->img), x, start, GREY);
+		start++;
 	}
 }
 
-void	draw_line(t_maze *maze, t_position start, t_position end, int color)
+void	draw_ceilling(t_maze *maze, int x, int end)
 {
-	int	delta_x;
-	int	delta_y;
-	int	step_x;
-	int	step_y;
-	int	error;
-	int	error2;
+	int	start;
 
-	delta_x = abs(end.x - start.x);
-	delta_y = abs(end.y - start.y);
-	if (start.x < end.x)
-		step_x = 1;
-	else
-		step_x = -1;
-	if (start.y < end.y)
-		step_y = 1;
-	else
-		step_y = -1;
-	error = delta_x - delta_y;
-	while (start.x != end.x || start.y != end.y)
+	start = 0;
+	while (start < end)
 	{
-		my_mlx_pixel_put(&(maze->img), start.x, start.y, color);
-		error2 = 2 * error;
-		if (error2 > -delta_y)
-		{
-			error -= delta_y;
-			start.x += step_x;
-		}
-		if (error2 < delta_x)
-		{
-			error += delta_x;
-			start.y += step_y;
-		}
+		my_mlx_pixel_put(&(maze->img), x, start, BLACK);
+		start++;
 	}
-}
-
-void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size, int color)
-{
-	t_position	endpoint;
-
-	endpoint.y = point.y + (int)(size * sin(angle));
-	endpoint.x = point.x + (int)(size * cos(angle));
-	// printf("ENDPOINT.X = %d // ENDPOINT.Y = %d // ANGLE = %f\n", endpoint.y, endpoint.x, angle);
-	if (point.y < 0 || point.x > WIDTH || point.x < 0 || point.y > HEIGHT || endpoint.y < 0 || endpoint.y > HEIGHT)
-		return ;
-	draw_line(maze, point, endpoint, color);
-}
-
-void draw_grid(t_maze *maze)
-{
-	t_position start;
-	start.x = 0;
-	start.y = 0;
-
-	t_position end;
-	end.x = 0;
-	end.y = HEIGHT;
-
-	while (start.x <= WIDTH) {
-		draw_line(maze, start, end, BLACK);
-		start.x += TILE_SIZE;
-		end.x += TILE_SIZE;
-	}
-
-	start.x = 0;
-	start.y = 0;
-
-	end.x = WIDTH;
-	end.y = 0;
-
-	while (start.y <= HEIGHT) {
-		draw_line(maze, start, end, BLACK);
-		start.y += TILE_SIZE;
-		end.y += TILE_SIZE;
-	}
-
 }

@@ -25,8 +25,27 @@
 # define INVALID 7
 # define RANGE_RGB 8
 
-typedef struct s_map t_map;
-typedef struct s_dimensions t_dimensions;
+typedef struct s_dimensions
+{
+	int			height;
+	int			width;
+} t_dimensions;
+
+typedef struct s_map
+{
+	char		**maze;
+	// player's start direction (N,S,W,E)
+	char		start_dir;
+	// player's coordinates
+	int			p_x;
+	int			p_y;
+	// maze's size
+	t_dimensions dimensions;
+	// colors in RGB and path for wall's textures
+	int			floor[3];
+	int			celling[3];
+	char		**textures_path;
+}				t_map;
 
 /* map_init.c */
 

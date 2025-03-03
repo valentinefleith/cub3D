@@ -7,7 +7,7 @@ int	init_map(int args, char *filename, t_map *map)
 
 	if (args != 2)
 		return (map_error(MISSING_MAP));
-	if (check_filename_validity(filename))
+	if (!check_filename_validity(filename))
 		return (KO);
 	map->textures_path = init_tab(4); 
 	if (parsing_env_map_data(filename, map) != SUCCESS)

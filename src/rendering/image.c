@@ -21,36 +21,51 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	render_one_frame(t_maze *maze, bool initialization)
+t_img	init_img_struct(void)
 {
 	t_img	img;
-	t_img	texture;
 
-	if (!initialization)
-	{
-		mlx_destroy_image(maze->mlx, maze->img.img);
-	}
-	else
-	{
-		texture.img = mlx_xpm_file_to_image(maze->mlx, "./assets/woman.xpm", &texture.width, &texture.height);
-		if (!texture.img)
-		{
-			free_window(maze);
-			return (MLX_ERROR);
-		}
-		texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
-		maze->texture = texture;
-	}
-	img.img = mlx_new_image(maze->mlx, WIDTH, HEIGHT);
+	img.img = NULL; 
+	img.addr = NULL;
+	img.bits_per_pixel = 0;
+	img.line_length = 0;
+	img.endian = 0;
+	img.width = 0;
+	img.height = 0;
+	img.x = 0;
+	img.y = 0;
+	img.orientation = 0;
+	return (img);
+}
+
+t_img	init_textures(t_maze *game)
+{
+	t_img	textures;
+
+	textures.img = mlx_xpm_file_to_image(game->mlx, "./assets/south.xpm", &textures.width, &textures.height);
+	if (!textures.img)
+		exit_program(game); // TODO : add error msg
+	textures.addr = mlx_get_data_addr(textures.img, &textures.bits_per_pixel, &textures.line_length,
+		&textures.endian);
+	return (textures);
+}
+
+int	render_one_frame(t_maze *game, bool init)
+{
+	t_img	img;
+
+	if (!init)
+		mlx_destroy_image(game->mlx, game->img.img);
+	img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!img.img)
 	{
-		free_window(maze);
+		free_window(game);
 		return (MLX_ERROR);
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
-	maze->img = img;
-	raycasting(maze);
-	mlx_put_image_to_window(maze->mlx, maze->win, img.img, 0, 0);
+	game->img = img;
+	raycasting(game);
+	mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0);
 	return (SUCCESS);
 }

@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 21:28:56 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 22:17:17 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 22:00:55 by vafleith          #+#    #+#             */
+/*   Updated: 2025/02/11 20:26:02 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
+#include "player.h"
 
-void init_hook(t_maze *maze)
+// For now, position's hardcoded
+
+void init_player_pos(t_maze* maze)
 {
-	mlx_hook(maze->win, 17, 0, exit_program, maze);
-	mlx_hook(maze->win, KeyRelease, KeyReleaseMask, &key_events, maze);
-	// mlx_key_hook(maze->win, key_events, maze);
+	t_player	player;
+	t_vector	position;
+
+	// player.key_pressed = none;
+	position.x = 2 * TILE_SIZE + TILE_SIZE / 2;
+	position.y = 2 * TILE_SIZE + TILE_SIZE / 2;
+	player.pos = position;
+	player.looking_angle = M_PI;
+	maze->player = player;
+	init_keys(maze);
 }

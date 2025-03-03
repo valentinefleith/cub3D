@@ -18,8 +18,9 @@
 # include "map.h"
 # include "keycodes.h"
 # include "colors.h"
-# include "player.h"
+// # include "player.h"
 # include "raycasting.h"
+# include "rendering.h"
 
 # include <math.h>
 # include <mlx.h>
@@ -32,74 +33,42 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define SUCCESS 0
-# define KO 1
+// # define SUCCESS 0 // if cause problem and KO 1
+# define SUCCESS 1
+# define KO 0
 # define MLX_ERROR 2
+
+# define _USE_MATH_DEFINES
 
 # define HEIGHT 880
 # define WIDTH 880
-// # define HEIGHT 960
-// # define WIDTH 1620
+# define TILE_SIZE 64.0
 
+# define ROTATION_SPEED 0.025
+# define PLAYER_SPEED 1
 
-# define _USE_MATH_DEFINES
-# define ROTATION_SPEED 0.045
-# define PLAYER_SPEED 4
+# define FOV 60.0
+// # define FOV_RADIANS 1.0472
+# define FOV_RADIANS ((FOV) * M_PI) / 180.0
 
-# define FOV 60
-# define FOV_RADIANS 1.0472
-// # define FOV_RADIANS (FOV * M_PI) / 180
-
-#define TILE_SIZE 64
+typedef enum e_direction t_dir;
+typedef enum e_key t_key;
+typedef struct s_map t_map;
+typedef struct s_img t_img;
 
 typedef struct s_vector
 {
-	double x;
-	double y;
-}			t_vector;
+	double		x;
+	double		y;
+}				t_vector;
 
 typedef struct s_player
 {
-	t_vector	pos;
 	double		looking_angle;
-	// RAJOUTER PLUS TARD: angle de vue etc.
-}		t_player;
-
-typedef struct s_img
-{
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			width;
-	int			height;
-	double			x;
-	double			y;
-	int			orientation;
-}				t_img;
-
-typedef struct s_dimensions
-{
-	int			height;
-	int			width;
-} t_dimensions;
-
-typedef struct s_map
-{
-	char		**maze;
-	// player's start direction (N,S,W,E)
-	char		start_dir;
-	// player's coordinates
-	int			p_x;
-	int			p_y;
-	// maze's size
-	t_dimensions dimensions;
-	// colors in RGB and path for wall's textures
-	int			floor[3];
-	int			celling[3];
-	char		**textures_path;
-}				t_map;
+	t_vector	pos;
+	// t_key		key_pressed;
+	bool		keys_pressed[6];
+}				t_player;
 
 typedef struct s_maze
 {
@@ -116,33 +85,25 @@ typedef struct s_point
 {
 	int			x;
 	int			y;
-}			t_point;
+}				t_point;
 
-void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x);
-// void	draw_wall(t_maze *maze, double wall_height, int slice);
-int render_one_frame(t_maze *maze, bool initialization);
-void init_hook(t_maze *maze);
-void init_player_pos(t_maze* maze);
-int free_window(t_maze* maze);
-int exit_program(t_maze *maze);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-// void raycasting(t_maze *maze);
-int key_events(int keycode, t_maze *maze);
+int				game_loop(t_maze *game);
 
+/* CONTROL *******************************************************************/
+
+int 			free_window(t_maze* maze);
+int				exit_program(t_maze *maze);
+
+int				key_press(int keycode, t_maze *game);
+int				key_release(int keycode, t_maze *game);
+
+int				update_player_pos(t_maze *game);
+int				init_keys(t_maze *game);
+
+void			init_player_pos(t_maze* maze);
 
 /* DEBUG must delete later */
 void		debug_textures_path(char **tab);
 void 		debug_colors(int floor[3], int ceilling[3]);
-
-
-
-
-void	draw_rectangle(t_maze *maze, t_position center_pos, int width,
-		int height, int color);
-void	draw_line(t_maze *maze, t_position start, t_position end, int color);
-void	draw_line_from_angle(t_maze *maze, t_position point, double angle,
-		int size, int color);
-void draw_grid(t_maze *maze);
-
 
 #endif
