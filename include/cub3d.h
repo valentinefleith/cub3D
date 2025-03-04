@@ -44,7 +44,8 @@
 # define WIDTH 1000
 # define TILE_SIZE 30.0
 
-# define PLAYER_RADIUS (TILE_SIZE / 4)
+// # define PLAYER_RADIUS (TILE_SIZE / 3)
+# define PLAYER_RADIUS 5.0
 # define ROTATION_SPEED 0.025
 # define PLAYER_SPEED 1
 
@@ -53,6 +54,7 @@
 // # define FOV_RADIANS ((FOV) * M_PI) / 180.0
 
 typedef enum e_direction t_dir;
+typedef enum e_orientation t_orient;
 typedef enum e_key t_key;
 typedef struct s_map t_map;
 typedef struct s_img t_img;
@@ -67,7 +69,6 @@ typedef struct s_player
 {
 	double		looking_angle;
 	t_vector	pos;
-	// t_key		key_pressed;
 	bool		keys_pressed[6];
 }				t_player;
 
@@ -76,10 +77,11 @@ typedef struct s_maze
 	void		*mlx;
 	void		*win;
 	t_img 		img;
-	t_img 		texture;
+	t_img 		texture[4];
 	t_player	player;
 	t_map		*map;
 	double		plane_distance;
+	bool		horizontal_point;
 }				t_maze;
 
 typedef struct s_point
@@ -94,6 +96,7 @@ int				game_loop(t_maze *game);
 
 int 			free_window(t_maze* maze);
 int				exit_program(t_maze *maze);
+int				drestroy_textures_img(t_maze *game);
 
 int				init_keys(t_maze *game);
 int				key_press(int keycode, t_maze *game);

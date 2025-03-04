@@ -20,13 +20,33 @@ int free_window(t_maze* maze)
 	return 0;
 }
 
+int	drestroy_textures_img(t_maze *game)
+{
+	int	i;
+
+	i = 0;
+	if (!game || !game->mlx)
+		return (KO);
+	while (i < 4)
+	{
+		if (game->texture[i].img)
+			mlx_destroy_image(game->mlx, game->texture[i].img);
+		i++;
+	}
+	return (SUCCESS);
+}
+
 int exit_program(t_maze *maze)
 {
-	mlx_destroy_image(maze->mlx, maze->img.img);
-	mlx_destroy_image(maze->mlx, maze->texture.img);
-	free_window(maze);
-	free_map(maze->map);
+	if (maze)
+	{
+		if (maze->img.img)
+			mlx_destroy_image(maze->mlx, maze->img.img);
+		drestroy_textures_img(maze);
+		free_window(maze);
+		free_map(maze->map);
+	}
 	exit(0);
-	return SUCCESS;
+	return (SUCCESS);
 }
 

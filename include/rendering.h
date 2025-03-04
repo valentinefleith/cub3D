@@ -17,12 +17,11 @@ typedef struct s_img
 	int		height;
 	double	x;
 	double	y;
-	int		orientation;
 }			t_img;
 
 /* DRAW WALL *****************************************************************/
 
-void		draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x);
+void		draw_wall(t_maze *maze, t_img texture, double wall_height, int x);
 void		draw_floor(t_maze *maze, int x, int start);
 void		draw_ceilling(t_maze *maze, int x, int end);
 int			get_px_color(t_img texture, int x, int y);
@@ -31,8 +30,12 @@ int			get_px_color(t_img texture, int x, int y);
 
 t_img		init_img_struct(void);
 int			render_one_frame(t_maze *game, bool init);
-t_img		init_textures(t_maze *game);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+/* TEXTURE *******************************************************************/
+
+int			init_textures(t_maze *game);
+t_img		setup_texture(t_maze *game, t_vector wall_point, double angle);
 
 /* MINIMAP *******************************************************************/
 

@@ -25,7 +25,7 @@ t_vector get_first_x_point(t_vector player_pos, double angle, t_dir direction)
 	return (first_point);
 }
 
-t_vector get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_vector point)
+t_vector get_point_horizon(t_map *map, double angle, t_dir direction, t_vector point)
 {
 	double	x_step;
 	double	y_step;
@@ -58,7 +58,7 @@ t_vector get_wall_point_horizon(t_map *map, double angle, t_dir direction, t_vec
 
 }
 
-t_vector	get_wall_point_vert(t_map *map, double angle, t_dir direction, t_vector point)
+t_vector	get_point_vert(t_map *map, double angle, t_dir direction, t_vector point)
 {
 	double	x_step;
 	double	y_step;

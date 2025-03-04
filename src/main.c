@@ -38,6 +38,7 @@ int main(int ac, char **av)
 	game.map = &map;
 
 	/* Init game data */
+	game.mlx = NULL;
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return MLX_ERROR;
@@ -48,11 +49,12 @@ int main(int ac, char **av)
 		return MLX_ERROR;
 	}
 	game.img = init_img_struct();
-	game.texture = init_textures(&game);
+	if (!init_textures(&game))
+		exit_program(&game);
 	init_player_pos(&game);
 	game.plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2.0);
-	game_loop(&game);
 	/* Launch game and mlx loop */
+	game_loop(&game);
 
 	/* Destroy mlx and clean program, then exit */
 	free_map(&map);

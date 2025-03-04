@@ -21,7 +21,7 @@ double	compute_distance(t_vector a, t_vector b)
 	return (norm);
 }
 
-t_vector	get_closest_point(t_vector target, t_vector a, t_vector b, int *orientation)
+t_vector	get_closest_point(t_vector target, t_vector a, t_vector b, bool *horizontal)
 {
 	double distance_1;
 	double distance_2;
@@ -30,9 +30,9 @@ t_vector	get_closest_point(t_vector target, t_vector a, t_vector b, int *orienta
 	distance_2 = compute_distance(target, b);
 	if (fmin(distance_1, distance_2) == distance_1)
 	{
-		*orientation = 1;
+		*horizontal = true;
 		return (a);
 	}
-	*orientation = 2;
+	*horizontal = false;
 	return (b);
 }

@@ -46,6 +46,7 @@ RAYCASTING_FILES = raycasting/get_direction.c raycasting/get_distance.c \
 			raycasting/get_point.c raycasting/raycasting.c raycasting/utils.c \
 
 RENDERING_FILES = rendering/draw.c rendering/image.c rendering/minimap.c \
+			rendering/texture.c
 
 SRCS =  main.c debug.c $(PARSING_FILES) $(CONTROL_FILES) $(RAYCASTING_FILES) \
 			 $(RENDERING_FILES)
@@ -66,9 +67,9 @@ all: $(LIBFT) $(GNL) $(NAME) $(MLX)
 ###############################################################################
 	
 $(OBJ_DIR)/%.o: %.c
-	@echo Compiling $<
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+#	@echo Compiling $<
 
 ###############################################################################
 #### linking objects in executable ############################################
