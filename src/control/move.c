@@ -1,39 +1,41 @@
 #include "cub3d.h"
 
-int	init_keys(t_maze *game)
+// player_radius defines a min distance between the wall and the player
+// and ensures that even while moving diagonally we can detect a wall
+static int	detect_wall_collision(char **maze, t_vector new_pos, char x, char y)
 {
-	int	i;
+	t_point	grid;
 
-	if (!game)
+	if (x == '+')
+		grid.x = floor((new_pos.x + PLAYER_RADIUS) / TILE_SIZE);
+	else
+		grid.x = floor((new_pos.x - PLAYER_RADIUS) / TILE_SIZE);
+	if (y == '+')
+		grid.y = floor((new_pos.y + PLAYER_RADIUS) / TILE_SIZE);
+	else
+		grid.y = floor((new_pos.y - PLAYER_RADIUS) / TILE_SIZE);
+	if (maze && maze[grid.y] && maze[grid.y][grid.x] == '1')
 		return (KO);
-	i = 0;
-	while (i < 6)
-	{
-		game->player.keys_pressed[i] = false;
-		i++;
-	}
 	return (SUCCESS);
 }
 
 static int	update_position(t_maze *game, double x_angle, double y_angle, t_vector player_pos)
 {
-	t_point		grid;
 	t_vector	new_pos;
 
-	if (!game)
+	if (!game || !game->map->maze)
 		return (KO);
-	new_pos.x = roundf((x_angle * PLAYER_SPEED) + player_pos.x);
-	new_pos.y = roundf((y_angle * PLAYER_SPEED) + player_pos.y);
-	grid.x = (new_pos.x / TILE_SIZE);
-	grid.y = (new_pos.y / TILE_SIZE);
-	if (grid.y < 0 || grid.x < 0 
-		|| grid.y >= game->map->dimensions.height 
-		|| grid.x >= game->map->dimensions.width)
+	new_pos.x = ((x_angle * PLAYER_SPEED) + player_pos.x);
+	new_pos.y = ((y_angle * PLAYER_SPEED) + player_pos.y);
+	if (!detect_wall_collision(game->map->maze, new_pos, '-', '-')) // grid top left
 		return (KO);
-	if (game->map->maze[grid.y] && game->map->maze[grid.y][grid.x] != '1')
-		game->player.pos = new_pos;
-	else
+	if (!detect_wall_collision(game->map->maze, new_pos, '+', '-')) // grid top right
 		return (KO);
+	if (!detect_wall_collision(game->map->maze, new_pos, '-', '+')) // grid bottom left
+		return (KO);
+	if (!detect_wall_collision(game->map->maze, new_pos, '+', '+')) // grid bottom right
+		return (KO);
+	game->player.pos = new_pos;
 	render_one_frame(game, false);
 	return (SUCCESS);
 }
@@ -63,7 +65,6 @@ static int rotate_player(t_maze *game, int key_pressed)
 		game->player.looking_angle += ROTATION_SPEED;
 		if (game->player.looking_angle > 2.0 * M_PI)
 			game->player.looking_angle -= 2.0 * M_PI;
-		// game->player.keys_pressed[left_rotation] = false;
 		return (render_one_frame(game, false));
 	}
 	else if (key_pressed == left_rotation)
@@ -71,29 +72,10 @@ static int rotate_player(t_maze *game, int key_pressed)
 		game->player.looking_angle -= ROTATION_SPEED;
 		if (game->player.looking_angle < 0)
 			game->player.looking_angle += 2.0 * M_PI;
-		// game->player.keys_pressed[right_rotation] = false;
 		return (render_one_frame(game, false));
 	}
 	return (KO);
 }
-
-// static void debug_player(t_maze *game)
-// {
-// 	if (game->player.key_pressed == none)
-// 		printf("key is NONE\n");
-// 	if (game->player.key_pressed == up)
-// 		printf("key is UP\n");
-// 	if (game->player.key_pressed == down)
-// 		printf("key is DOWN\n");
-// 	if (game->player.key_pressed == left)
-// 		printf("key is LEFT\n");
-// 	if (game->player.key_pressed == right)
-// 		printf("key is RIGHT\n");
-// 	if (game->player.key_pressed == left_rotation)
-// 		printf("key is LEFT_ROTATION\n");
-// 	if (game->player.key_pressed == right_rotation)
-// 		printf("key is RIGHT_ROTATION\n");
-// }
 
 int	update_player_pos(t_maze *game)
 {
@@ -111,15 +93,3 @@ int	update_player_pos(t_maze *game)
 		rotate_player(game, left_rotation);
 	return (SUCCESS);
 }
-
-// int key_press(int keycode, t_maze *maze)
-// {
-// 	if (keycode == XK_s || keycode == XK_w || keycode == XK_a || keycode == XK_d)
-// 		move_player(maze, maze->player.looking_angle, keycode);
-// 		// return (move_player(maze, maze->player.looking_angle, keycode));
-// 	if (keycode == XK_Right || keycode == XK_Left)
-// 		rotate_player(maze, keycode);
-// 		// return (rotate_player(maze, keycode));
-// 	render_one_frame(maze);
-// 	return 0;
-// }

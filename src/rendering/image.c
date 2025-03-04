@@ -42,7 +42,7 @@ t_img	init_textures(t_maze *game)
 {
 	t_img	textures;
 
-	textures.img = mlx_xpm_file_to_image(game->mlx, "./assets/south.xpm", &textures.width, &textures.height);
+	textures.img = mlx_xpm_file_to_image(game->mlx, "./assets/woman.xpm", &textures.width, &textures.height);
 	if (!textures.img)
 		exit_program(game); // TODO : add error msg
 	textures.addr = mlx_get_data_addr(textures.img, &textures.bits_per_pixel, &textures.line_length,

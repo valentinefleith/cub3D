@@ -61,11 +61,13 @@ void	draw_wall(t_maze *maze, t_vector wall_point, double wall_height, int x)
 // On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
 int	get_px_color(t_img texture, int x, int y)
 {
-	// uint8_t *pixel;
+	uint8_t *pixel;
 
-	// pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
-	// return *(int32_t *)pixel;
-	return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+	if (x >= WIDTH || x < 0 || y >= HEIGHT || y < 0)
+		return (-1);
+	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
+	return *(int32_t *)pixel;
+	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
 }
 
 void	draw_floor(t_maze *maze, int x, int start)

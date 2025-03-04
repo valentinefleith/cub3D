@@ -44,6 +44,7 @@
 # define WIDTH 1000
 # define TILE_SIZE 30.0
 
+# define PLAYER_RADIUS (TILE_SIZE / 4)
 # define ROTATION_SPEED 0.025
 # define PLAYER_SPEED 1
 
@@ -94,11 +95,11 @@ int				game_loop(t_maze *game);
 int 			free_window(t_maze* maze);
 int				exit_program(t_maze *maze);
 
+int				init_keys(t_maze *game);
 int				key_press(int keycode, t_maze *game);
 int				key_release(int keycode, t_maze *game);
 
 int				update_player_pos(t_maze *game);
-int				init_keys(t_maze *game);
 
 void			init_player_pos(t_maze* maze);
 

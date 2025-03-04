@@ -1,8 +1,6 @@
 #include "cub3d.h"
 #include "raycasting.h"
 
-// angle = atan((pixel_x_coord - half_screen_width) / distance_to_projection_surface).
-
 void	raycasting(t_maze *maze)
 {
 	t_vector	wall_point;
@@ -24,7 +22,7 @@ void	raycasting(t_maze *maze)
 		// printf("WALL POINT x(%f) / y(%f)\n", wall_point.x, wall_point.y);
 		// printf("DISTANCE %f\n", distance);
 		// printf("WALL HEIGHT %f\n\n", wall_height);
-		current_angle += FOV_RADIANS / WIDTH;
+		current_angle += FOV_RADIANS / (double)WIDTH;
 		x++;
 	}
 }
