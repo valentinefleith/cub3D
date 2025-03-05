@@ -62,7 +62,7 @@ int	get_px_color(t_img texture, int x, int y)
 {
 	uint8_t *pixel;
 
-	if (x >= WIDTH || x < 0 || y >= HEIGHT || y < 0)
+	if (x > texture.width || x < 0 || y > texture.height || y < 0)
 		return (-1);
 	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
 	return *(int32_t *)pixel;

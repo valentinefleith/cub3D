@@ -1,6 +1,6 @@
 NO ./assets/north.xpm
-SO ./assets/woman.xpm
-WE ./assets/wolf.xpm
+SO ./assets/south.xpm
+WE ./assets/west.xpm
 EA ./assets/east.xpm
 
 F 220,100,0
