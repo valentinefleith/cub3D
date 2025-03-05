@@ -42,6 +42,10 @@ int	key_press(int keycode, t_maze *game)
 		game->player.keys_pressed[right_rotation] = true;
 	else if (keycode == XK_Left)
 		game->player.keys_pressed[left_rotation] = true;
+	else if (keycode == XK_m && !game->minimap_key)
+		game->minimap_key = true;
+	else if (keycode == XK_m && game->minimap_key)
+		game->minimap_key = false;
 	else
 		return (KO);
 	return (SUCCESS);

@@ -11,6 +11,11 @@ void	raycasting(t_maze *maze)
 
 	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2);
 	x = 0;
+	// if (maze->minimap_key)
+	// {
+	// 	minimap(maze);
+	// 	return ;
+	// }
 	while (x < WIDTH)
 	{
 		wall_point = find_wall_point(maze, normalize_angle(current_angle));

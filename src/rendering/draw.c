@@ -12,22 +12,6 @@
 
 #include "cub3d.h"
 
-// static double	setup_texture_coord(t_maze *maze, t_vector wall_point, double wall_height)
-// {
-// 	double	pixel_scaling;
-// 	// Determiner la position exacte où le rayon frappe le mur == position relative
-// 	if (maze->horizontal_point) // Point d'intersection du mur etait à l'horizontal
-// 		maze->texture.x = fmodf(wall_point.x * (double)(maze->texture.width / TILE_SIZE), (double)maze->texture.width);
-// 	else
-// 		maze->texture.x = fmodf(wall_point.y * (double)(maze->texture.width / TILE_SIZE), (double)maze->texture.width);
-// 	if (maze->texture.x < 0)
-// 		maze->texture.x += maze->texture.width;
-// 	// On veut trouver la position dans la texture et scale selon la hauteur de la ligne à dessinner
-// 	maze->texture.y = 0;
-// 	pixel_scaling = (double)maze->texture.height / wall_height;
-// 	return (pixel_scaling);
-// }
-
 void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 {
 	int		y;
@@ -55,18 +39,6 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 		y++;
 	}
 	draw_floor(maze, x, end_y);
-}
-
-// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
-int	get_px_color(t_img texture, int x, int y)
-{
-	uint8_t *pixel;
-
-	if (x > texture.width || x < 0 || y > texture.height || y < 0)
-		return (-1);
-	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
-	return *(int32_t *)pixel;
-	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
 }
 
 void	draw_floor(t_maze *maze, int x, int start)

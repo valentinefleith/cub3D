@@ -42,6 +42,8 @@ int exit_program(t_maze *maze)
 	{
 		if (maze->img.img)
 			mlx_destroy_image(maze->mlx, maze->img.img);
+		if (maze->minimap.img)
+			mlx_destroy_image(maze->mlx, maze->minimap.img);
 		drestroy_textures_img(maze);
 		free_window(maze);
 		free_map(maze->map);

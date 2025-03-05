@@ -13,12 +13,26 @@
 #include "cub3d.h"
 #include <mlx.h>
 
+// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
+int	get_px_color(t_img texture, int x, int y)
+{
+	uint8_t *pixel;
+
+	if (x > texture.width || x < 0 || y > texture.height || y < 0)
+		return (-1);
+	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
+	return *(int32_t *)pixel;
+	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+}
+
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
+	if (!img)
+		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)dst = color; 
 }
 
 t_img	init_img_struct(void)
@@ -51,6 +65,8 @@ int	render_one_frame(t_maze *game, bool init)
 	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
+	if (!img.addr)
+		exit_program(game);
 	game->img = img;
 	raycasting(game);
 	mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0);

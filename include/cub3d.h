@@ -78,6 +78,8 @@ typedef struct s_maze
 	void		*win;
 	t_img 		img;
 	t_img 		texture[4];
+	t_img		minimap;
+	bool		minimap_key;
 	t_player	player;
 	t_map		*map;
 	double		plane_distance;

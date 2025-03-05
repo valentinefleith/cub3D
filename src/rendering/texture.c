@@ -7,9 +7,11 @@ int	init_textures(t_maze *game)
 	if (!game)
 		return (KO);
 	i = 0;
+	while (i++ < 4)
+		game->texture[i] = init_img_struct();
+	i = 0;
 	while (i < 4)
 	{
-		game->texture[i] = init_img_struct();
 		if (!game->map->textures_path[i])
 			return (KO);
 		game->texture[i].img = mlx_xpm_file_to_image(game->mlx, \

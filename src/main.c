@@ -23,6 +23,7 @@ int	game_loop(t_maze *game)
 	mlx_hook(game->win, KeyPress, KeyPressMask, &key_press, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, &key_release, game);
 	mlx_loop_hook(game->mlx, &update_player_pos, game);
+	// mlx_loop_hook(game->mlx, &minimap, game);
 	mlx_loop(game->mlx);
 	return (SUCCESS);
 }
@@ -49,6 +50,8 @@ int main(int ac, char **av)
 		return MLX_ERROR;
 	}
 	game.img = init_img_struct();
+	game.minimap.img = NULL;
+	game.minimap_key = false;
 	if (!init_textures(&game))
 		exit_program(&game);
 	init_player_pos(&game);
