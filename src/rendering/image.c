@@ -50,7 +50,7 @@ int	render_one_frame(t_maze *game, bool init)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
 	if (!img.addr)
-		exit_program(game);
+		exit_program(game, 1);
 	game->img = img;
 	raycasting(game);
 	mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0);

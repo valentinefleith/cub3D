@@ -27,7 +27,7 @@ int	minimap(t_maze *game)
 		mlx_destroy_image(game->mlx, game->minimap.img);
 	minimap.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!minimap.img)
-		return (exit_program(game), KO);
+		return (exit_program(game, 1));
 	minimap.addr = mlx_get_data_addr(minimap.img, &minimap.bits_per_pixel, \
 		&minimap.line_length, &minimap.endian);
 	game->minimap = minimap;
