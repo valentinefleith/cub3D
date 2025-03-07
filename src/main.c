@@ -12,9 +12,6 @@
 
 #include "cub3d.h"
 
-// hook for key press
-	// hook for key realese
-// loop hook for update player position
 int	game_loop(t_maze *game)
 {
 	if (render_one_frame(game, true) == MLX_ERROR)
