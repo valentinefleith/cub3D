@@ -15,10 +15,9 @@
 
 # include "libft.h"
 # include "get_next_line.h"
-# include "map.h"
+# include "parsing.h"
 # include "keycodes.h"
 # include "colors.h"
-// # include "player.h"
 # include "raycasting.h"
 # include "rendering.h"
 
@@ -56,8 +55,18 @@
 typedef enum e_direction t_dir;
 typedef enum e_orientation t_orient;
 typedef enum e_key t_key;
-typedef struct s_map t_map;
+// typedef struct s_map t_map;
 typedef struct s_img t_img;
+
+typedef struct s_map
+{
+	char		**maze;
+	int			width;
+	int			height;
+	int			floor[3];
+	int			celling[3];
+	char		**textures_path;
+}				t_map;
 
 typedef struct s_vector
 {
@@ -79,10 +88,10 @@ typedef struct s_maze
 	t_img 		img;
 	t_img 		texture[4];
 	t_img		minimap;
-	bool		minimap_key;
 	t_player	player;
-	t_map		*map;
+	t_map		map;
 	double		plane_distance;
+	bool		minimap_key;
 	bool		horizontal_point;
 }				t_maze;
 
@@ -96,20 +105,25 @@ int				game_loop(t_maze *game);
 
 /* CONTROL *******************************************************************/
 
+void			print_game_struct(t_maze *game);
+
+// Initialization
+t_maze			game_initialization(void);
+t_map			init_map_struct(void);
+t_player		init_player_struct(void);
+char			**init_tab(int len);
+t_img			init_img_struct(void);
+
+// Exit
 int 			free_window(t_maze* maze);
-int				exit_program(t_maze *maze);
+int				exit_program(t_maze *maze, int error_code);
 int				drestroy_textures_img(t_maze *game);
 
-int				init_keys(t_maze *game);
+// Key events
 int				key_press(int keycode, t_maze *game);
 int				key_release(int keycode, t_maze *game);
 
+// Move
 int				update_player_pos(t_maze *game);
-
-void			init_player_pos(t_maze* maze);
-
-/* DEBUG must delete later */
-void		debug_textures_path(char **tab);
-void 		debug_colors(int floor[3], int ceilling[3]);
 
 #endif

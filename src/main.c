@@ -31,34 +31,17 @@ int	game_loop(t_maze *game)
 int main(int ac, char **av)
 {
 	t_maze	game;
-	t_map	map;
 
-	/* Parsing necessary data */
-	if (init_map(ac, av[1], &map) != SUCCESS)
-		return (KO);
-	game.map = &map;
-
-	/* Init game data */
-	game.mlx = NULL;
+	game = game_initialization();
+	if (!parsing_map_file(ac, av[1], &game.map, &game.player))
+		return (free_map(&game.map), EXIT_FAILURE);
 	game.mlx = mlx_init();
 	if (!game.mlx)
-		return MLX_ERROR;
+		return (exit_program(&game, EXIT_FAILURE));
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
-	if (!game.win) {
-		mlx_destroy_display(game.mlx);
-		free(game.mlx);
-		return MLX_ERROR;
-	}
-	game.img = init_img_struct();
-	game.minimap.img = NULL;
-	game.minimap_key = false;
-	if (!init_textures(&game))
-		exit_program(&game);
-	init_player_pos(&game);
-	game.plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2.0);
-	/* Launch game and mlx loop */
+	if (!game.win)
+		return (exit_program(&game, EXIT_FAILURE));
+	init_textures(&game);
 	game_loop(&game);
-
-	/* Destroy mlx and clean program, then exit */
-	free_map(&map);
+	return (exit_program(&game, 0));
 }

@@ -11,20 +11,47 @@
 /* ************************************************************************** */
 
 # include "cub3d.h"
-#include "player.h"
 
-// For now, position's hardcoded
-
-void init_player_pos(t_maze* maze)
+char	get_player_spawn(t_player *player, int y, int x, char orientation)
 {
-	t_player	player;
-	t_vector	position;
+	player->pos.x = x * TILE_SIZE + TILE_SIZE / 2;
+	player->pos.y = y * TILE_SIZE + TILE_SIZE / 2;
+	if (orientation == 'N')
+		player->looking_angle = 3 * M_PI / 2;
+	if (orientation == 'S')
+		player->looking_angle = M_PI / 2;
+	if (orientation == 'W')
+		player->looking_angle = M_PI;
+	if (orientation  == 'E')
+		player->looking_angle = 0;
+	return (orientation);
+}
 
-	// player.key_pressed = none;
-	position.x = 2 * TILE_SIZE + TILE_SIZE / 2;
-	position.y = 2 * TILE_SIZE + TILE_SIZE / 2;
-	player.pos = position;
-	player.looking_angle = M_PI;
-	maze->player = player;
-	init_keys(maze);
+int	parsing_player(char **maze, t_player *player)
+{
+	int		y;
+	int		x;
+	char	orientation;
+
+	if (!maze || !player)
+		return (map_error(ERROR_MAP));
+	y = 0;
+	orientation = '\0';
+	while (maze[y])
+	{
+		x = 0;
+		while (maze[y][x])
+		{
+			if ((maze[y][x] == 'N' || maze[y][x] == 'S' || maze[y][x] == 'E' 
+				|| maze[y][x] == 'W') && orientation == '\0')
+				orientation = get_player_spawn(player, y, x, maze[y][x]);
+			else if (maze[y][x] != '1' && maze[y][x] != '0')
+				return (map_error(PLAYER));
+			x++;
+		}
+		y++;
+	}
+	if (orientation == '\0')
+		return (map_error(NO_PLAYER));
+	return (SUCCESS);
 }

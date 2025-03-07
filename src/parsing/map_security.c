@@ -1,4 +1,4 @@
-#include "map.h"
+#include "cub3d.h"
 
 int	map_error(int error_code)
 {
@@ -14,9 +14,17 @@ int	map_error(int error_code)
 	else if (error_code == EMPTY_LINE)
 		ft_putendl_fd("> An empty line has been found in the map\e[0m", 2);
 	else if (error_code == INVALID)
-		ft_putendl_fd("> An invalid format or symbol has been detected\e[0m", 2);
+		ft_putendl_fd("> An invalid symbol/format has been detected\e[0m", 2);
 	else if (error_code == RANGE_RGB)
 		ft_putendl_fd("> RGB color's range must be between 0 and 255\e[0m", 2);
+	else if (error_code == EDGES)
+		ft_putendl_fd("> The maze must be closed by walls\e[0m", 2);
+	else if (error_code == NO_MAP)
+		ft_putendl_fd("> No map has been found in the file\e[0m", 2);
+	else if (error_code == PLAYER)
+		ft_putendl_fd("> More than one player has been detected\e[0m", 2);
+	else if (error_code == NO_PLAYER)
+		ft_putendl_fd("> No player has been found\e[0m", 2);
 	return (KO);
 }
 
@@ -24,7 +32,7 @@ int	free_map(t_map *map)
 {
 	if (!map)
 		return (KO);
-	map->textures_path = free_path(map->textures_path);
+	map->textures_path = free_double_tab(map->textures_path);
 	map->maze = free_double_tab(map->maze);
 	return (SUCCESS);
 }
@@ -34,6 +42,8 @@ char	**free_double_tab(char **map)
 	int i;
 
 	i = 0;
+	if (!map)
+		return (NULL);
 	while (map[i])
 	{
 		if (map[i])

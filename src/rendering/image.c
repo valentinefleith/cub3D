@@ -35,22 +35,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color; 
 }
 
-t_img	init_img_struct(void)
-{
-	t_img	img;
-
-	img.img = NULL; 
-	img.addr = NULL;
-	img.bits_per_pixel = 0;
-	img.line_length = 0;
-	img.endian = 0;
-	img.width = 0;
-	img.height = 0;
-	img.x = 0;
-	img.y = 0;
-	return (img);
-}
-
 int	render_one_frame(t_maze *game, bool init)
 {
 	t_img	img;

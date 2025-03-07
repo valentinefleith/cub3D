@@ -37,10 +37,12 @@ RESET = \033[0;m
 #### source files and objects #################################################
 ###############################################################################
 
-PARSING_FILES = parsing/map_init.c parsing/map_parsing.c \
-			parsing/map_security.c parsing/parsing_maze.c parsing/player.c \
+PARSING_FILES = parsing/checking.c parsing/colors.c parsing/map_security.c \
+			parsing/maze.c parsing/parsing_utils.c parsing/parsing.c \
+			parsing/player.c parsing/textures.c \
 
 CONTROL_FILES = control/exit.c control/key_events.c control/move.c \
+			control/initialization.c control/debug.c \
 
 RAYCASTING_FILES = raycasting/get_direction.c raycasting/get_distance.c \
 			raycasting/get_point.c raycasting/raycasting.c raycasting/utils.c \
@@ -48,7 +50,7 @@ RAYCASTING_FILES = raycasting/get_direction.c raycasting/get_distance.c \
 RENDERING_FILES = rendering/draw.c rendering/image.c rendering/minimap.c \
 			rendering/texture.c
 
-SRCS =  main.c debug.c $(PARSING_FILES) $(CONTROL_FILES) $(RAYCASTING_FILES) \
+SRCS =  main.c $(PARSING_FILES) $(CONTROL_FILES) $(RAYCASTING_FILES) \
 			 $(RENDERING_FILES)
 
 

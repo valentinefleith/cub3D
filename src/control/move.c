@@ -23,17 +23,17 @@ static int	update_position(t_maze *game, double x_angle, double y_angle, t_vecto
 {
 	t_vector	new_pos;
 
-	if (!game || !game->map->maze)
+	if (!game || !game->map.maze)
 		return (KO);
 	new_pos.x = ((x_angle * PLAYER_SPEED) + player_pos.x);
 	new_pos.y = ((y_angle * PLAYER_SPEED) + player_pos.y);
-	if (!detect_wall_collision(game->map->maze, new_pos, '-', '-')) // grid top left
+	if (!detect_wall_collision(game->map.maze, new_pos, '-', '-')) // grid top left
 		return (KO);
-	if (!detect_wall_collision(game->map->maze, new_pos, '+', '-')) // grid top right
+	if (!detect_wall_collision(game->map.maze, new_pos, '+', '-')) // grid top right
 		return (KO);
-	if (!detect_wall_collision(game->map->maze, new_pos, '-', '+')) // grid bottom left
+	if (!detect_wall_collision(game->map.maze, new_pos, '-', '+')) // grid bottom left
 		return (KO);
-	if (!detect_wall_collision(game->map->maze, new_pos, '+', '+')) // grid bottom right
+	if (!detect_wall_collision(game->map.maze, new_pos, '+', '+')) // grid bottom right
 		return (KO);
 	game->player.pos = new_pos;
 	render_one_frame(game, false);

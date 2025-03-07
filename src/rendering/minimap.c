@@ -139,13 +139,13 @@ void	draw_fov(t_maze *game)
 
 	i = 0;
 	center_pos.y = MINI_TILE / 2; 
-	while (i < game->map->dimensions.height)
+	while (i < game->map.height)
 	{
 		center_pos.x = MINI_TILE / 2;
 		j = 0;
-		while (j < game->map->dimensions.width)
+		while (j < game->map.width)
 		{
-			if (game->map->maze[i][j] == '1')
+			if (game->map.maze[i][j] == '1')
 				draw_rectangle(game, center_pos, MINI_TILE, MINI_TILE, WHITE);
 			else
 				draw_rectangle(game, center_pos, MINI_TILE, MINI_TILE, GREY);
