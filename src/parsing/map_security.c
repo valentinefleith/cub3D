@@ -1,5 +1,11 @@
 #include "cub3d.h"
 
+static void	map_error_bis(int error_code)
+{
+	if (error_code == DOUBLE_SYMB)
+		ft_putendl_fd("> Multiple lines concern the same symbol/data\e[0m", 2);
+}
+
 int	map_error(int error_code)
 {
 	ft_putendl_fd("\e[1;31mError", 2);
@@ -25,6 +31,7 @@ int	map_error(int error_code)
 		ft_putendl_fd("> More than one player has been detected\e[0m", 2);
 	else if (error_code == NO_PLAYER)
 		ft_putendl_fd("> No player has been found\e[0m", 2);
+	map_error_bis(error_code);
 	return (KO);
 }
 
@@ -59,24 +66,4 @@ char	**free_double_tab(char **map)
 		map = NULL;
 	}
 	return (map);
-}
-
-char	**free_path(char **tab)
-{
-	if (!tab)
-		return (NULL);
-	if (tab[0])
-		free(tab[0]);
-	if (tab[1])
-		free(tab[1]);
-	if (tab[2])
-		free(tab[2]);
-	if (tab[3])
-		free(tab[3]);
-	if (tab)
-	{
-		free(tab);
-		tab = NULL;
-	}
-	return (tab);
 }

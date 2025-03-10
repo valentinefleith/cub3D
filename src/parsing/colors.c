@@ -1,75 +1,106 @@
 # include "cub3d.h"
 
+static uint32_t	convert_hex_color(int *rgb)
+{
+	int			red;
+	int			green;
+	int			blue;
+	uint32_t	result;
+
+	red = rgb[0];
+	green = rgb[1];
+	blue = rgb[2];
+	result = ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff);
+	return (result);
+}
+
+static int	assign_color(t_map *map, char letter, int *rgb)
+{
+	if (letter == 'F' && map->floor_color == 0)
+		map->floor_color = convert_hex_color(rgb);
+	else if (letter == 'C' && map->ceilling_color == 0)
+		map->ceilling_color = convert_hex_color(rgb);
+	else
+	{
+		free(rgb);
+		return (map_error(DOUBLE_SYMB));
+	}
+	free(rgb);
+	return (SUCCESS);
+}
+
 int	parsing_colors(char *line, t_map *map)
 {
 	int		i;
-	int		j;
+	int		index;
 	int		letter;
-	int		color;
+	int		*rgb;
 
-	letter = check_color_symbol(line); // to know if it's for the floor or ceilling color
-	if (!letter && !is_line_empty(line))
-		return (map_error(INVALID), 0); // if nothing has been found = invalid
-	j = 0;
+	letter = check_color_symbol(line);
+	if (letter != 'F' && letter != 'C')
+		return (KO);
+	rgb = malloc(sizeof(int) * 3);
+	if (!rgb)
+		return (map_error(ERROR_MAP));
 	i = 2;
-	if (is_line_empty(line))
-		return (1);
-	while (line[i] && line[i] != '\n')
+	index = 0;
+	while (index < 3)
 	{
-		color = find_color(&line[i]); // finds and converts color in an int
-		if (color < 0 || color > 255)
-			return (map_error(RANGE_RGB), 0);
-		if (letter == 1)
-			map->floor[j] = color;
-		else
-			map->celling[j] = color;
-		j++;
-		while (line && line[i] != ',' && line[i] != '\n') // skip what we've already parsed in find_color()
-			i++;
-		i++;
+		rgb[index] = get_color(line, &i);
+		if (rgb[index] == -1)
+			return (free(rgb), KO);
+		index++;
 	}
-	return (1);
+	if (!assign_color(map, letter, rgb))
+		return (KO);
+	return (SUCCESS);
 }
 
-int	find_color(char *line)
+int	get_color(char *line, int *i)
 {
-	int		i;
 	char	*color;
+	int		result;
+	int		start;
 
-	if (!line)
-		return (-1);
-	i = 0;
 	color = NULL;
-	while (line[i] && line[i] != ',' && line[i] != '\n')
-		i++;
-	if (line && (line[i] == ',' || line[i] == '\n'))
-		color = ft_substr(line, 0, i);
+	start = *i;
+	while (line[*i] && line[*i] != ',' && line[*i] != '\n')
+		*i += 1;
+	if (line[*i] && (line[*i] == ',' || line[*i] == '\n'))
+	{
+		color = ft_substr(line, start, (*i));
+		*i += 1;
+		if (line[*i] && line[*i] == ',')
+			return (free(color), map_error(INVALID), -1);
+	}
 	if (!color)
 		return (-1);
-	i = ft_atoi(color);
+	result = ft_atoi(color);
 	free(color);
-	return (i);
+	if (result < 0 || result > 255)
+		return (map_error(RANGE_RGB), -1);
+	return (result);
 }
 
-int	check_color_symbol(char *line)
+char	check_color_symbol(char *line)
 {
-	int	i;
-	int	letter;
+	int		i;
+	char	letter;
 
 	if (!line)
 		return (0);
 	letter = 0;
-	if (!ft_strncmp(line, "F ", 2))
-		letter = 1;
-	else if (!ft_strncmp(line, "C ", 2))
-		letter = 2;
+	if (line[0] == 'F' || line[0] == 'C')
+		letter = line[0];
 	else
 		return (0);
+	if (line[1] != ' ')
+		return (map_error(INVALID));
 	i = 2;
 	while (line[i])
 	{
-		if (ft_isdigit(line[i]) && line[i] != ',' && line[i] == '\n')
-			return (0);
+		if (!ft_isdigit(line[i]) && line[i] != ',' && line[i] != '\n')
+			return (map_error(INVALID));
 		i++;
 	}
 	return (letter);

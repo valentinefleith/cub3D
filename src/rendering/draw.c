@@ -45,7 +45,7 @@ void	draw_floor(t_maze *maze, int x, int start)
 {
 	while (start < HEIGHT)
 	{
-		my_mlx_pixel_put(&(maze->img), x, start, GREY);
+		my_mlx_pixel_put(&(maze->img), x, start, maze->map.floor_color);
 		start++;
 	}
 }
@@ -57,7 +57,7 @@ void	draw_ceilling(t_maze *maze, int x, int end)
 	start = 0;
 	while (start < end)
 	{
-		my_mlx_pixel_put(&(maze->img), x, start, BLACK);
+		my_mlx_pixel_put(&(maze->img), x, start, maze->map.ceilling_color);
 		start++;
 	}
 }

@@ -55,18 +55,12 @@ t_player	init_player_struct(void)
 t_map	init_map_struct(void)
 {
 	t_map	map;
-	int		i;
 
 	map.maze = NULL;
 	map.width = 0;
 	map.height = 0;
-	i = 0;
-	while (i < 3)
-	{
-		map.floor[i] = 0;
-		map.celling[i] = 0;
-		i++;
-	}
+	map.floor_color = 0;
+	map.ceilling_color = 0;
 	map.textures_path = init_tab(4);
 	return (map);
 }

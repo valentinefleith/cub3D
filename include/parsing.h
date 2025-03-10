@@ -46,8 +46,8 @@ char	**free_path(char **tab);
 /* COLORS ********************************************************************/
 
 int		parsing_colors(char *line, t_map *map);
-int		find_color(char *line);
-int		check_color_symbol(char *line);
+int		get_color(char *line, int *i);
+char	check_color_symbol(char *line);
 
 /* MAZE **********************************************************************/
 

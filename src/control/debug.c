@@ -36,6 +36,8 @@ static void print_map_struct(t_map map)
 	printf("game->map -> \n");
 	printf("map.width == %d\n", map.width);
 	printf("map.height == %d\n", map.height);
+	printf("map.floor_color == %d\n", map.floor_color);
+	printf("map.ceilling_color == %d\n", map.ceilling_color);
 	i = 0;
 	while (i < 4)
 	{

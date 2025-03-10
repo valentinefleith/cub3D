@@ -63,8 +63,8 @@ typedef struct s_map
 	char		**maze;
 	int			width;
 	int			height;
-	int			floor[3];
-	int			celling[3];
+	uint32_t	floor_color;
+	uint32_t	ceilling_color;	
 	char		**textures_path;
 }				t_map;
 
