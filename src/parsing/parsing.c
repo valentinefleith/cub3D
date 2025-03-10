@@ -30,37 +30,6 @@ int	parsing_map_file(int args, char *filename, t_map *map, t_player *player)
 	return (KO);
 }
 
-// int	parsing_env_map_data(char *filename, t_map *map)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	if (!filename || !map || !map->textures_path)
-// 		return (map_error(ERROR_MAP), KO);
-// 	line = NULL;
-// 	fd = open(filename, O_RDONLY);
-// 	if (fd == -1)
-// 		return (map_error(FILE_MAP), KO);
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 			return (map_error(NO_MAP), close(fd), KO);
-// 		if (check_maze_valid_symbol(line, false)) // The loop stops when it's maze content
-// 			break ;
-// 		if (is_line_empty(line))
-// 			return (SUCCESS);
-// 		if (!parsing_textures_path(line, map)) // assign texture's path in map's struct
-// 		{
-// 			if (!parsing_colors(line, map))  // assign RGB colors in map's struct
-// 				return (free(line), close(fd), KO);
-// 		}
-// 		free(line);
-// 	}
-// 	map->height = get_maze_size(fd, line, &map->width);
-// 	return (close(fd), free(line), SUCCESS);
-// }
-
 int	parsing_env_map_data(char *filename, t_map *map)
 {
 	int		fd;
@@ -69,6 +38,8 @@ int	parsing_env_map_data(char *filename, t_map *map)
 	if (!filename || !map || !map->textures_path)
 		return (map_error(ERROR_MAP), KO);
 	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (map_error(FILE_MAP));
 	line = read_file(fd);
 	while (!check_maze_valid_symbol(line, false))
 	{
@@ -77,7 +48,7 @@ int	parsing_env_map_data(char *filename, t_map *map)
 			if (!parsing_textures_path(line, map)) // assign texture's path in map's struct
 			{
 				if (!parsing_colors(line, map))  // assign RGB colors in map's struct
-					return (free(line), close(fd), KO);
+					return (free(line), close(fd), map_error(INVALID));
 			}
 		}
 		free(line);

@@ -4,6 +4,16 @@ static void	map_error_bis(int error_code)
 {
 	if (error_code == DOUBLE_SYMB)
 		ft_putendl_fd("> Multiple lines concern the same symbol/data\e[0m", 2);
+	else if (error_code == DIRECTORY)
+		ft_putendl_fd("> The map file is a directory\e[0m", 2);
+	else if (error_code == MISS_TEXT)
+		ft_putendl_fd("> Texture's path is missing\e[0m", 2);
+	else if (error_code == MISS_COLOR)
+		ft_putendl_fd("> Color information about floor or ceilling is missing\e[0m", 2);
+	else if (error_code == INEXISTANT)
+		ft_putendl_fd("> Texture's path doesn't exist\e[0m", 2);
+	else if (error_code == TEXT_EXTENSION)
+		ft_putendl_fd("> Texture's extension must be *.xpm\e[0m", 2);
 }
 
 int	map_error(int error_code)

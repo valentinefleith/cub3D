@@ -3,11 +3,21 @@
 /* Add more security with recoder la fonction python endswith()*/
 int	check_filename_validity(char *filename)
 {
+	int	fd;
+	int	len;
+
 	if (!filename)
 		return (map_error(ERROR_MAP), KO);
-	if (!ft_strnstr(filename, ".cub", ft_strlen(filename)) 
-		|| filename[ft_strlen(filename) - 1] != 'b')
-		return (map_error(NAME_MAP), KO);
+	len = ft_strlen(filename);
+	if (filename[len - 1] != 'b' || filename[len - 2] != 'u' 
+		|| filename[len - 3] != 'c' || filename[len - 4] != '.')
+		return (map_error(NAME_MAP));
+	fd = open(filename, __O_DIRECTORY);
+	if (fd >= 0)
+	{
+		close(fd);
+		return (map_error(DIRECTORY));
+	}
 	return (SUCCESS);
 }
 

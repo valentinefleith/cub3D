@@ -8,7 +8,6 @@
 # define ERROR_MAP 2 // General error like a NULL pointer
 # define NAME_MAP 3
 # define FILE_MAP 4
-
 # define EMPTY_LINE 5
 # define DOUBLE_SYMB 6
 # define INVALID 7
@@ -17,6 +16,11 @@
 # define NO_MAP 10
 # define NO_PLAYER 11
 # define PLAYER 12
+# define DIRECTORY 13
+# define INEXISTANT 14
+# define MISS_TEXT 15
+# define MISS_COLOR 16
+# define TEXT_EXTENSION 17
 
 typedef struct s_map t_map;
 typedef struct s_maze t_maze;
