@@ -20,5 +20,7 @@
 # define YELLOW 0x00FFFFE0
 # define BLUE 0x00ADD8E6
 # define GREEN 0x0090EE90
+# define PURPLE 0x781391
+# define PINK 0xDC86F2
 
 #endif

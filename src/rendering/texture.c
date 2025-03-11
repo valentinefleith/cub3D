@@ -29,10 +29,6 @@ t_img	setup_texture(t_maze *game, t_vector wall_point, double angle)
 		else
 			texture = game->texture[south];
 	}
-	// if (!game->horizontal_point && get_horizontal_direction(angle) == facing_up)
-	// 	printf("x = %f(%d) // south -> angle %f\n", wall_point.x, (int)(wall_point.x / TILE_SIZE), angle);
-	// else
-	// 	printf("x = %f(%d) // north -> angle %f\n", wall_point.x, (int)(wall_point.x / TILE_SIZE), angle);
 	setup_x_coord(&texture, wall_point, game->horizontal_point);
 	return (texture);
 }

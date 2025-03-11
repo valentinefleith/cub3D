@@ -21,8 +21,7 @@ int	get_px_color(t_img texture, int x, int y)
 	if (x > texture.width || x < 0 || y > texture.height || y < 0)
 		return (-1);
 	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
-	return *(int32_t *)pixel;
-	// return (*(int *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8))));
+	return (*(int32_t *)pixel);
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)

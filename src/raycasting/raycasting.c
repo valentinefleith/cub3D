@@ -11,20 +11,19 @@ void	raycasting(t_maze *maze)
 
 	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2);
 	x = 0;
-	// if (maze->minimap_key)
-	// {
-	// 	minimap(maze);
-	// 	return ;
-	// }
 	while (x < WIDTH)
 	{
 		wall_point = find_wall_point(maze, normalize_angle(current_angle));
 		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), normalize_angle(current_angle));
 		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
 		draw_wall(maze, setup_texture(maze, wall_point, current_angle), wall_height, x);
-		// draw_wall(maze, wall_point, wall_height, x);
 		current_angle += FOV_RADIANS / (double)WIDTH;
 		x++;
+	}
+	if (maze->minimap_key)
+	{
+		draw_minimap(maze);
+		// draw_line_from_angle(maze, maze->player.pos, current_angle, distance, YELLOW);
 	}
 }
 

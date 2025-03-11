@@ -3,8 +3,8 @@ SO ./assets/shades_south.xpm
 WE ./assets/shades_west.xpm
 EA ./assets/shades_east.xpm
 
-F 220,100,0
-C 225,30,0
+C 62,70,186
+F 123,131,249
 
   
         11111111111111111111111111

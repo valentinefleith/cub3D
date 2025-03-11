@@ -25,14 +25,14 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
-	// texture = get_texture(maze);
-	// scale = setup_texture_coord(maze, wall_point, wall_height);
 	scale = (double)texture.height / wall_height;
 	draw_ceilling(maze, x, y);
 	texture.y = ((double)y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
 	while (y < end_y)
 	{
 		px_color = get_px_color(texture, texture.x, texture.y);
+		// if (wall_height < 90.0 && !maze->horizontal_point)
+		// 	px_color = (px_color >> 1) & 8355711;
 		if (px_color > 0)
 			my_mlx_pixel_put(&(maze->img), x, y, px_color);
 		texture.y += scale;

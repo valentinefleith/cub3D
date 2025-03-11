@@ -32,7 +32,6 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-// # define SUCCESS 0 // if cause problem and KO 1
 # define SUCCESS 1
 # define KO 0
 # define MLX_ERROR 2
@@ -42,6 +41,7 @@
 # define HEIGHT 880
 # define WIDTH 1000
 # define TILE_SIZE 30.0
+# define MINI_TILE TILE_SIZE / 2
 
 // # define PLAYER_RADIUS (TILE_SIZE / 3)
 # define PLAYER_RADIUS 5.0
@@ -55,7 +55,6 @@
 typedef enum e_direction t_dir;
 typedef enum e_orientation t_orient;
 typedef enum e_key t_key;
-// typedef struct s_map t_map;
 typedef struct s_img t_img;
 
 typedef struct s_map

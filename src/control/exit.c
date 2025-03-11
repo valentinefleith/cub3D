@@ -52,7 +52,7 @@ int exit_program(t_maze *maze, int exit_code)
 		free_window(maze);
 		free_map(&maze->map);
 	}
-	if (exit_code != 1 || exit_code != 0)
+	if (exit_code != 1 && exit_code != 0)
 		exit_code = 0;
 	exit(exit_code);
 	return (EXIT_FAILURE);

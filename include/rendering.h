@@ -3,10 +3,6 @@
 
 # include "cub3d.h"
 
-# define MINI_WIDTH 500
-# define MINI_HEIGHT 440
-# define MINI_TILE 10
-
 typedef struct s_point t_point;
 typedef struct s_maze t_maze;
 
@@ -52,10 +48,12 @@ t_img		setup_texture(t_maze *game, t_vector wall_point, double angle);
 /* MINIMAP *******************************************************************/
 
 int	minimap(t_maze *game);
+void	draw_minimap(t_maze *game);
+void	draw_player(t_maze *game);
 void		draw_rectangle(t_maze *maze, t_point center_pos, int width,
 			int height, int color);
 void		draw_line(t_maze *maze, t_point start, t_point end, int color);
-void		draw_line_from_angle(t_maze *maze, t_point point, double angle,
-			int size, int color);
+void		draw_line_from_angle(t_maze *maze, t_vector point, double angle,
+			double size, int color);
 void 		draw_grid(t_maze *maze);
 #endif

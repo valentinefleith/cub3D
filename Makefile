@@ -140,4 +140,4 @@ valgrind_command:  $(LIBFT) $(GNL) $(MLX) $(NAME)
 
 giga_valgrind_command:  $(LIBFT) $(GNL) $(MLX) $(NAME)
 	@valgrind --leak-check=full --show-leak-kinds=all \
-	./$(NAME) map/mini.cub
+	./$(NAME) map/valid.cub
