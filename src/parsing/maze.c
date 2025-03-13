@@ -17,11 +17,11 @@ int	store_maze(char **maze, int width, char *line, int index)
 static int	parsing_line(char *line, int index, int height)
 {
 	if (!line || is_line_empty(line))
-		return (map_error(MISSING_MAP), KO);
+		return (map_error(EMPTY_LINE));
 	if (!check_maze_valid_symbol(line, true))
 		return (KO);
 	if (!check_maze_edges(line, index, height))
-		return (map_error(EDGES), KO);
+		return (map_error(EDGES));
 	return (SUCCESS);
 }
 

@@ -28,7 +28,7 @@ int	map_error(int error_code)
 	else if (error_code == FILE_MAP)
 		ft_putendl_fd("> Cannot open this file or doesn't exist\e[0m", 2);
 	else if (error_code == EMPTY_LINE)
-		ft_putendl_fd("> An empty line has been found in the map\e[0m", 2);
+		ft_putendl_fd("> Empty line has been found in/after the map\e[0m", 2);
 	else if (error_code == INVALID)
 		ft_putendl_fd("> An invalid symbol/format has been detected\e[0m", 2);
 	else if (error_code == RANGE_RGB)

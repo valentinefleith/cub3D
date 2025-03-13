@@ -37,8 +37,10 @@ int	get_maze_size(int fd, char *prev_line, int *width)
 	char		*line;
 	
 	if (!prev_line)
-		return (map_error(ERROR_MAP), -1);
-	height = 1;
+		return (map_error(NO_MAP), -1);
+	height = -1;
+	if (check_maze_valid_symbol(prev_line, false))
+		height = 1;
 	line = NULL;
 	current_width = ft_strlen(prev_line) - 1;
 	while (1)

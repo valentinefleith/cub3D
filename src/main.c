@@ -33,11 +33,6 @@ int main(int ac, char **av)
 	if (!parsing_map_file(ac, av[1], &game.map, &game.player))
 		return (free_map(&game.map), EXIT_FAILURE);
 	// print_game_struct(&game);
-	// printf("Angle -3PI -> %.2f\n", normalize_angle(-3 * M_PI)); // Devrait être ≈ 3.14 (π)
-    // printf("Angle 4PI -> %.2f\n", normalize_angle(4 * M_PI));   // Devrait être 0
-    // printf("Angle 10PI -> %.2f\n", normalize_angle(10 * M_PI)); // Devrait être 0
-    // printf("Angle -10PI -> %.2f\n", normalize_angle(-10 * M_PI)); // Devrait être 0
-
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (exit_program(&game, EXIT_FAILURE));

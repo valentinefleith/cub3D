@@ -12,7 +12,7 @@ int	parsing_map_file(int args, char *filename, t_map *map, t_player *player)
 		if (parsing_env_map_data(filename, map))
 		{
 			if (map->height == -1)
-				return (map_error(FILE_MAP));
+				return (KO);
 			fd = open(filename, O_RDONLY);
 			if (fd != -1)
 			{
@@ -41,7 +41,7 @@ int	parsing_env_map_data(char *filename, t_map *map)
 	if (fd == -1)
 		return (map_error(FILE_MAP));
 	line = read_file(fd);
-	while (!check_maze_valid_symbol(line, false))
+	while (line && !check_maze_valid_symbol(line, false))
 	{
 		if (!is_line_empty(line))
 		{
