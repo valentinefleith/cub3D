@@ -43,14 +43,12 @@
 # define TILE_SIZE 30.0
 # define MINI_TILE TILE_SIZE / 2
 
-// # define PLAYER_RADIUS (TILE_SIZE / 3)
 # define PLAYER_RADIUS 5.0
-# define ROTATION_SPEED 0.025
+# define ROTATION_SPEED 0.015
 # define PLAYER_SPEED 1
 
 # define FOV 60.0
 # define FOV_RADIANS 1.0472
-// # define FOV_RADIANS ((FOV) * M_PI) / 180.0
 
 typedef enum e_direction t_dir;
 typedef enum e_orientation t_orient;
@@ -121,8 +119,10 @@ int				drestroy_textures_img(t_maze *game);
 // Key events
 int				key_press(int keycode, t_maze *game);
 int				key_release(int keycode, t_maze *game);
+int				mouse_move(int x, int y, t_maze *game);
 
 // Move
 int				update_player_pos(t_maze *game);
+int 			rotate_player(t_maze *game, int key_pressed);
 
 #endif

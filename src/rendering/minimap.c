@@ -42,7 +42,7 @@ void	draw_minimap(t_maze *game)
 		while (game->map.maze[i][j])
 		{
 			if (game->map.maze[i][j] == '1')
-				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, PURPLE);
+				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, game->map.floor_color);
 			else
 				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, GREY);
 			pos.x += MINI_TILE;
@@ -63,7 +63,7 @@ void	draw_player(t_maze *game)
 	player.y = floor(game->player.pos.y / TILE_SIZE) * (MINI_TILE + MINI_TILE) / 2;
 	player.x += (MINI_TILE / 2);
 	player.y += (MINI_TILE / 2);
-	draw_rectangle(game, player, PLAYER_RADIUS, PLAYER_RADIUS, PINK);
+	draw_rectangle(game, player, PLAYER_RADIUS, PLAYER_RADIUS, game->map.ceilling_color);
 }
 
 // int	minimap(t_maze *game)

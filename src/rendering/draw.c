@@ -25,7 +25,7 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
-	scale = (double)texture.height / wall_height;
+	scale = (double)texture.height / (wall_height - 1);
 	draw_ceilling(maze, x, y);
 	texture.y = ((double)y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
 	while (y < end_y)
@@ -55,7 +55,7 @@ void	draw_ceilling(t_maze *maze, int x, int end)
 	int	start;
 
 	start = 0;
-	while (start < end)
+	while (start <= end)
 	{
 		my_mlx_pixel_put(&(maze->img), x, start, maze->map.ceilling_color);
 		start++;

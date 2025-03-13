@@ -9,15 +9,16 @@ void	raycasting(t_maze *maze)
 	double		wall_height;
 	int			x;
 
-	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2);
+	current_angle = maze->player.looking_angle - (FOV_RADIANS / 2.0);
 	x = 0;
 	while (x < WIDTH)
 	{
-		wall_point = find_wall_point(maze, normalize_angle(current_angle));
-		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), normalize_angle(current_angle));
-		wall_height = (TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
+		current_angle = normalize_angle(current_angle);
+		wall_point = find_wall_point(maze, current_angle);
+		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), current_angle);
+		wall_height = ((double)TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
 		draw_wall(maze, setup_texture(maze, wall_point, current_angle), wall_height, x);
-		current_angle += FOV_RADIANS / (double)WIDTH;
+		current_angle += (FOV_RADIANS / (double)WIDTH);
 		x++;
 	}
 	if (maze->minimap_key)
@@ -53,7 +54,7 @@ bool is_wall_point(t_map *map, t_vector point)
 		return (true);
 	grid.x = floor(point.x / TILE_SIZE);
 	grid.y = floor(point.y / TILE_SIZE);
-	if (grid.y < 0 || grid.x >= map->width || grid.y > map->height || grid.x < 0)
+	if (grid.y < 0 || grid.x >= map->width || grid.y >= map->height || grid.x < 0)
 		return (true);
 	if (map->maze[grid.y] && map->maze[grid.y][grid.x])
 		return (map->maze[grid.y][grid.x] == '1');

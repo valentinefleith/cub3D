@@ -56,3 +56,28 @@ int	key_release(int keycode, t_maze *game)
 		return (KO);
 	return (SUCCESS);
 }
+
+int mouse_move(int x, int y, t_maze *game)
+{
+	(void)y;
+	if (x == WIDTH / 2)
+		return (SUCCESS);
+	if (x <= (WIDTH / 3) && x >= 0)
+	{
+		game->player.looking_angle -= 0.010;
+		if (game->player.looking_angle < 0)
+			game->player.looking_angle += 2.0 * M_PI;
+	}
+	if (x >= (WIDTH / 1.5) && x <= WIDTH)
+	{
+		game->player.looking_angle += 0.010;
+		if (game->player.looking_angle > 2.0 * M_PI)
+			game->player.looking_angle -= 2.0 * M_PI;
+	}
+	if (x < 0)
+		mlx_mouse_move(game->mlx, game->win, 0, y);
+	if (x > WIDTH)
+		mlx_mouse_move(game->mlx, game->win, WIDTH, y);
+    render_one_frame(game, false);
+    return (0);
+}

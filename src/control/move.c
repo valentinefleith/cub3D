@@ -58,7 +58,7 @@ static int move_player(t_maze *game, double angle, int key_pressed)
 	return (KO);
 }
 
-static int rotate_player(t_maze *game, int key_pressed)
+int rotate_player(t_maze *game, int key_pressed)
 {
 	if (key_pressed == right_rotation)
 	{
