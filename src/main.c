@@ -36,7 +36,7 @@ int main(int ac, char **av)
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (exit_program(&game, EXIT_FAILURE));
-	if (!init_textures(&game))
+	if (!init_textures(&game) || !init_sprite(&game))
 		exit_program(&game, EXIT_FAILURE);
 	game.win = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
 	if (!game.win)

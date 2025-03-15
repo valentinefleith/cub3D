@@ -57,7 +57,7 @@ void	draw_ceilling(t_maze *maze, int x, int end)
 	start = 0;
 	while (start <= end)
 	{
-		my_mlx_pixel_put(&(maze->img), x, start, maze->map.ceilling_color);
+        my_mlx_pixel_put(&(maze->img), x, start, maze->map.ceilling_color);
 		start++;
 	}
 }

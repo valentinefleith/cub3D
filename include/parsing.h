@@ -68,6 +68,8 @@ char	get_player_spawn(t_player *player, int y, int x, char orientation);
 
 int		init_textures(t_maze *game);
 int		parsing_textures_path(char *line, t_map *map);
+int		parsing_sprites(char *line, t_map *map);
+int		init_sprite(t_maze *game);
 
 /* UTILS *********************************************************************/
 

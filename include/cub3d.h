@@ -63,6 +63,7 @@ typedef struct s_map
 	uint32_t	floor_color;
 	uint32_t	ceilling_color;	
 	char		**textures_path;
+	char		*sprite;
 }				t_map;
 
 typedef struct s_vector
@@ -83,6 +84,7 @@ typedef struct s_maze
 	void		*mlx;
 	void		*win;
 	t_img 		img;
+	t_img		sprite;
 	t_img 		texture[4];
 	t_img		minimap;
 	t_player	player;

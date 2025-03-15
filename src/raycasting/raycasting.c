@@ -22,10 +22,7 @@ void	raycasting(t_maze *maze)
 		x++;
 	}
 	if (maze->minimap_key)
-	{
 		draw_minimap(maze);
-		// draw_line_from_angle(maze, maze->player.pos, current_angle, distance, YELLOW);
-	}
 }
 
 t_vector	find_wall_point(t_maze *maze, double angle)

@@ -22,6 +22,19 @@ int	init_textures(t_maze *game)
 	return (SUCCESS);
 }
 
+int	init_sprite(t_maze *game)
+{
+	if (!game || game->mlx)
+		return (KO);
+	game->sprite.img = mlx_xpm_file_to_image(game->mlx, game->map.sprite, &game->sprite.width, &game->sprite.height);
+	if (!game->sprite.img)
+		return (map_error(INEXISTANT));
+	game->sprite.addr = mlx_get_data_addr(game->sprite.img, &game->sprite.bits_per_pixel, &game->sprite.line_length, &game->sprite.endian);
+	if (!game->sprite.addr)
+		return (map_error(ERROR_MAP));
+	return (SUCCESS);
+}
+
 static bool	check_texture_extension(char *texture)
 {
 	int	len;
@@ -50,13 +63,27 @@ int	parsing_textures_path(char *line, t_map *map)
 		cell = 3;
 	if (cell != -1)
 	{
-		if (map->textures_path[cell]) // means that's already assigned = data en doublon
+		if (map->textures_path[cell])
 			return (map_error(DOUBLE_SYMB));
 		map->textures_path[cell] = ft_substr(line, 5, ft_strlen(line) - 6);
 		if (!map->textures_path[cell])
 			return (map_error(ERROR_MAP));
 		if (!check_texture_extension(map->textures_path[cell]))
 			return (map_error(TEXT_EXTENSION));
+		return (SUCCESS);
+	}
+	return (parsing_sprites(line, map));
+}
+
+int	parsing_sprites(char *line, t_map *map)
+{
+	if (!ft_strncmp(line, "NO ./", 5))
+	{
+		if (map->sprite)
+			return (map_error(DOUBLE_SYMB));
+		map->sprite = ft_substr(line, 5, ft_strlen(line) - 6);
+		if (!map->sprite)
+			return (map_error(ERROR_MAP));
 		return (SUCCESS);
 	}
 	return (KO);
