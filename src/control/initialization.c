@@ -62,7 +62,7 @@ t_map	init_map_struct(void)
 	map.floor_color = 0;
 	map.ceilling_color = 0;
 	map.textures_path = init_tab(4);
-	map.sprite = NULL;
+	map.sprite_path = NULL;
 	return (map);
 }
 
