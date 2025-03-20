@@ -42,6 +42,7 @@ More concretely the game loop :
 - waits for a movement of the mouse in certain areas of the screen, and then modify the rotation of player's view angle.
 - another function constantly checks which key has been pressed (i.e which is currently assigned to true) to modify game values, like player position and orientation (view direction).
 - the last function is the global and main loop of the game.
+
 When the key `ESC` is pressed or when the window is closed the program should free the data on the heap and ends properly.
 
 *Here is useful documentation to help understanding this part more deeply*
