@@ -68,7 +68,7 @@ Everytime an input is intercepted and handled correctly, the program perform ray
 # Raycasting
 
 To ***render one frame*** the procedure is as follows :
-- Before creating a new image and puting it on the screen, if an image is already on the screen we must destroy it with the function `mlx_destroy_image(game->mlx, game->img.img)`
+- Before puting a new image on the screen, if an image is already on the screen we must destroy it with the function `mlx_destroy_image(game->mlx, game->img.img)`
 - We create a new image using mlx functions. For now the image is empty.
 - During the raycasting process, each time a wall slice is detected, we print the pixels corresponding to the wall on our empty image.
 - Once raycasting has completed the entire image, we can display the image on the screen by using the function `mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0)`
