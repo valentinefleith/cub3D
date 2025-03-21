@@ -27,7 +27,7 @@ After that we call the function `init_textures(&game)` to download the textures 
 Finally we can create a new window and fill in its width and height (which are constant value for the screen).
 
 Then the game loop can start.
-```
+```c
 int	game_loop(t_maze *game)
 {
 	if (render_one_frame(game, true) == MLX_ERROR)
@@ -62,7 +62,7 @@ When the key `ESC` is pressed or when the window is closed the program should fr
 We update the coordinates of the player in the maze with the function `update_player_pos()`, depending on inputs we call the function `move_player()` or `rotate_player()`.
 
 - For example, in the case where the key pressed was the "W", the player wants to move forward. So in function `move_player()` to update player's position we need to calculate cos and sin of the player's current angle of view. Then we multiply the angle with the player's speed (constant value) and add it to the old coordinates.
-```
+```c
 new_pos.x = (x_angle * PLAYER_SPEED) + player_pos.x;
 new_pos.y = (y_angle * PLAYER_SPEED) + player_pos.y;
 ```
@@ -82,7 +82,7 @@ To ***render one frame*** the procedure is as follows :
 
 *We will describe the logic and procedure of raycasting, without going into too much detail as there is already a vast amount of documentation on the subject.*
 This is the racasting loop.
-```
+```c
 void	raycasting(t_maze *maze)
 {
 	t_vector	wall_point;
@@ -139,7 +139,7 @@ This part draws on the screen every slice of wall identified by the raycasting. 
 - Firstly, we need to establish the orientation of the wall we're drawing: is it a north, south, east or west-facing wall ? Because we have in memory a texture for each wall orientation.
 - Next we determine the x-coordinate of the texture based on whether the wall intersection occurred horizontally or vertically. The calculation involves scaling the wall intersection coordinate by the ratio of the texture's width to the tile size and then applying the modulus operation to ensure the result wraps around within the texture's width. This ensures that the texture coordinates are correctly mapped, even if the wall intersection point lies outside the bounds of the texture.\
 The function then adjusts the x-coordinate based on the direction of the wall relative to the ray's angle. This ensure that the texture won't be flipped depending on wall orientation.
-```
+```c
 if (horizontal_point)
 	texture->x = fmodf(wall_point.x * ((double)texture->width / TILE_SIZE), (double)texture->width);
 else
@@ -152,7 +152,7 @@ if ((horizontal_point && get_horizontal_direction(angle) != facing_up) || (!hori
 - Then initializes the texture's y coordinate to the appropriate starting position, scaled to match the wall's position on the screen.
 - Calculate the scaling factor for mapping the texture to the wall slice. This factor is derived by dividing the texture's height by the wall height. It ensures that the texture is stretched or compressed appropriately to fit the wall slice. The texture's y coordinate is incremented by the scaling factor to move to the next row of the texture.
 - The main drawing loop iterates from the starting y-coordinate to the ending y-coordinate. For each pixel in this range, the function retrieves the color of the corresponding pixel from the texture using `get_px_color()`. It then applies shading to the color using `shading_color()`, which likely adjusts the darkness based on the wall's height and the screen's height to simulate lighting effects.
-```
+```c
 void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 {
 	int		current_y;
