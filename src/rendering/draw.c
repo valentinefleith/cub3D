@@ -33,28 +33,28 @@ static int	shading_color(int color, double dist, double max_dist)
 
 void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 {
-	int		y;
+	int		current_y;
 	int		end_y;
 	int		px_color;
 	double	scale;
 
-	y = (HEIGHT / 2) - (wall_height / 2);
-	if (y < 0)
-		y = 0;
+	current_y = (HEIGHT / 2) - (wall_height / 2);
+	if (current_y < 0)
+		current_y = 0;
 	end_y = (HEIGHT / 2) + (wall_height / 2);
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
 	scale = (double)texture.height / (wall_height - 1);
-	draw_ceilling(maze, x, y);
-	texture.y = ((double)y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
-	while (y < end_y)
+	draw_ceilling(maze, x, current_y);
+	texture.y = ((double)current_y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
+	while (current_y < end_y)
 	{
 		px_color = get_px_color(texture, texture.x, texture.y);
 		px_color = shading_color(px_color, wall_height, HEIGHT);
 		if (px_color > 0)
-			my_mlx_pixel_put(&(maze->img), x, y, px_color);
+			my_mlx_pixel_put(&(maze->img), x, current_y, px_color);
 		texture.y += scale;
-		y++;
+		current_y++;
 	}
 	draw_floor(maze, x, end_y);
 }
