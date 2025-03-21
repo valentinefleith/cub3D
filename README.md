@@ -121,8 +121,6 @@ To do so, from the player's position we'll cast rays covering its entire ***fiel
  	- Our ray has found the wall and we've been able to calculate the distance, but we need to correct the distance value as it is distorded by the fisheye effect of calculating the angle with the field of view.
     - Finally, we can use the distance to deduce the height of the wall and draw it using the function `draw_wall()`
 
-![img](assets/readme_images/horizontal_intersection.webp)
-
 *Here is useful documentation to help understanding this section more deeply*\
 [Raycasting explanation](https://ismailassil.medium.com/ray-casting-c-8bfae2c2fc13)\
 [Explanation of the calculations in raycasting](https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2)\
