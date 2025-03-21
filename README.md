@@ -5,7 +5,7 @@ Project : 3D graphical representation of the inside of a maze from a first-perso
 * [Game Loop](#Game_Loop)
 * [Handle movement of the player](#Handle_movement)
 * [Raycasting](#Raycasting)
-* [Rendering](#)
+* [Rendering](#Rendering)
 * [Features](#)
 
 ## Game Loop
@@ -45,12 +45,11 @@ More concretely the game loop :
 
 When the key `ESC` is pressed or when the window is closed the program should free the data on the heap and ends properly.
 
-*Here is useful documentation to help understanding this part more deeply*
-
-[mlx Tutorials](https://gontjarow.github.io/MiniLibX/)
+*Here is useful documentation to help understanding this part more deeply*\
+[mlx Tutorials](https://gontjarow.github.io/MiniLibX/)\
 [mlx Documentation](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 
-# Handle movement
+## Handle movement
 
 We update the coordinates of the player in the maze with the function `update_player_pos()`, depending on inputs we call the function `move_player()` or `rotate_player()`.
 
@@ -65,7 +64,7 @@ After that we need to check that the new position is not in a cell of the map wh
 
 Everytime an input is intercepted and handled correctly, the program perform raycasting again and update the image on the screen.
 
-# Raycasting
+## Raycasting
 
 To ***render one frame*** the procedure is as follows :
 - Before puting a new image on the screen, if an image is already on the screen we must destroy it with the function `mlx_destroy_image(game->mlx, game->img.img)`
@@ -99,15 +98,22 @@ void	raycasting(t_maze *maze)
 }
 ```
 
-We want to produce a 3D immersive first-person view and we are given a 2D map showing the *x*,*y* coordinates of each object (mostly walls here), coordinates of the player and its angle of view.
+We want to produce a 3D immersive first-person view and we are given a 2D map showing the *x* , *y* coordinates of each object (mostly walls here), coordinates of the player and its angle of view.
 
-To do so, from the player's position we'll cast rays covering its entire ***field of vision***. These rays will allow us to measure the ***distance*** between the walls and the player. This information will help us to determine the height of the wall we're facing. A wall is at a great distance from me, if I draw this wall it will appear very small, but if I'm very close to it, its height will seem much greater. Progressively this will create perspective.
+To do so, from the player's position we'll cast rays covering its entire ***field of view*** (**FOV**). These rays will allow us to measure the ***distance*** between the walls and the player. This information will help us to determine the height of the wall we're facing. A wall is at a great distance from me, if I draw this wall it will appear very small, but if I'm very close to it, its height will seem much greater. Progressively this will create perspective.
 
-We cast as many rays as there are pixel columns in our screen.
+- We cast as many rays as there are pixel columns in our screen. And the angle of the ray is incremented with each turn of the loop to cover the entire FOV.
+  Keep in mind that for each turn of the loop we try to draw vertically, just a slice of wall, it means for each *x* of the screen's width we want to find the height of the wall.
+- Always normalize the current angle.
+- Now let's visualize the 2D map grid and rays as lines. From the player's position, the ray will gradually iterate a certain distance and examine whether the cell it's passing through is a wall or not.
+	- To do this, we'll check the intersection points of the ray with the horizontal grids, then with the vertical grids. When the intersection point hits a grid that is part of a wall's cell, the function returns the *x* , *y* coordinates of this point. Then we compute the distance between the player and the point, compare the distance on the horizontal and the one on the vertical and keep the closest point to the player.
+ 	- Our ray has found the wall and we've been able to calculate the distance, but we need to correct the distance value as it is distorded by the fisheye effect of calculating the angle with the field of view.
+    	- Finally, we can use the distance to deduce the height of the wall and draw it using the function `draw_wall()`
 
-*Here is useful documentation to help understanding this part more deeply*
+*Here is useful documentation to help understanding this part more deeply*\
+[Lode's Tutorial - using vector and camera](https://lodev.org/cgtutor/raycasting.html)\
+[Raycasting tutorial with different level](https://github.com/vinibiavatti1/RayCastingTutorial/wiki)\
+[Story and main logic](https://xitog.github.io/dgx/passetemps/tech_raycasting_fr.html)\
+[Description of the steps with schema](https://guy-grave.developpez.com/tutoriels/jeux/doom-wolfenstein-raycasting/)\
 
-[Lode's Tutorial - using vector and camera](https://lodev.org/cgtutor/raycasting.html)
-[Raycasting tutorial with different level](https://github.com/vinibiavatti1/RayCastingTutorial/wiki)
-[Story and main logic](https://xitog.github.io/dgx/passetemps/tech_raycasting_fr.html)
-[Description of the steps with schema](https://guy-grave.developpez.com/tutoriels/jeux/doom-wolfenstein-raycasting/)
+## Rendering
