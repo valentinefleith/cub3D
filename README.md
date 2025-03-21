@@ -80,6 +80,8 @@ To ***render one frame*** the procedure is as follows :
 - During the raycasting process, each time a wall slice is detected, we print the pixels corresponding to the wall on our empty image.
 - Once raycasting has completed the entire image, we can display the image on the screen by using the function `mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0)`
 
+![img](assets/readme_images/raycasting.png)
+
 *We will describe the logic and procedure of raycasting, without going into too much detail as there is already a vast amount of documentation on the subject.*
 This is the racasting loop.
 ```
@@ -118,6 +120,8 @@ To do so, from the player's position we'll cast rays covering its entire ***fiel
 	- To do this, we'll check the intersection points of the ray with the horizontal grids, then with the vertical grids. When the intersection point hits a grid that is part of a wall's cell, the function returns the *x* , *y* coordinates of this point. Then we compute the distance between the player and the point, compare the distance on the horizontal and the one on the vertical and keep the closest point to the player.
  	- Our ray has found the wall and we've been able to calculate the distance, but we need to correct the distance value as it is distorded by the fisheye effect of calculating the angle with the field of view.
     - Finally, we can use the distance to deduce the height of the wall and draw it using the function `draw_wall()`
+
+![img](assets/readme_images/horizontal_intersection.webp)
 
 *Here is useful documentation to help understanding this section more deeply*\
 [Lode's Tutorial - using vector and camera](https://lodev.org/cgtutor/raycasting.html)\
