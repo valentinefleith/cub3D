@@ -80,8 +80,6 @@ To ***render one frame*** the procedure is as follows :
 - During the raycasting process, each time a wall slice is detected, we print the pixels corresponding to the wall on our empty image.
 - Once raycasting has completed the entire image, we can display the image on the screen by using the function `mlx_put_image_to_window(game->mlx, game->win, img.img, 0, 0)`
 
-![img](assets/readme_images/raycasting.png)
-
 *We will describe the logic and procedure of raycasting, without going into too much detail as there is already a vast amount of documentation on the subject.*
 This is the racasting loop.
 ```
@@ -109,6 +107,8 @@ void	raycasting(t_maze *maze)
 ```
 
 We want to produce a 3D immersive first-person view and we are given a 2D map showing the *x* , *y* coordinates of each object (mostly walls here), coordinates of the player and its angle of view.
+
+![img](assets/readme_images/raycasting.png)
 
 To do so, from the player's position we'll cast rays covering its entire ***field of view*** (**FOV**). These rays will allow us to measure the ***distance*** between the walls and the player. This information will help us to determine the height of the wall we're facing. A wall is at a great distance from me, if I draw this wall it will appear very small, but if I'm very close to it, its height will seem much greater. Progressively this will create perspective.
 
