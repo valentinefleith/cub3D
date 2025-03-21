@@ -45,11 +45,10 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
 	scale = (double)texture.height / (wall_height - 1);
+	// if (wall_height >= 90.0 && y != 0)
+	// 	printf("wall %f // y %d\n", wall_height, y);
 	draw_ceilling(maze, x, y);
 	texture.y = ((double)y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
-	double shading_factor = wall_height / (double)HEIGHT;
-    if (shading_factor > 1.0)
-		shading_factor = 1.0;
 	while (y < end_y)
 	{
 		px_color = get_px_color(texture, texture.x, texture.y);
@@ -64,24 +63,34 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 
 void	draw_floor(t_maze *maze, int x, int start)
 {
+	int		color;
+	double	intensity;
+
+	color = maze->map.floor_color;
 	while (start < HEIGHT)
 	{
-		my_mlx_pixel_put(&(maze->img), x, start, maze->map.floor_color);
+		intensity = ((double)start / HEIGHT) - 0.8;
+		if (intensity > 0.0)
+			intensity = 0.0;
+		my_mlx_pixel_put(&(maze->img), x, start, shading_color(color, intensity, 0.8));
 		start++;
 	}
 }
 
 void	draw_ceilling(t_maze *maze, int x, int end)
 {
-	int	start;
-	int	color;
+	int		start;
+	int		color;
+	double	intensity;
 
 	start = 0;
 	color = maze->map.ceilling_color;
 	while (start <= end)
 	{
-		color = shading_color(color, (double)end, (double)start);
-		my_mlx_pixel_put(&(maze->img), x, start, color);
+		intensity = 0.8 - ((double)start / (HEIGHT / 2));
+		if (intensity < 0.0)
+			intensity = 0.0;
+		my_mlx_pixel_put(&(maze->img), x, start, shading_color(color, intensity, 0.8));
 		start++;
 	}
 }
