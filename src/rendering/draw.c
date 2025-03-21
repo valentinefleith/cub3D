@@ -45,8 +45,6 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	if (HEIGHT < end_y)
 		end_y = HEIGHT;
 	scale = (double)texture.height / (wall_height - 1);
-	// if (wall_height >= 90.0 && y != 0)
-	// 	printf("wall %f // y %d\n", wall_height, y);
 	draw_ceilling(maze, x, y);
 	texture.y = ((double)y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
 	while (y < end_y)
