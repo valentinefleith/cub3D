@@ -110,9 +110,10 @@ We want to produce a 3D immersive first-person view and we are given a 2D map sh
 
 To do so, from the player's position we'll cast rays covering its entire ***field of view*** (**FOV**). These rays will allow us to measure the ***distance*** between the walls and the player. This information will help us to determine the height of the wall we're facing. A wall is at a great distance from me, if I draw this wall it will appear very small, but if I'm very close to it, its height will seem much greater. Progressively this will create perspective.
 
+![img](assets/readme_images/wall_projection.webp)
+
 - We cast as many rays as there are pixel columns in our screen. And the angle of the ray is incremented with each turn of the loop to cover the entire FOV.
   Keep in mind that for each turn of the loop we try to draw vertically, just a slice of wall, it means for each *x* of the screen's width we want to find the height of the wall.
- 
 - Now let's visualize the 2D map grid and rays as lines. From the player's position, the ray will gradually iterate a certain distance and examine whether the cell it's passing through is a wall or not.
 	- To do this, we'll check the intersection points of the ray with the horizontal grids, then with the vertical grids. When the intersection point hits a grid that is part of a wall's cell, the function returns the *x* , *y* coordinates of this point. Then we compute the distance between the player and the point, compare the distance on the horizontal and the one on the vertical and keep the closest point to the player.
  	- Our ray has found the wall and we've been able to calculate the distance, but we need to correct the distance value as it is distorded by the fisheye effect of calculating the angle with the field of view.
