@@ -124,6 +124,9 @@ To do so, from the player's position we'll cast rays covering its entire ***fiel
 ![img](assets/readme_images/horizontal_intersection.webp)
 
 *Here is useful documentation to help understanding this section more deeply*\
+[Raycasting explanation](https://ismailassil.medium.com/ray-casting-c-8bfae2c2fc13)\
+[Explanation of the calculations in raycasting](https://medium.com/@rtailidounia/raycasting-in-cub3d-42-network-project-a-practical-tutorial-using-vectors-68eeb16b3de2)\
+[Maths behind raycasting](https://docs.google.com/document/u/0/d/1tdNYHg3Mfqf8dr8W6Ajs3seUugwtmaQizZ7BzimkXog/edit?tab=t.0&pli=1&authuser=0#heading=h.onj4md3mujq)
 [Lode's Tutorial - using vector and camera](https://lodev.org/cgtutor/raycasting.html)\
 [Raycasting tutorial with different level](https://github.com/vinibiavatti1/RayCastingTutorial/wiki)\
 [Story and main logic](https://xitog.github.io/dgx/passetemps/tech_raycasting_fr.html)\
