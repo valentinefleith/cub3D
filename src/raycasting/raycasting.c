@@ -1,5 +1,6 @@
 #include "cub3d.h"
 #include "raycasting.h"
+#define DISTANCE_MINIMAP 40
 
 void	raycasting(t_maze *maze)
 {
@@ -24,7 +25,8 @@ void	raycasting(t_maze *maze)
 	if (maze->minimap_key)
 	{
 		draw_minimap(maze);
-		// draw_line_from_angle(maze, maze->player.pos, current_angle, distance, YELLOW);
+		draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle - (FOV_RADIANS / 2.0), DISTANCE_MINIMAP, WHITE);
+		draw_line_from_angle(maze, maze->player.pos, current_angle, DISTANCE_MINIMAP, WHITE);
 	}
 }
 
