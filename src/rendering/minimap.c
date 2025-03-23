@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#define FOV_SIZE 40
 
 void draw_grid(t_maze *maze)
 {
@@ -25,6 +26,14 @@ void draw_grid(t_maze *maze)
 		start.y += MINI_TILE;
 		end.y += MINI_TILE;
 	}
+}
+
+static void draw_mini_fov(t_maze *game, t_point player_pos)
+{
+	double first_ray_angle = game->player.looking_angle - (FOV_RADIANS / 2.0);
+	double last_ray_angle = game->player.looking_angle + (FOV_RADIANS / 2.0);
+	draw_line_from_angle(game, player_pos, first_ray_angle, FOV_SIZE, WHITE);
+	draw_line_from_angle(game, player_pos, last_ray_angle, FOV_SIZE, WHITE);
 }
 
 void	draw_minimap(t_maze *game)
@@ -58,13 +67,12 @@ void	draw_minimap(t_maze *game)
 void	draw_player(t_maze *game)
 {
 	t_point	player;
-	printf("player pos x: %f\n", game->player.pos.x);
-	printf("player pos y: %f\n", game->player.pos.y);
 	player.x = game->player.pos.x / TILE_SIZE * MINI_TILE;
 	player.y = game->player.pos.y / TILE_SIZE * MINI_TILE;
 	// player.x += (MINI_TILE / 2);
 	// player.y += (MINI_TILE / 2);
 	draw_rectangle(game, player, PLAYER_RADIUS, PLAYER_RADIUS, PINK);
+	draw_mini_fov(game, player);
 }
 
 // int	minimap(t_maze *game)
@@ -131,19 +139,18 @@ void	draw_line(t_maze *maze, t_point start, t_point end, int color)
 	}
 }
 
-void	draw_line_from_angle(t_maze *maze, t_vector point, double angle,
+void	draw_line_from_angle(t_maze *maze, t_point start_point, double angle,
 		double size, int color)
 {
 	t_point	endpoint;
-	t_point	player;
 
-	player.x = floor(point.x / TILE_SIZE) * (MINI_TILE + MINI_TILE) / 2;
-	player.y = floor(point.y / TILE_SIZE) * (MINI_TILE + MINI_TILE) / 2;
-	player.x += (MINI_TILE / 2);
-	player.y += (MINI_TILE / 2);
-	endpoint.y = player.y + (size * sin(angle));
-	endpoint.x = player.x + (size * cos(angle));
-	if (player.y < 0 || player.x > WIDTH || player.x < 0 || player.y > HEIGHT || endpoint.y < 0 || endpoint.y > HEIGHT)
-		return ;
-	draw_line(maze, player, endpoint, color);
+	endpoint.y = start_point.y + (size * sin(angle));
+	endpoint.x = start_point.x + (size * cos(angle));
+	if (endpoint.x < 0)
+		endpoint.x = 1;
+	if (endpoint.y < 0)
+		endpoint.y = 1;
+	// if (player.y < 0 || player.x > WIDTH || player.x < 0 || player.y > HEIGHT || endpoint.y < 0 || endpoint.y > HEIGHT)
+	// 	return ;
+	draw_line(maze, start_point, endpoint, color);
 }
