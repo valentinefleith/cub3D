@@ -58,11 +58,12 @@ void	draw_minimap(t_maze *game)
 void	draw_player(t_maze *game)
 {
 	t_point	player;
-
-	player.x = floor(game->player.pos.x / TILE_SIZE) * (MINI_TILE + MINI_TILE) / 2;
-	player.y = floor(game->player.pos.y / TILE_SIZE) * (MINI_TILE + MINI_TILE) / 2;
-	player.x += (MINI_TILE / 2);
-	player.y += (MINI_TILE / 2);
+	printf("player pos x: %f\n", game->player.pos.x);
+	printf("player pos y: %f\n", game->player.pos.y);
+	player.x = game->player.pos.x / TILE_SIZE * MINI_TILE;
+	player.y = game->player.pos.y / TILE_SIZE * MINI_TILE;
+	// player.x += (MINI_TILE / 2);
+	// player.y += (MINI_TILE / 2);
 	draw_rectangle(game, player, PLAYER_RADIUS, PLAYER_RADIUS, PINK);
 }
 
