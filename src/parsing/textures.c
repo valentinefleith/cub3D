@@ -7,9 +7,9 @@ int	init_textures(t_maze *game)
 	if (!game || !game->mlx)
 		return (KO);
 	i = 0;
-	while (i < TEXTURE_NB)
+	while (game->map.textures_path[i])
 	{
-		if (!game->map.textures_path[i])
+		if (!game->map.textures_path[i] && i != 4)
 			return (map_error(MISS_TEXT));
 		game->texture[i].img = mlx_xpm_file_to_image(game->mlx, game->map.textures_path[i], &game->texture[i].width, &game->texture[i].height);
 		if (!game->texture[i].img)
