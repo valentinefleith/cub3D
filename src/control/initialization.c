@@ -61,7 +61,13 @@ t_map	init_map_struct(void)
 	map.height = 0;
 	map.floor_color = 0;
 	map.ceilling_color = 0;
-	map.textures_path = init_tab(4);
+	map.color_sequence = malloc(sizeof(char) * 4);
+	if (!map.color_sequence)
+	{
+		map_error(ERROR_MAP);
+		exit(1);
+	}
+	map.textures_path = init_tab(TEXTURE_NB);
 	return (map);
 }
 
@@ -85,5 +91,6 @@ t_maze	game_initialization(void)
 	game.plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2.0);
 	game.minimap_key = false;
 	game.horizontal_point = false;
+	game.wall_type = 1;
 	return (game);
 }

@@ -53,6 +53,7 @@ int	check_maze_valid_symbol(char *line, bool msg_error)
 	while (line[i]) // maze is valid only if it contains the symbols below
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 32
+			&& line[i] != '2' && line[i] != '3'
 			&& line[i] != 'N' && line[i] != 'S' 
 			&& line[i] != 'W' && line[i] != 'E' && line[i] != '\n')
 		{

@@ -28,6 +28,24 @@ void	raycasting(t_maze *maze)
 	}
 }
 
+static int	get_wall_type(t_vector point, char **maze)
+{
+	t_point	grid;
+
+	if (!maze)
+		return (-1);
+	grid.x = floor(point.x / TILE_SIZE);
+	grid.y = floor(point.y / TILE_SIZE);
+	if (maze[grid.y] && maze[grid.y][grid.x])
+	{
+		if (maze[grid.y][grid.x] == '1')
+			return (1);
+		if (maze[grid.y][grid.x] == '2')
+			return (2);
+	}
+	return (-1);
+}
+
 t_vector	find_wall_point(t_maze *maze, double angle)
 {
 	t_vector	horizontal;
@@ -43,6 +61,7 @@ t_vector	find_wall_point(t_maze *maze, double angle)
 	vertical = get_point_vert(&(maze->map), angle, direction, vertical);
 	closest_point = get_closest_point(maze->player.pos, horizontal, vertical, \
 		&maze->horizontal_point);
+	maze->wall_type = get_wall_type(closest_point, maze->map.maze);
 	return (closest_point);
 }
 
@@ -57,6 +76,11 @@ bool is_wall_point(t_map *map, t_vector point)
 	if (grid.y < 0 || grid.x >= map->width || grid.y >= map->height || grid.x < 0)
 		return (true);
 	if (map->maze[grid.y] && map->maze[grid.y][grid.x])
-		return (map->maze[grid.y][grid.x] == '1');
+	{
+		if (map->maze[grid.y][grid.x] == '1'
+			|| map->maze[grid.y][grid.x] == '2'
+			|| map->maze[grid.y][grid.x] == '3')
+			return (true);
+	}
 	return (false);
 }

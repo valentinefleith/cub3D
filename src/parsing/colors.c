@@ -37,6 +37,8 @@ int	parsing_colors(char *line, t_map *map)
 	int		*rgb;
 
 	letter = check_color_symbol(line);
+	// if (letter == 'S')
+	// 	return (SUCCESS);
 	if (letter != 'F' && letter != 'C')
 		return (KO);
 	rgb = malloc(sizeof(int) * 3);
@@ -90,17 +92,22 @@ char	check_color_symbol(char *line)
 	if (!line)
 		return (0);
 	letter = 0;
-	if (line[0] == 'F' || line[0] == 'C')
+	if (line[0] == 'F' || line[0] == 'C' || line[0] == 'S')
 		letter = line[0];
 	else
 		return (0);
 	if (line[1] != ' ')
 		return (map_error(INVALID));
+	// else
+	// 	return (KO);
 	i = 2;
 	while (line[i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ',' && line[i] != '\n')
-			return (map_error(INVALID));
+		{
+			if (!(letter == 'S' && line[i] == '/'))
+				return (map_error(INVALID));
+		}
 		i++;
 	}
 	return (letter);

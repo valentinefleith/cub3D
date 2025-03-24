@@ -49,6 +49,8 @@ int	free_map(t_map *map)
 {
 	if (!map)
 		return (KO);
+	if (map->color_sequence)
+		free(map->color_sequence);
 	map->textures_path = free_double_tab(map->textures_path);
 	map->maze = free_double_tab(map->maze);
 	return (SUCCESS);

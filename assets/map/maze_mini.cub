@@ -1,0 +1,19 @@
+NO ./assets/textures/shades/deep_square.xpm
+SO ./assets/textures/shades/deep_square.xpm
+WE ./assets/textures/shades/deep_square.xpm
+EA ./assets/textures/shades/deep_square.xpm
+
+DO ./assets/textures/pyramid/east.xpm
+
+C 62,70,186
+F 133,76,255
+
+S 65,34,128/59,229,138/164,0,142
+
+111111111111
+100001000001
+1000020000W1
+100001000001
+100001033301
+100001000001
+111111111111

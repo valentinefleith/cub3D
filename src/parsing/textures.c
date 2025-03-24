@@ -7,7 +7,7 @@ int	init_textures(t_maze *game)
 	if (!game || !game->mlx)
 		return (KO);
 	i = 0;
-	while (i < 4)
+	while (i < TEXTURE_NB)
 	{
 		if (!game->map.textures_path[i])
 			return (map_error(MISS_TEXT));
@@ -33,21 +33,28 @@ static bool	check_texture_extension(char *texture)
 	return (true);
 }
 
+int	get_texture_symbol(char *line)
+{
+	if (!ft_strncmp(line, "NO ./", 5))
+		return (0);
+	else if (!ft_strncmp(line, "SO ./", 5))
+		return (1);
+	else if (!ft_strncmp(line, "WE ./", 5))
+		return (2);
+	else if (!ft_strncmp(line, "EA ./", 5))
+		return (3);
+	else if (!ft_strncmp(line, "DO ./", 5))
+		return (4);
+	return (-1);
+}
+
 int	parsing_textures_path(char *line, t_map *map)
 {
 	int	cell;
 
 	if (!line || !map)
 		return (map_error(ERROR_MAP), 0);
-	cell = -1;
-	if (!ft_strncmp(line, "NO ./", 5))
-		cell = 0;
-	else if (!ft_strncmp(line, "SO ./", 5))
-		cell = 1;
-	else if (!ft_strncmp(line, "WE ./", 5))
-		cell = 2;
-	else if (!ft_strncmp(line, "EA ./", 5))
-		cell = 3;
+	cell = get_texture_symbol(line);
 	if (cell != -1)
 	{
 		if (map->textures_path[cell]) // means that's already assigned = data en doublon

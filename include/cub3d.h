@@ -50,6 +50,8 @@
 # define FOV 60.0
 # define FOV_RADIANS 1.0472
 
+# define TEXTURE_NB 5
+
 typedef enum e_direction t_dir;
 typedef enum e_orientation t_orient;
 typedef enum e_key t_key;
@@ -61,7 +63,8 @@ typedef struct s_map
 	int			width;
 	int			height;
 	uint32_t	floor_color;
-	uint32_t	ceilling_color;	
+	uint32_t	ceilling_color;
+	char		*color_sequence;
 	char		**textures_path;
 }				t_map;
 
@@ -83,13 +86,14 @@ typedef struct s_maze
 	void		*mlx;
 	void		*win;
 	t_img 		img;
-	t_img 		texture[4];
+	t_img 		texture[TEXTURE_NB];
 	t_img		minimap;
 	t_player	player;
 	t_map		map;
 	double		plane_distance;
 	bool		minimap_key;
 	bool		horizontal_point;
+	int			wall_type;
 }				t_maze;
 
 typedef struct s_point

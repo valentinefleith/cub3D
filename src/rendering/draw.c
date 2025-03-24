@@ -50,6 +50,8 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	while (current_y < end_y)
 	{
 		px_color = get_px_color(texture, texture.x, texture.y);
+		if ((uint32_t)px_color == maze->map.floor_color)
+			px_color = RED;
 		px_color = shading_color(px_color, wall_height, HEIGHT);
 		if (px_color > 0)
 			my_mlx_pixel_put(&(maze->img), x, current_y, px_color);

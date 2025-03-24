@@ -13,10 +13,12 @@ static void	setup_x_coord(t_img *texture, t_vector wall_point, bool horizontal_p
 	texture->y = 0;
 }
 
-t_img	setup_texture(t_maze *game, t_vector wall_point, double angle)
+static t_img	get_wall_texture(t_maze *game, double angle)
 {
 	t_img	texture;
 
+	if (game->wall_type == 2)
+			return (game->texture[4]);
 	if (game->horizontal_point)
 	{
 		if (get_horizontal_direction(angle) == facing_up)
@@ -31,6 +33,14 @@ t_img	setup_texture(t_maze *game, t_vector wall_point, double angle)
 		else
 			texture = game->texture[south];
 	}
+	return (texture);
+}
+
+t_img	setup_texture(t_maze *game, t_vector wall_point, double angle)
+{
+	t_img	texture;
+
+	texture = get_wall_texture(game, angle);
 	setup_x_coord(&texture, wall_point, game->horizontal_point, angle);
 	return (texture);
 }

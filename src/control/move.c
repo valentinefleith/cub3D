@@ -14,7 +14,8 @@ static int	detect_wall_collision(char **maze, t_vector new_pos, char x, char y)
 		grid.y = floor((new_pos.y + PLAYER_RADIUS) / TILE_SIZE);
 	else
 		grid.y = floor((new_pos.y - PLAYER_RADIUS) / TILE_SIZE);
-	if (maze && maze[grid.y] && maze[grid.y][grid.x] == '1')
+	if (maze && maze[grid.y] && (maze[grid.y][grid.x] == '1'
+		|| maze[grid.y][grid.x] == '2' || maze[grid.y][grid.x] == '3'))
 		return (KO);
 	return (SUCCESS);
 }
