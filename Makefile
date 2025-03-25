@@ -42,7 +42,7 @@ PARSING_FILES = parsing/checking.c parsing/colors.c parsing/map_security.c \
 			parsing/player.c parsing/textures.c \
 
 CONTROL_FILES = control/exit.c control/key_events.c control/move.c \
-			control/initialization.c control/debug.c \
+			control/initialization.c control/debug.c control/door.c \
 
 RAYCASTING_FILES = raycasting/get_direction.c raycasting/get_distance.c \
 			raycasting/get_point.c raycasting/raycasting.c raycasting/utils.c \

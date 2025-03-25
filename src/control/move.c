@@ -93,5 +93,9 @@ int	update_player_pos(t_maze *game)
 		rotate_player(game, right_rotation);
 	if (game->player.keys_pressed[left_rotation])
 		rotate_player(game, left_rotation);
+	if (game->minimap_key || !game->minimap_key)
+		render_one_frame(game, false);
+	if (game->player.keys_pressed[shift])
+		puzzle_game(game, game->map.maze);
 	return (SUCCESS);
 }

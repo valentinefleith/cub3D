@@ -66,6 +66,7 @@ typedef struct s_map
 	uint32_t	ceilling_color;
 	uint32_t	*color_sequence;
 	uint32_t	target_color;
+	uint32_t	color_picked;
 	char		**textures_path;
 }				t_map;
 
@@ -79,7 +80,7 @@ typedef struct s_player
 {
 	double		looking_angle;
 	t_vector	pos;
-	bool		keys_pressed[6];
+	bool		keys_pressed[7];
 }				t_player;
 
 typedef struct s_maze
@@ -129,5 +130,12 @@ int				mouse_move(int x, int y, t_maze *game);
 // Move
 int				update_player_pos(t_maze *game);
 int 			rotate_player(t_maze *game, int key_pressed);
+
+// Door
+int				puzzle_game(t_maze *game, char **maze);
+int				handle_sequence_color(t_maze *game, char wall_type);
+int				handle_door(t_maze *game, t_map *map, t_point pos);
+int				open_door(t_maze *game, t_point pos);
+
 
 #endif

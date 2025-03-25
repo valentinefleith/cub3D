@@ -3,7 +3,7 @@ SO ./assets/textures/shades/deep_square.xpm
 WE ./assets/textures/shades/deep_square.xpm
 EA ./assets/textures/shades/deep_square.xpm
 
-DO ./assets/textures/pyramid/east.xpm
+DO ./assets/textures/shades/door.xpm
 
 S 232,149,253/59,229,138/164,0,142
 
@@ -13,8 +13,8 @@ F 133,76,255
 
 111111111111
 100001000001
-100002000001
-10000100S001
+100002W00001
+100001000001
 100001034501
 100001000001
 111111111111

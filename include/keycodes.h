@@ -31,6 +31,7 @@ typedef enum e_key
 	right,
 	right_rotation,
 	left_rotation,
+	shift,
 }	t_key;
 
 #endif
