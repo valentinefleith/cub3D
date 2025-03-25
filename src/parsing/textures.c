@@ -19,6 +19,7 @@ int	init_textures(t_maze *game)
 			return (map_error(ERROR_MAP));
 		i++;
 	}
+	game->map.target_color = get_px_color(game->texture[0], game->texture[0].width / 2, game->texture[0].height / 2);
 	return (SUCCESS);
 }
 
@@ -33,7 +34,7 @@ static bool	check_texture_extension(char *texture)
 	return (true);
 }
 
-int	get_texture_symbol(char *line)
+int	get_texture_cell(char *line)
 {
 	if (!ft_strncmp(line, "NO ./", 5))
 		return (0);
@@ -54,7 +55,7 @@ int	parsing_textures_path(char *line, t_map *map)
 
 	if (!line || !map)
 		return (map_error(ERROR_MAP), 0);
-	cell = get_texture_symbol(line);
+	cell = get_texture_cell(line);
 	if (cell != -1)
 	{
 		if (map->textures_path[cell]) // means that's already assigned = data en doublon

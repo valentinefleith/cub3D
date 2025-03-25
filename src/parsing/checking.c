@@ -54,6 +54,7 @@ int	check_maze_valid_symbol(char *line, bool msg_error)
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 32
 			&& line[i] != '2' && line[i] != '3'
+			&& line[i] != '4' && line[i] != '5'
 			&& line[i] != 'N' && line[i] != 'S' 
 			&& line[i] != 'W' && line[i] != 'E' && line[i] != '\n')
 		{

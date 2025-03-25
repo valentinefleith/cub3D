@@ -45,7 +45,7 @@ int	parsing_player(char **maze, t_player *player)
 			if ((maze[y][x] == 'N' || maze[y][x] == 'S' || maze[y][x] == 'E' 
 				|| maze[y][x] == 'W') && orientation == '\0')
 				orientation = get_player_spawn(player, y, x, maze[y][x]);
-			else if (maze[y][x] != '1' && maze[y][x] != '0' && maze[y][x] != '2' && maze[y][x] != '3')
+			else if (maze[y][x] != '1' && maze[y][x] != '0' && maze[y][x] != '2' && maze[y][x] != '3' && maze[y][x] != '4' && maze[y][x] != '5')
 				return (map_error(PLAYER));
 			x++;
 		}

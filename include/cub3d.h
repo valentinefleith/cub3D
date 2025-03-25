@@ -64,7 +64,8 @@ typedef struct s_map
 	int			height;
 	uint32_t	floor_color;
 	uint32_t	ceilling_color;
-	char		*color_sequence;
+	uint32_t	*color_sequence;
+	uint32_t	target_color;
 	char		**textures_path;
 }				t_map;
 

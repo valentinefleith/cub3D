@@ -42,8 +42,14 @@ static int	get_wall_type(t_vector point, char **maze)
 	{
 		if (maze[grid.y][grid.x] == '1')
 			return (1);
-		if (maze[grid.y][grid.x] == '2')
+		else if (maze[grid.y][grid.x] == '2')
 			return (2);
+		else if (maze[grid.y][grid.x] == '3')
+			return (3);
+		else if (maze[grid.y][grid.x] == '4')
+			return (4);
+		else if (maze[grid.y][grid.x] == '5')
+			return (5);
 	}
 	return (-1);
 }
@@ -81,7 +87,9 @@ bool is_wall_point(t_map *map, t_vector point)
 	{
 		if (map->maze[grid.y][grid.x] == '1'
 			|| map->maze[grid.y][grid.x] == '2'
-			|| map->maze[grid.y][grid.x] == '3')
+			|| map->maze[grid.y][grid.x] == '3'
+			|| map->maze[grid.y][grid.x] == '4'
+			|| map->maze[grid.y][grid.x] == '5')
 			return (true);
 	}
 	return (false);

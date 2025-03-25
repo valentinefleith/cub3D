@@ -13,7 +13,6 @@
 #include "cub3d.h"
 #include <mlx.h>
 
-// On va chercher dans l'image texturée le pixel exact de la couleur qui nous interresse pour reconstituer l'image
 int	get_px_color(t_img texture, int x, int y)
 {
 	uint8_t *pixel;

@@ -61,7 +61,7 @@ t_map	init_map_struct(void)
 	map.height = 0;
 	map.floor_color = 0;
 	map.ceilling_color = 0;
-	map.color_sequence = malloc(sizeof(char) * 4);
+	map.color_sequence = malloc(sizeof(uint32_t) * 3);
 	if (!map.color_sequence)
 	{
 		map_error(ERROR_MAP);

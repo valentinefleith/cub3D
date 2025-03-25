@@ -31,11 +31,26 @@ static int	shading_color(int color, double dist, double max_dist)
 	return ((r << 16) | (g << 8) | b);
 }
 
+static int	find_color(t_img texture, double wall_height, int wall_type, t_map map)
+{
+	int			pixel_color;
+
+	pixel_color = get_px_color(texture, texture.x, texture.y);
+	if (wall_type == 3 && pixel_color == (int)map.target_color)
+		pixel_color = map.color_sequence[0];
+	if (wall_type == 4 && pixel_color == (int)map.target_color)
+		pixel_color = map.color_sequence[1];
+	if (wall_type == 5 && pixel_color == (int)map.target_color)
+		pixel_color = map.color_sequence[2];
+	pixel_color = shading_color(pixel_color, wall_height, HEIGHT);
+	return (pixel_color);
+}
+
 void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 {
 	int		current_y;
 	int		end_y;
-	int		px_color;
+	int		color;
 	double	scale;
 
 	current_y = (HEIGHT / 2) - (wall_height / 2);
@@ -49,12 +64,9 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 	texture.y = ((double)current_y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
 	while (current_y < end_y)
 	{
-		px_color = get_px_color(texture, texture.x, texture.y);
-		if ((uint32_t)px_color == maze->map.floor_color)
-			px_color = RED;
-		px_color = shading_color(px_color, wall_height, HEIGHT);
-		if (px_color > 0)
-			my_mlx_pixel_put(&(maze->img), x, current_y, px_color);
+		color = find_color(texture, wall_height, maze->wall_type, maze->map);
+		if (color > 0)
+			my_mlx_pixel_put(&(maze->img), x, current_y, color);
 		texture.y += scale;
 		current_y++;
 	}

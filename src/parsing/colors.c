@@ -16,14 +16,47 @@ static uint32_t	convert_hex_color(int *rgb)
 
 static int	assign_color(t_map *map, char letter, int *rgb)
 {
+	static int	i = 0;
+
 	if (letter == 'F' && map->floor_color == 0)
 		map->floor_color = convert_hex_color(rgb);
 	else if (letter == 'C' && map->ceilling_color == 0)
 		map->ceilling_color = convert_hex_color(rgb);
+	else if (letter == 'S' && !map->color_sequence[i])
+	{
+		map->color_sequence[i++] = convert_hex_color(rgb);
+		return (SUCCESS);
+	}
 	else
 	{
 		free(rgb);
 		return (map_error(DOUBLE_SYMB));
+	}
+	free(rgb);
+	return (SUCCESS);
+}
+
+static int	get_color_sequence(t_map *map, char *line, int *rgb)
+{
+	int	sequence_index;
+	int	rgb_index;
+	int	i;
+
+	sequence_index = 0;
+	i = 2;
+	while (sequence_index < 3)
+	{
+		rgb_index = 0;
+		while (rgb_index < 3)
+		{
+			rgb[rgb_index] = get_color(line, &i);
+			if (rgb[rgb_index] == -1)
+				return (free(rgb), KO);
+			rgb_index++;
+		}
+		if (!assign_color(map, 'S', rgb))
+			return (KO);
+		sequence_index++;
 	}
 	free(rgb);
 	return (SUCCESS);
@@ -37,13 +70,13 @@ int	parsing_colors(char *line, t_map *map)
 	int		*rgb;
 
 	letter = check_color_symbol(line);
-	// if (letter == 'S')
-	// 	return (SUCCESS);
-	if (letter != 'F' && letter != 'C')
+	if (letter != 'F' && letter != 'C' && letter != 'S')
 		return (KO);
 	rgb = malloc(sizeof(int) * 3);
 	if (!rgb)
 		return (map_error(ERROR_MAP));
+	if (letter == 'S')
+		return (get_color_sequence(map, line, rgb));
 	i = 2;
 	index = 0;
 	while (index < 3)
@@ -66,13 +99,13 @@ int	get_color(char *line, int *i)
 
 	color = NULL;
 	start = *i;
-	while (line[*i] && line[*i] != ',' && line[*i] != '\n')
+	while (line[*i] && line[*i] != ',' && line[*i] != '\n' && line[*i] != '/')
 		*i += 1;
-	if (line[*i] && (line[*i] == ',' || line[*i] == '\n'))
+	if (line[*i] && (line[*i] == ',' || line[*i] == '\n' || line[*i] == '/'))
 	{
 		color = ft_substr(line, start, (*i));
 		*i += 1;
-		if (line[*i] && line[*i] == ',')
+		if (line[*i] && (line[*i] == ',' || line[*i] == '/'))
 			return (free(color), map_error(INVALID), -1);
 	}
 	if (!color)
@@ -97,16 +130,14 @@ char	check_color_symbol(char *line)
 	else
 		return (0);
 	if (line[1] != ' ')
-		return (map_error(INVALID));
-	// else
-	// 	return (KO);
+		return (KO);
 	i = 2;
 	while (line[i])
 	{
 		if (!ft_isdigit(line[i]) && line[i] != ',' && line[i] != '\n')
 		{
 			if (!(letter == 'S' && line[i] == '/'))
-				return (map_error(INVALID));
+				return (KO);
 		}
 		i++;
 	}
