@@ -135,7 +135,6 @@ int 			rotate_player(t_maze *game, int key_pressed);
 int				puzzle_game(t_maze *game, char **maze);
 int				handle_sequence_color(t_maze *game, char wall_type);
 int				handle_door(t_maze *game, t_map *map, t_point pos);
-int				open_door(t_maze *game, t_point pos);
-
+int				draw_picked_color(t_maze *game);
 
 #endif

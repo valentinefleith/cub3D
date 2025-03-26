@@ -44,7 +44,7 @@ t_player	init_player_struct(void)
 	player.pos.x = 2 * TILE_SIZE + TILE_SIZE / 2;
 	player.pos.y = 2 * TILE_SIZE + TILE_SIZE / 2;
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		player.keys_pressed[i] = false;
 		i++;
@@ -61,13 +61,18 @@ t_map	init_map_struct(void)
 	map.height = 0;
 	map.floor_color = 0;
 	map.ceilling_color = 0;
-	map.color_sequence = malloc(sizeof(uint32_t) * 3);
+	map.color_sequence = malloc(sizeof(uint32_t) * 4);
 	if (!map.color_sequence)
 	{
 		map_error(ERROR_MAP);
 		exit(1);
 	}
+	map.color_sequence[0] = 0;
+	map.color_sequence[1] = 0;
+	map.color_sequence[2] = 0;
 	map.textures_path = init_tab(TEXTURE_NB);
+	map.color_picked = -1;
+	map.target_color = -1;
 	return (map);
 }
 

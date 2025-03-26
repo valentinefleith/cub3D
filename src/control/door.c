@@ -58,16 +58,23 @@ int	handle_door(t_maze *game, t_map *map, t_point pos)
 	if (map->color_picked == map->color_sequence[i])
 	{
 		map->color_sequence[i] = -1;
+		map->color_picked = -1;
 		i++;
 	}
 	if (i == 3)
-		return (open_door(game, pos));
+	{
+		game->map.maze[pos.y][pos.x] = '0';
+		return (render_one_frame(game, false));
+	}
 	return (SUCCESS);
 }
 
-int	open_door(t_maze *game, t_point pos)
+int	draw_picked_color(t_maze *game)
 {
-	game->map.maze[pos.y][pos.x] = '0';
-	render_one_frame(game, false);
+	t_point	pos;
+
+	pos.x = WIDTH / 2;
+	pos.y = HEIGHT / 2;
+	draw_rectangle(game, pos, 50, 50, game->map.color_picked);
 	return (SUCCESS);
 }

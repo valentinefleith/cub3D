@@ -25,9 +25,11 @@ void	raycasting(t_maze *maze)
 	if (maze->minimap_key)
 	{
 		draw_minimap(maze);
-		draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle - (FOV_RADIANS / 2.0), DISTANCE_MINIMAP, WHITE);
-		draw_line_from_angle(maze, maze->player.pos, current_angle, DISTANCE_MINIMAP, WHITE);
+		// draw_line_from_angle(maze, maze->player.pos, maze->player.looking_angle - (FOV_RADIANS / 2.0), DISTANCE_MINIMAP, WHITE);
+		// draw_line_from_angle(maze, maze->player.pos, current_angle, DISTANCE_MINIMAP, WHITE);
 	}
+	if ((int)maze->map.color_picked != -1)
+		draw_picked_color(maze);
 }
 
 static int	get_wall_type(t_vector point, char **maze)

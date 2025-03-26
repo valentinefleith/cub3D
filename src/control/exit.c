@@ -31,7 +31,7 @@ int	drestroy_textures_img(t_maze *game)
 	i = 0;
 	if (!game || !game->mlx)
 		return (KO);
-	while (i < 4)
+	while (i < TEXTURE_NB)
 	{
 		if (game->texture[i].img)
 			mlx_destroy_image(game->mlx, game->texture[i].img);
