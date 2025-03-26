@@ -44,8 +44,8 @@
 # define MINI_TILE TILE_SIZE / 2
 
 # define PLAYER_RADIUS 5.0
-# define ROTATION_SPEED 0.02
-# define PLAYER_SPEED 1.5
+# define ROTATION_SPEED 0.025
+# define PLAYER_SPEED 1.7
 
 # define FOV 60.0
 # define FOV_RADIANS 1.0472

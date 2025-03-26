@@ -85,7 +85,7 @@ t_maze	game_initialization(void)
 	game.win = NULL;
 	game.img = init_img_struct();
 	i = 0;
-	while (i < 4)
+	while (i < TEXTURE_NB)
 	{
 		game.texture[i] = init_img_struct();
 		i++;

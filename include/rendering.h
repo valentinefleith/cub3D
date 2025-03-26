@@ -53,7 +53,7 @@ void	draw_player(t_maze *game);
 void		draw_rectangle(t_maze *maze, t_point center_pos, int width,
 			int height, int color);
 void		draw_line(t_maze *maze, t_point start, t_point end, int color);
-void		draw_line_from_angle(t_maze *maze, t_vector point, double angle,
+void		draw_line_from_angle(t_maze *maze, t_point point, double angle,
 			double size, int color);
 void 		draw_grid(t_maze *maze);
 #endif
