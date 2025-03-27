@@ -1,7 +1,18 @@
-#include "cub3d.h"
-#define FOV_SIZE 20
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 18:24:19 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 18:26:00 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void draw_grid(t_maze *maze)
+#include "cub3d.h"
+
+void	draw_grid(t_maze *maze)
 {
 	t_point	start;
 	t_point	end;
@@ -10,7 +21,7 @@ void draw_grid(t_maze *maze)
 	start.y = 1;
 	end.x = 1;
 	end.y = (maze->map.height * MINI_TILE + MINI_TILE / 4) - 2;
-	while (start.x <  maze->map.width * MINI_TILE + MINI_TILE)
+	while (start.x < maze->map.width * MINI_TILE + MINI_TILE)
 	{
 		draw_line(maze, start, end, BLACK);
 		start.x += MINI_TILE;
@@ -28,7 +39,7 @@ void draw_grid(t_maze *maze)
 	}
 }
 
-static void draw_mini_fov(t_maze *game, t_point player_pos)
+static void	draw_mini_fov(t_maze *game, t_point player_pos)
 {
 	double	current_angle;
 	double	last_ray_angle;
@@ -144,7 +155,5 @@ void	draw_line_from_angle(t_maze *maze, t_point start_point, double angle,
 		endpoint.x = 1;
 	if (endpoint.y < 0)
 		endpoint.y = 1;
-	// if (player.y < 0 || player.x > WIDTH || player.x < 0 || player.y > HEIGHT || endpoint.y < 0 || endpoint.y > HEIGHT)
-	// 	return ;
 	draw_line(maze, start_point, endpoint, color);
 }

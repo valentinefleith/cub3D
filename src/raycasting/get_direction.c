@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_direction.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 16:58:26 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 16:59:00 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-#include "raycasting.h"
 
 t_dir	get_vertical_direction(double angle)
 {
@@ -9,7 +20,7 @@ t_dir	get_vertical_direction(double angle)
 		direction = facing_right;
 	else
 		direction = facing_left;
-	return (direction);	
+	return (direction);
 }
 
 t_dir	get_horizontal_direction(double angle)

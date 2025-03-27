@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:43:50 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/12 10:32:56 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:17:39 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	shading_color(int color, double dist, double max_dist)
 	return ((r << 16) | (g << 8) | b);
 }
 
-static int	find_color(t_img texture, double wall_height, int wall_type, t_map map)
+static int	find_color(t_img texture, double wall_height, int wall_type, \
+			t_map map)
 {
 	int			pixel_color;
 
@@ -40,8 +41,8 @@ static int	find_color(t_img texture, double wall_height, int wall_type, t_map ma
 	{
 		if (texture.y <= texture.height / 2.5)
 			pixel_color = map.color_sequence[0];
-		else if (texture.y >= texture.height / 2.5 
-				&& texture.y <= texture.height / 1.6)
+		else if (texture.y >= texture.height / 2.5
+			&& texture.y <= texture.height / 1.6)
 			pixel_color = map.color_sequence[1];
 		else if (texture.y >= texture.height / 1.6)
 			pixel_color = map.color_sequence[2];
@@ -71,7 +72,8 @@ void	draw_wall(t_maze *maze, t_img texture, double wall_height, int x)
 		end_y = HEIGHT;
 	scale = (double)texture.height / (wall_height - 1);
 	draw_ceilling(maze, x, current_y);
-	texture.y = ((double)current_y - ((HEIGHT / 2) - (wall_height / 2))) * scale;
+	texture.y = ((double)current_y - ((HEIGHT / 2) - (wall_height / 2)));
+	texture.y *= scale;
 	while (current_y < end_y)
 	{
 		color = find_color(texture, wall_height, maze->wall_type, maze->map);
@@ -94,7 +96,8 @@ void	draw_floor(t_maze *maze, int x, int start)
 		intensity = ((double)start / HEIGHT) - 0.8;
 		if (intensity > 0.0)
 			intensity = 0.0;
-		my_mlx_pixel_put(&(maze->img), x, start, shading_color(color, intensity, 0.8));
+		my_mlx_pixel_put(&(maze->img), x, start, \
+		shading_color(color, intensity, 0.8));
 		start++;
 	}
 }
@@ -112,7 +115,8 @@ void	draw_ceilling(t_maze *maze, int x, int end)
 		intensity = 0.8 - ((double)start / (HEIGHT / 2));
 		if (intensity < 0.0)
 			intensity = 0.0;
-		my_mlx_pixel_put(&(maze->img), x, start, shading_color(color, intensity, 0.8));
+		my_mlx_pixel_put(&(maze->img), x, start, \
+		shading_color(color, intensity, 0.8));
 		start++;
 	}
 }

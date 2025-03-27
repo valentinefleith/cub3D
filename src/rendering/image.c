@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:34:16 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 21:53:23 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:19:02 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <mlx.h>
 
 int	get_px_color(t_img texture, int x, int y)
 {
@@ -32,7 +31,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	if (!img)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color; 
+	*(unsigned int *)dst = color;
 }
 
 int	render_one_frame(t_maze *game, bool init)
@@ -47,7 +46,7 @@ int	render_one_frame(t_maze *game, bool init)
 		free_window(game);
 		return (MLX_ERROR);
 	}
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, 
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
 		&img.line_length, &img.endian);
 	if (!img.addr)
 		exit_program(game, 1);

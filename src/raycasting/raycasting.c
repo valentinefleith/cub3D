@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 17:04:50 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 17:07:18 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-#include "raycasting.h"
 
 void	raycasting(t_maze *maze)
 {
@@ -15,9 +26,11 @@ void	raycasting(t_maze *maze)
 	{
 		current_angle = normalize_angle(current_angle);
 		wall_point = find_wall_point(maze, current_angle);
-		distance = get_wall_distance(maze->player.pos, wall_point, normalize_angle(maze->player.looking_angle), current_angle);
-		wall_height = ((double)TILE_SIZE / distance) * maze->plane_distance; // reminder plane_distance = (WIDTH / 2) / tan(FOV_RADIANS / 2)
-		draw_wall(maze, setup_texture(maze, wall_point, current_angle), wall_height, x);
+		distance = get_wall_distance(maze->player.pos, wall_point, \
+			normalize_angle(maze->player.looking_angle), current_angle);
+		wall_height = ((double)TILE_SIZE / distance) * maze->plane_distance;
+		draw_wall(maze, \
+			setup_texture(maze, wall_point, current_angle), wall_height, x);
 		current_angle += (FOV_RADIANS / (double)WIDTH);
 		x++;
 	}
@@ -56,7 +69,7 @@ t_vector	find_wall_point(t_maze *maze, double angle)
 	t_vector	horizontal;
 	t_vector	vertical;
 	t_vector	closest_point;
-	t_dir 		direction;
+	t_dir		direction;
 
 	direction = get_horizontal_direction(angle);
 	horizontal = get_first_x_point(maze->player.pos, angle, direction);
@@ -70,7 +83,7 @@ t_vector	find_wall_point(t_maze *maze, double angle)
 	return (closest_point);
 }
 
-bool is_wall_point(t_map *map, t_vector point)
+bool	is_wall_point(t_map *map, t_vector point)
 {
 	t_point	grid;
 
@@ -78,7 +91,8 @@ bool is_wall_point(t_map *map, t_vector point)
 		return (true);
 	grid.x = floor(point.x / TILE_SIZE);
 	grid.y = floor(point.y / TILE_SIZE);
-	if (grid.y < 0 || grid.x >= map->width || grid.y >= map->height || grid.x < 0)
+	if (grid.y < 0 || grid.y >= map->height
+		|| grid.x < 0 || grid.x >= map->width)
 		return (true);
 	if (map->maze[grid.y] && map->maze[grid.y][grid.x])
 	{

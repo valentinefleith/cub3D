@@ -1,7 +1,18 @@
-#include "cub3d.h"
-#include "raycasting.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_point.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 17:01:41 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 17:04:32 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_vector get_first_y_point(t_vector player, double angle, t_dir direction)
+#include "cub3d.h"
+
+t_vector	get_first_y_point(t_vector player, double angle, t_dir direction)
 {
 	t_vector	first_point;
 
@@ -13,7 +24,8 @@ t_vector get_first_y_point(t_vector player, double angle, t_dir direction)
 	return (first_point);
 }
 
-t_vector get_first_x_point(t_vector player_pos, double angle, t_dir direction)
+t_vector	get_first_x_point(t_vector player_pos, double angle, \
+			t_dir direction)
 {
 	t_vector	first_point;
 
@@ -25,22 +37,12 @@ t_vector get_first_x_point(t_vector player_pos, double angle, t_dir direction)
 	return (first_point);
 }
 
-t_vector get_point_horizon(t_map *map, double angle, t_dir direction, t_vector point)
+t_vector	get_point_horizon(t_map *map, double angle, t_dir direction, \
+			t_vector point)
 {
 	double	x_step;
 	double	y_step;
-	
-	// x_step = TILE_SIZE / tan(angle);
-	// if (direction == facing_down)
-	// 	x_step = -x_step;
-	// y_step = TILE_SIZE;
-	// if (direction == facing_up)
-	// 	y_step = -TILE_SIZE;
-	// while (!is_wall_point(map, point))
-	// {
-	// 	point.x -= x_step;
-	// 	point.y += y_step;
-	// }
+
 	y_step = TILE_SIZE;
 	if (direction == facing_up)
 		y_step *= -1;
@@ -55,19 +57,19 @@ t_vector get_point_horizon(t_map *map, double angle, t_dir direction, t_vector p
 		point.y += y_step;
 	}
 	return (point);
-
 }
 
-t_vector	get_point_vert(t_map *map, double angle, t_dir direction, t_vector point)
+t_vector	get_point_vert(t_map *map, double angle, t_dir direction, \
+			t_vector point)
 {
 	double	x_step;
 	double	y_step;
-	
+
 	x_step = TILE_SIZE;
 	if (direction == facing_left)
 		x_step *= -1;
 	y_step = TILE_SIZE * tan(angle);
-	if ((get_horizontal_direction(angle) == facing_up && y_step > 0) 
+	if ((get_horizontal_direction(angle) == facing_up && y_step > 0)
 		|| (get_horizontal_direction(angle) == facing_down && y_step < 0))
 		y_step *= -1;
 	while (!is_wall_point(map, point))

@@ -6,7 +6,7 @@
 /*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:03:36 by luvallee          #+#    #+#             */
-/*   Updated: 2025/03/27 16:06:39 by luvallee         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:24:06 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "colors.h"
 # include "raycasting.h"
 # include "rendering.h"
+# include "control.h"
 
 # include <math.h>
 # include <mlx.h>
@@ -50,6 +51,7 @@
 
 # define FOV 60.0
 # define FOV_RADIANS 1.0472
+# define FOV_SIZE 20
 
 # define TEXTURE_NB 5
 
