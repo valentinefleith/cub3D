@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 21:30:56 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/10 21:33:17 by vafleith         ###   ########.fr       */
+/*   Created: 2025/02/10 21:30:56 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:57:24 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int free_window(t_maze* maze)
+int	free_window(t_maze *maze)
 {
 	if (maze->mlx && maze->win)
 		mlx_destroy_window(maze->mlx, maze->win);
@@ -40,7 +40,7 @@ int	drestroy_textures_img(t_maze *game)
 	return (SUCCESS);
 }
 
-int exit_program(t_maze *maze, int exit_code)
+int	exit_program(t_maze *maze, int exit_code)
 {
 	if (maze)
 	{
@@ -57,4 +57,3 @@ int exit_program(t_maze *maze, int exit_code)
 	exit(exit_code);
 	return (EXIT_FAILURE);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:11:30 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/12 10:34:09 by vafleith         ###   ########.fr       */
+/*   Created: 2025/03/27 16:03:36 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 16:06:39 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define HEIGHT 880
 # define WIDTH 1000
 # define TILE_SIZE 30.0
-# define MINI_TILE TILE_SIZE / 2
+# define MINI_TILE 15.0
 
 # define PLAYER_RADIUS 5.0
 # define ROTATION_SPEED 0.025
@@ -53,10 +53,10 @@
 
 # define TEXTURE_NB 5
 
-typedef enum e_direction t_dir;
-typedef enum e_orientation t_orient;
-typedef enum e_key t_key;
-typedef struct s_img t_img;
+typedef enum e_direction	t_dir;
+typedef enum e_orientation	t_orient;
+typedef enum e_key			t_key;
+typedef struct s_img		t_img;
 
 typedef struct s_map
 {
@@ -88,8 +88,8 @@ typedef struct s_maze
 {
 	void		*mlx;
 	void		*win;
-	t_img 		img;
-	t_img 		texture[TEXTURE_NB];
+	t_img		img;
+	t_img		texture[TEXTURE_NB];
 	t_img		minimap;
 	t_player	player;
 	t_map		map;
@@ -106,36 +106,5 @@ typedef struct s_point
 }				t_point;
 
 int				game_loop(t_maze *game);
-
-/* CONTROL *******************************************************************/
-
-void			print_game_struct(t_maze *game);
-
-// Initialization
-t_maze			game_initialization(void);
-t_map			init_map_struct(void);
-t_player		init_player_struct(void);
-char			**init_tab(int len);
-t_img			init_img_struct(void);
-
-// Exit
-int 			free_window(t_maze* maze);
-int				exit_program(t_maze *maze, int error_code);
-int				drestroy_textures_img(t_maze *game);
-
-// Key events
-int				key_press(int keycode, t_maze *game);
-int				key_release(int keycode, t_maze *game);
-int				mouse_move(int x, int y, t_maze *game);
-
-// Move
-int				update_player_pos(t_maze *game);
-int 			rotate_player(t_maze *game, int key_pressed);
-
-// Door
-int				puzzle_game(t_maze *game, char **maze);
-int				handle_sequence_color(t_maze *game, char wall_type);
-int				handle_door(t_maze *game, t_map *map, t_point pos);
-int				draw_picked_color(t_maze *game);
 
 #endif

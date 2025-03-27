@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   door.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 15:55:29 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:56:04 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static t_point	get_facing_wall_pos(char **maze, t_point grid, double view_dir)
 {
-	t_point facing_wall;
+	t_point	facing_wall;
 
 	facing_wall.x = grid.x;
 	facing_wall.y = grid.y;
@@ -10,7 +22,8 @@ static t_point	get_facing_wall_pos(char **maze, t_point grid, double view_dir)
 		facing_wall.y += 1;
 	else
 		facing_wall.y -= 1;
-	if (maze[facing_wall.y][facing_wall.x] == '1' || maze[facing_wall.y][facing_wall.x] == '0')
+	if (maze[facing_wall.y][facing_wall.x] == '1'
+		|| maze[facing_wall.y][facing_wall.x] == '0')
 	{
 		facing_wall.y = grid.y;
 		if (get_vertical_direction(view_dir) == facing_left)

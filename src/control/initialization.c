@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialization.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 15:57:36 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:58:45 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 t_img	init_img_struct(void)
 {
 	t_img	img;
 
-	img.img = NULL; 
+	img.img = NULL;
 	img.addr = NULL;
 	img.bits_per_pixel = 0;
 	img.line_length = 0;

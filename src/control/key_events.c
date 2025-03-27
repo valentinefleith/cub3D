@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 22:17:35 by vafleith          #+#    #+#             */
-/*   Updated: 2025/02/11 21:34:15 by vafleith         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:00:34 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	key_release(int keycode, t_maze *game)
 	return (SUCCESS);
 }
 
-int mouse_move(int x, int y, t_maze *game)
+int	mouse_move(int x, int y, t_maze *game)
 {
 	(void)y;
 	if (x == WIDTH / 2)
@@ -82,6 +82,6 @@ int mouse_move(int x, int y, t_maze *game)
 		mlx_mouse_move(game->mlx, game->win, 0, y);
 	if (x > WIDTH)
 		mlx_mouse_move(game->mlx, game->win, WIDTH, y);
-    render_one_frame(game, false);
-    return (0);
+	render_one_frame(game, false);
+	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 16:00:50 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 16:02:09 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 // player_radius defines a min distance between the wall and the player
@@ -21,7 +33,8 @@ static int	detect_wall_collision(char **maze, t_vector new_pos, char x, char y)
 	return (SUCCESS);
 }
 
-static int	update_position(t_maze *game, double x_angle, double y_angle, t_vector player_pos)
+int	update_position(t_maze *game, double x_angle, double y_angle, \
+	t_vector player_pos)
 {
 	t_vector	new_pos;
 
@@ -29,20 +42,20 @@ static int	update_position(t_maze *game, double x_angle, double y_angle, t_vecto
 		return (KO);
 	new_pos.x = ((x_angle * PLAYER_SPEED) + player_pos.x);
 	new_pos.y = ((y_angle * PLAYER_SPEED) + player_pos.y);
-	if (!detect_wall_collision(game->map.maze, new_pos, '-', '-')) // grid top left
+	if (!detect_wall_collision(game->map.maze, new_pos, '-', '-'))
 		return (KO);
-	if (!detect_wall_collision(game->map.maze, new_pos, '+', '-')) // grid top right
+	if (!detect_wall_collision(game->map.maze, new_pos, '+', '-'))
 		return (KO);
-	if (!detect_wall_collision(game->map.maze, new_pos, '-', '+')) // grid bottom left
+	if (!detect_wall_collision(game->map.maze, new_pos, '-', '+'))
 		return (KO);
-	if (!detect_wall_collision(game->map.maze, new_pos, '+', '+')) // grid bottom right
+	if (!detect_wall_collision(game->map.maze, new_pos, '+', '+'))
 		return (KO);
 	game->player.pos = new_pos;
 	render_one_frame(game, false);
 	return (SUCCESS);
 }
 
-static int move_player(t_maze *game, double angle, int key_pressed)
+static int	move_player(t_maze *game, double angle, int key_pressed)
 {
 	double	sine;
 	double	cosine;
@@ -60,7 +73,7 @@ static int move_player(t_maze *game, double angle, int key_pressed)
 	return (KO);
 }
 
-int rotate_player(t_maze *game, int key_pressed)
+int	rotate_player(t_maze *game, int key_pressed)
 {
 	if (key_pressed == right_rotation)
 	{

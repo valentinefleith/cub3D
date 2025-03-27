@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 15:54:39 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:55:13 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	print_img_struct(t_img img, char *name)
@@ -29,7 +41,7 @@ static void	print_player_struct(t_player player)
 	printf("player.pos.y == %f\n", player.pos.y);
 }
 
-static void print_map_struct(t_map map)
+static void	print_map_struct(t_map map)
 {
 	int	i;
 
