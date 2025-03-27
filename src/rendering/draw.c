@@ -36,13 +36,14 @@ static int	find_color(t_img texture, double wall_height, int wall_type, t_map ma
 	int			pixel_color;
 
 	pixel_color = get_px_color(texture, texture.x, texture.y);
-	if (wall_type == 2 && pixel_color == -16777216)
+	if (wall_type == 2 && pixel_color == TRANSPARENT)
 	{
-		if (texture.y <= texture.height / 3)
+		if (texture.y <= texture.height / 2.5)
 			pixel_color = map.color_sequence[0];
-		else if (texture.y <= texture.height / 1.5)
+		else if (texture.y >= texture.height / 2.5 
+				&& texture.y <= texture.height / 1.6)
 			pixel_color = map.color_sequence[1];
-		else if (texture.y > texture.height / 1.5)
+		else if (texture.y >= texture.height / 1.6)
 			pixel_color = map.color_sequence[2];
 	}
 	if (wall_type == 3 && pixel_color == (int)map.target_color)

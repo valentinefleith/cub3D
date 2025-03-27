@@ -54,7 +54,6 @@ t_vector	get_point_vert(t_map *map, double angle, t_dir direction, t_vector poin
 
 /* UTILS *********************************************************************/
 
-double		normalize_angle(double angle);
-void		draw_fov(t_maze *maze);
+double				normalize_angle(double angle);
 
 #endif

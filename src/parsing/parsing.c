@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
-/* Parsing the map's file and Initialization of the structure */
+/* Adding error mesage if there is doors in the map but no color sequence and vice versa.
+But also if there is no walls 3,4,5 */
 int	parsing_map_file(int args, char *filename, t_map *map, t_player *player)
 {
 	int	fd;

@@ -31,6 +31,7 @@
 # include <stdbool.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <sys/time.h>
 
 # define SUCCESS 1
 # define KO 0

@@ -56,7 +56,9 @@ void	draw_minimap(t_maze *game)
 		j = 0;
 		while (game->map.maze[i][j])
 		{
-			if (game->map.maze[i][j] == '1')
+			if (game->map.maze[i][j] == '2')
+				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, game->map.ceilling_color);
+			else if (game->map.maze[i][j] >= '1' && game->map.maze[i][j] <= '5')
 				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, game->map.floor_color);
 			else
 				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, GREY);

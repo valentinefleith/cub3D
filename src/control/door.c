@@ -53,7 +53,7 @@ int	handle_sequence_color(t_maze *game, char wall_type)
 
 int	handle_door(t_maze *game, t_map *map, t_point pos)
 {
-	static int	i = 0;
+	static int		i = 0;
 
 	if (map->color_picked == map->color_sequence[i])
 	{
@@ -64,6 +64,7 @@ int	handle_door(t_maze *game, t_map *map, t_point pos)
 	if (i == 3)
 	{
 		game->map.maze[pos.y][pos.x] = '0';
+		printf("Bravo you solved the color puzzle and unlocked the door!\n");
 		return (render_one_frame(game, false));
 	}
 	return (SUCCESS);

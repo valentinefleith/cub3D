@@ -1,7 +1,7 @@
-NO ./assets/textures/shades/deep_square.xpm
-SO ./assets/textures/shades/deep_square.xpm
-WE ./assets/textures/shades/deep_square.xpm
-EA ./assets/textures/shades/deep_square.xpm
+NO ./assets/textures/shades/west_deep_square.xpm
+SO ./assets/textures/shades/west_deep_square.xpm
+WE ./assets/textures/shades/west_deep_square.xpm
+EA ./assets/textures/shades/west_deep_square.xpm
 
 C 62,70,186
 F 123,131,249

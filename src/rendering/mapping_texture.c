@@ -2,7 +2,7 @@
 
 static void	setup_x_coord(t_img *texture, t_vector wall_point, bool horizontal_point, double angle)
 {
-	if (horizontal_point) // Point d'intersection du mur etait à l'horizontal
+	if (horizontal_point)
 		texture->x = fmodf(wall_point.x * ((double)texture->width / (double)TILE_SIZE), (double)texture->width);
 	else
 		texture->x = fmodf(wall_point.y * ((double)texture->width / (double)TILE_SIZE), (double)texture->width);
