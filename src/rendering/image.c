@@ -15,11 +15,13 @@
 
 int	get_px_color(t_img texture, int x, int y)
 {
-	uint8_t *pixel;
+	uint8_t	*pixel;
+	int		bpp;
 
 	if (x > texture.width || x < 0 || y > texture.height || y < 0)
 		return (-1);
-	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8)));
+	bpp = texture.bits_per_pixel / 8;
+	pixel = (uint8_t *)(texture.addr + (y * texture.line_length + x * bpp));
 	return (*(int32_t *)pixel);
 }
 
@@ -45,8 +47,8 @@ int	render_one_frame(t_maze *game, bool init)
 		free_window(game);
 		return (MLX_ERROR);
 	}
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-		&img.endian);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, 
+		&img.line_length, &img.endian);
 	if (!img.addr)
 		exit_program(game, 1);
 	game->img = img;

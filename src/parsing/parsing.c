@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 14:05:55 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 14:44:07 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-/* Adding error mesage if there is doors in the map but no color sequence and vice versa.
-But also if there is no walls 3,4,5 */
 int	parsing_map_file(int args, char *filename, t_map *map, t_player *player)
 {
 	int	fd;
@@ -22,7 +32,7 @@ int	parsing_map_file(int args, char *filename, t_map *map, t_player *player)
 					return (map_error(ERROR_MAP));
 				if (maze_parsing(fd, map->maze, map->height, map->width))
 					return (parsing_player(map->maze, player));
-				return (free_map(map), KO);
+				return (KO);
 			}
 			return (map_error(FILE_MAP));
 		}
@@ -46,9 +56,9 @@ int	parsing_env_map_data(char *filename, t_map *map)
 	{
 		if (!is_line_empty(line))
 		{
-			if (!parsing_textures_path(line, map)) // assign texture's path in map's struct
+			if (!parsing_textures_path(line, map))
 			{
-				if (!parsing_colors(line, map))  // assign RGB colors in map's struct
+				if (!parsing_colors(line, map))
 					return (free(line), close(fd), map_error(INVALID));
 			}
 		}

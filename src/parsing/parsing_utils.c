@@ -1,4 +1,16 @@
-# include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 15:39:58 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:43:06 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
 
 char	*read_file(int fd)
 {
@@ -10,10 +22,9 @@ char	*read_file(int fd)
 	return (line);
 }
 
-/*  Skip the beginning of the file to reach maze content */
 char	*skip_beginning(int fd)
 {
-	char *line;
+	char	*line;
 
 	line = NULL;
 	while (!check_maze_valid_symbol(line, false))
@@ -25,17 +36,12 @@ char	*skip_beginning(int fd)
 	return (line);
 }
 
-/*
- This function browses the file to height how many lines are needed for the map.
- TODO = add the calculation for the width + store that in struct dimension
-*/
 int	get_maze_size(int fd, char *prev_line, int *width)
 {
-	// t_dimensions dimensions;
-	int 		height;
-	int 		current_width;
-	char		*line;
-	
+	int		height;
+	int		current_width;
+	char	*line;
+
 	if (!prev_line)
 		return (map_error(NO_MAP), -1);
 	height = -1;
@@ -51,7 +57,7 @@ int	get_maze_size(int fd, char *prev_line, int *width)
 			*width = current_width;
 		free(line);
 		line = get_next_line(fd);
-		if (!line) // when the file is ended quit the infinite loop
+		if (!line)
 			return (close(fd), height);
 		current_width = ft_strlen(line) - 1;
 	}
@@ -71,7 +77,7 @@ void	remove_spaces(char *line)
 	}
 }
 
-char *resize_line_with_walls(char *line, int width)
+char	*resize_line_with_walls(char *line, int width)
 {
 	char	*new_line;
 	int		len;

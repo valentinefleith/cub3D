@@ -1,66 +1,16 @@
-# include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 14:25:40 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 14:30:44 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static uint32_t	convert_hex_color(int *rgb)
-{
-	int			red;
-	int			green;
-	int			blue;
-	uint32_t	result;
-
-	red = rgb[0];
-	green = rgb[1];
-	blue = rgb[2];
-	result = ((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff);
-	return (result);
-}
-
-static int	assign_color(t_map *map, char letter, int *rgb)
-{
-	static int	i = 0;
-
-	if (letter == 'F' && map->floor_color == 0)
-		map->floor_color = convert_hex_color(rgb);
-	else if (letter == 'C' && map->ceilling_color == 0)
-		map->ceilling_color = convert_hex_color(rgb);
-	else if (letter == 'S' && !map->color_sequence[i])
-	{
-		map->color_sequence[i++] = convert_hex_color(rgb);
-		return (SUCCESS);
-	}
-	else
-	{
-		free(rgb);
-		return (map_error(DOUBLE_SYMB));
-	}
-	free(rgb);
-	return (SUCCESS);
-}
-
-static int	get_color_sequence(t_map *map, char *line, int *rgb)
-{
-	int	sequence_index;
-	int	rgb_index;
-	int	i;
-
-	sequence_index = 0;
-	i = 2;
-	while (sequence_index < 3)
-	{
-		rgb_index = 0;
-		while (rgb_index < 3)
-		{
-			rgb[rgb_index] = get_color(line, &i);
-			if (rgb[rgb_index] == -1)
-				return (free(rgb), KO);
-			rgb_index++;
-		}
-		if (!assign_color(map, 'S', rgb))
-			return (KO);
-		sequence_index++;
-	}
-	free(rgb);
-	return (SUCCESS);
-}
+#include "cub3d.h"
 
 int	parsing_colors(char *line, t_map *map)
 {
@@ -142,4 +92,26 @@ char	check_color_symbol(char *line)
 		i++;
 	}
 	return (letter);
+}
+
+int	assign_color(t_map *map, char letter, int *rgb)
+{
+	static int	i = 0;
+
+	if (letter == 'F' && map->floor_color == 0)
+		map->floor_color = convert_hex_color(rgb);
+	else if (letter == 'C' && map->ceilling_color == 0)
+		map->ceilling_color = convert_hex_color(rgb);
+	else if (letter == 'S' && !map->color_sequence[i])
+	{
+		map->color_sequence[i++] = convert_hex_color(rgb);
+		return (SUCCESS);
+	}
+	else
+	{
+		free(rgb);
+		return (map_error(DOUBLE_SYMB));
+	}
+	free(rgb);
+	return (SUCCESS);
 }

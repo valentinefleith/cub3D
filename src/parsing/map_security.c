@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_security.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/27 14:33:04 by luvallee          #+#    #+#             */
+/*   Updated: 2025/03/27 15:37:37 by luvallee         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	map_error_bis(int error_code)
@@ -9,11 +21,13 @@ static void	map_error_bis(int error_code)
 	else if (error_code == MISS_TEXT)
 		ft_putendl_fd("> Texture's path is missing\e[0m", 2);
 	else if (error_code == MISS_COLOR)
-		ft_putendl_fd("> Color information about floor or ceilling is missing\e[0m", 2);
+		ft_putendl_fd("> Color code for floor or ceilling is missing\e[0m", 2);
 	else if (error_code == INEXISTANT)
 		ft_putendl_fd("> Texture's path doesn't exist\e[0m", 2);
 	else if (error_code == TEXT_EXTENSION)
 		ft_putendl_fd("> Texture's extension must be *.xpm\e[0m", 2);
+	else if (error_code == MISS_PUZZLE)
+		ft_putendl_fd("> Incomplete info to start door puzzle\e[0m", 2);
 }
 
 int	map_error(int error_code)
@@ -58,7 +72,7 @@ int	free_map(t_map *map)
 
 char	**free_double_tab(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)
@@ -78,4 +92,12 @@ char	**free_double_tab(char **map)
 		map = NULL;
 	}
 	return (map);
+}
+
+int	clean_maze_parsing(char *line, int fd)
+{
+	if (line)
+		free(line);
+	close(fd);
+	return (KO);
 }

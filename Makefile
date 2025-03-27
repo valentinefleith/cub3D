@@ -39,7 +39,7 @@ RESET = \033[0;m
 
 PARSING_FILES = parsing/checking.c parsing/colors.c parsing/map_security.c \
 			parsing/maze.c parsing/parsing_utils.c parsing/parsing.c \
-			parsing/player.c parsing/textures.c \
+			parsing/player.c parsing/textures.c parsing/colors_utils.c \
 
 CONTROL_FILES = control/exit.c control/key_events.c control/move.c \
 			control/initialization.c control/debug.c control/door.c \
