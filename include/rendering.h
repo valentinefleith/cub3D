@@ -39,6 +39,13 @@ typedef struct s_minimap
 	int		cell_size;
 }			t_minimap;
 
+typedef struct s_rectangle_characteristics
+{
+	int height;
+	int width;
+	int color;
+}			t_rectangle_characteristics;
+
 /* DRAW WALL *****************************************************************/
 
 void		draw_wall(t_maze *maze, t_img texture, double wall_height, int x);
@@ -62,11 +69,11 @@ t_img		setup_texture(t_maze *game, t_vector wall_point, double angle);
 int			minimap(t_maze *game);
 void		draw_minimap(t_maze *game);
 void		draw_player(t_maze *game);
-void		draw_rectangle(t_maze *maze, t_point center_pos, int width,
-				int height, int color);
+void	draw_rectangle(t_maze *maze, t_point center_pos, t_rectangle_characteristics characteristics);
 void		draw_line(t_maze *maze, t_point start, t_point end, int color);
 void		draw_line_from_angle(t_maze *maze, t_point point, double angle,
 				double size, int color);
 void 		draw_grid(t_maze *maze);
+t_rectangle_characteristics to_rectangle_characteristics(int height, int width, int color);
 
 #endif

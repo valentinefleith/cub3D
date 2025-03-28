@@ -53,6 +53,18 @@ static void	draw_mini_fov(t_maze *game, t_point player_pos)
 	}
 }
 
+static int get_minimap_color(t_maze *game, int x, int y)
+{
+	char minimap_code;
+
+	minimap_code = game->map.maze[x][y];
+	if (minimap_code == '2')
+		return game->map.ceilling_color;
+	if (minimap_code >= '1' && minimap_code <= '5')
+		return game->map.floor_color;
+	return GREY;
+}
+
 void	draw_minimap(t_maze *game)
 {
 	t_point	pos;
@@ -67,12 +79,8 @@ void	draw_minimap(t_maze *game)
 		j = 0;
 		while (game->map.maze[i][j])
 		{
-			if (game->map.maze[i][j] == '2')
-				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, game->map.ceilling_color);
-			else if (game->map.maze[i][j] >= '1' && game->map.maze[i][j] <= '5')
-				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, game->map.floor_color);
-			else
-				draw_rectangle(game, pos, MINI_TILE, MINI_TILE, GREY);
+			draw_rectangle(game, pos, to_rectangle_characteristics(MINI_TILE,
+				MINI_TILE, get_minimap_color(game, i, j)));
 			pos.x += MINI_TILE;
 			j++;
 		}
@@ -89,22 +97,7 @@ void	draw_player(t_maze *game)
 	player.x = game->player.pos.x / TILE_SIZE * MINI_TILE;
 	player.y = game->player.pos.y / TILE_SIZE * MINI_TILE;
 	draw_mini_fov(game, player);
-	draw_rectangle(game, player, PLAYER_RADIUS, PLAYER_RADIUS, PINK);
-}
-
-void	draw_rectangle(t_maze *maze, t_point center_pos, int width,
-		int height, int color)
-{
-	int	start_i;
-	int	start_j;
-
-	start_i = center_pos.x - (width / 2);
-	start_j = center_pos.y - (height / 2);
-	for (int i = start_i; i < start_i + width; i++)
-	{
-		for (int j = start_j; j < start_j + height; j++)
-			my_mlx_pixel_put(&(maze->img), i, j, color);
-	}
+	draw_rectangle(game, player, to_rectangle_characteristics(PLAYER_RADIUS, PLAYER_RADIUS, PINK));
 }
 
 void	draw_line(t_maze *maze, t_point start, t_point end, int color)
