@@ -18,6 +18,8 @@ static void	map_error_bis(int error_code)
 		ft_putendl_fd("> Multiple lines concern the same symbol/data\e[0m", 2);
 	else if (error_code == DIRECTORY)
 		ft_putendl_fd("> The map file is a directory\e[0m", 2);
+	else if (error_code == NO_MAP)
+		ft_putendl_fd("> No map has been found in the file\e[0m", 2);
 	else if (error_code == MISS_TEXT)
 		ft_putendl_fd("> Texture's path is missing\e[0m", 2);
 	else if (error_code == MISS_COLOR)
@@ -28,10 +30,21 @@ static void	map_error_bis(int error_code)
 		ft_putendl_fd("> Texture's extension must be *.xpm\e[0m", 2);
 	else if (error_code == MISS_PUZZLE)
 		ft_putendl_fd("> Incomplete info to start door puzzle\e[0m", 2);
+	else if (error_code == MISS_ENV)
+		ft_putendl_fd("> Incomplete info to start the game\e[0m", 2);
+	else if (error_code == PLAYER)
+		ft_putendl_fd("> More than one player has been detected\e[0m", 2);
+	else if (error_code == NO_PLAYER)
+		ft_putendl_fd("> No player has been found\e[0m", 2);
 }
 
 int	map_error(int error_code)
 {
+	static bool	prev_error = false;
+
+	if (prev_error)
+		return (KO);
+	prev_error = true;
 	ft_putendl_fd("\e[1;31mError", 2);
 	if (error_code == MISSING_MAP)
 		ft_putendl_fd("> Map is missing as argument\e[0m", 2);
@@ -49,13 +62,8 @@ int	map_error(int error_code)
 		ft_putendl_fd("> RGB color's range must be between 0 and 255\e[0m", 2);
 	else if (error_code == EDGES)
 		ft_putendl_fd("> The maze must be closed by walls\e[0m", 2);
-	else if (error_code == NO_MAP)
-		ft_putendl_fd("> No map has been found in the file\e[0m", 2);
-	else if (error_code == PLAYER)
-		ft_putendl_fd("> More than one player has been detected\e[0m", 2);
-	else if (error_code == NO_PLAYER)
-		ft_putendl_fd("> No player has been found\e[0m", 2);
-	map_error_bis(error_code);
+	else
+		map_error_bis(error_code);
 	return (KO);
 }
 
@@ -65,7 +73,18 @@ int	free_map(t_map *map)
 		return (KO);
 	if (map->color_sequence)
 		free(map->color_sequence);
-	map->textures_path = free_double_tab(map->textures_path);
+	if (map->textures_path[0])
+		free(map->textures_path[0]);
+	if (map->textures_path[1])
+		free(map->textures_path[1]);
+	if (map->textures_path[2])
+		free(map->textures_path[2]);
+	if (map->textures_path[3])
+		free(map->textures_path[3]);
+	if (map->textures_path[4])
+		free(map->textures_path[4]);
+	if (map->textures_path)
+		free(map->textures_path);
 	map->maze = free_double_tab(map->maze);
 	return (SUCCESS);
 }

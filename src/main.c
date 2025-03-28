@@ -32,6 +32,8 @@ int	main(int ac, char **av)
 	game = game_initialization();
 	if (!parsing_map_file(ac, av[1], &game.map, &game.player))
 		return (free_map(&game.map), EXIT_FAILURE);
+	if (!is_all_data_assigned(&game.map))
+		return (free_map(&game.map), EXIT_FAILURE);
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (exit_program(&game, EXIT_FAILURE));

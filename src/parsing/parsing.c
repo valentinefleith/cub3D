@@ -68,3 +68,14 @@ int	parsing_env_map_data(char *filename, t_map *map)
 	map->height = get_maze_size(fd, line, &map->width);
 	return (close(fd), free(line), SUCCESS);
 }
+
+int	is_all_data_assigned(t_map *map)
+{
+	if (!map || !map->maze || !map->maze[0])
+		return (map_error(NO_MAP));
+	if (((int)map->floor_color == -1 && (int)map->ceilling_color == -1)
+		|| !map->textures_path[0] || !map->textures_path[1]
+		|| !map->textures_path[2] || !map->textures_path[3])
+		return (map_error(MISS_ENV));
+	return (SUCCESS);
+}

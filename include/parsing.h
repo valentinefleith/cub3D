@@ -35,6 +35,7 @@
 # define MISS_COLOR 16
 # define TEXT_EXTENSION 17
 # define MISS_PUZZLE 18
+# define MISS_ENV 19
 
 typedef struct s_map	t_map;
 typedef struct s_maze	t_maze;
@@ -45,6 +46,7 @@ typedef struct s_player	t_player;
 int			parsing_map_file(int args, char *filename, t_map *map, \
 			t_player *player);
 int			parsing_env_map_data(char *filename, t_map *map);
+int			is_all_data_assigned(t_map *map);
 
 /* CHECKING ******************************************************************/
 
@@ -67,7 +69,7 @@ int			clean_maze_parsing(char *line, int fd);
 int			parsing_colors(char *line, t_map *map);
 int			get_color(char *line, int *i);
 char		check_color_symbol(char *line);
-int			assign_color(t_map *map, char letter, int *rgb);
+int			assign_color(t_map *map, char letter, char line, int *rgb);
 
 /* COLORS UTILS **************************************************************/
 

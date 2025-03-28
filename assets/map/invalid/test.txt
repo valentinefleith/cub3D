@@ -1,0 +1,182 @@
+#Test env -i ./cub3D map.cub
+
+#  DON'T FORGET TO TEST LEAKS AND IF FD ARE CLOSED!!!!!!!!!!!!
+
+#Test empty file
+#Test with only map (no textures and colors)
+#Test with only colors
+#Test with only textures
+
+#Test inexistant filename
+#Test wrong filename extension name
+> map.ber
+> .cub
+> map.cub.ber
+# Is the filename a directory
+
+#What if maze is mixed up with texture's path or colors ?
+
+################ COLORS ###########################################
+
+#Test missing color or missing line
+> F 
+> F ,220,100
+> F 220,100,
+> F 225
+
+#Test wrong values of colors
+> -0
+> 256
+> 2354345636
+> -42
+> F 000,220,100,0
+> C 0x00FFFF,0,0
+
+#Test wrong symbol/char in color and in identifier
+> 0,34e,/
+> F  0,0,0
+> Fe 0,0,0
+> C 0,0,0 lksdefj
+> 255,,0
+> C ,1,1,1
+
+#Test color in double or weird stuff
+"
+> F 1,1,1
+> F 2,2,2
+"
+"
+> F 1,1,1
+> F 
+"
+> F 1,1,1 C 1,1,1
+
+################ TEXTURE ##########################################
+
+#Test if orientation in double (multiple lines)
+#Test if with a missing line
+#Test inexistant path
+> NO ./assets/inexistant_name.xpm
+> NO
+
+#Test wrong extension name for textures
+img.jpg
+img.cub
+img.xtm
+img.xpm.xpm
+img.xp
+
+#Is texture's path a directory ?
+
+#Test wrong symbol/char in color and in identifier
+> Ne ./gnagna.xpm
+> S0 ./jhagdjh.xpm
+> EA  ./fsldkjf.xpm
+> EA , ./fsldkjf.xpm
+> NO./assets
+!!!!!!!!!!!! EST CE QU'ON PEUT FAIRE UN PATH COMME assets/name.xpm ? ou que ./assets/name.xpm
+
+!!!!!!!!! VERIFIER SI XPM OBLIGATOIRE !!!!!
+
+
+################ PLAYER ###########################################
+
+#Test with no player
+#Test with too much players
+#Test orientation spawn
+
+################ MAZE #############################################
+
+#Test with invalid symbol
+#Test empty lines in maze
+#Test empty lines or whatever wrong after the maze
+11111
+1N001
+11111
+*empty line*
+
+#Test if spaces are handled rightly
+- with tabs ?
+
+11111111
+1      1
+10000N11
+ 1111111
+       1
+
+     111
+
+     111
+	 101
+11111101
+10000001
+1N11111
+111111
+
+1111111111111111111111111111111
+10101010101010101001
+1111111111111111111111111111111
+1N100001                    101
+1111111111111111111111111111111
+1111111111111111111111111111111
+1000000000000000000000000000001
+1000000000000000000000000000001
+1000000000000000000111111111111
+111111101111101111011      1  1
+111111101111101111011      1  1
+111111101111101111011      1  1
+111111101111101111011      1  1
+11    111 11111111111
+
+#Test maze edges - closed maze
+
+     111
+	 101
+11111101
+10000001
+101111N1
+111111
+
+1N1
+111
+
+111
+1N1
+101
+
+1111
+10N1
+1110
+
+1111
+10N1
+1 11
+
+#Test weird map and shit
+
+1111
+10N1
+1111
+
+1
+
+111
+1N1
+F 
+1D1
+111
+
+1111
+1NW1
+1111
+
+	111
+	1P1
+	111
+
+1111
+1 N1
+1 11
+
+
+################ BONUS ##############################################

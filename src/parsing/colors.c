@@ -36,8 +36,8 @@ int	parsing_colors(char *line, t_map *map)
 			return (free(rgb), KO);
 		index++;
 	}
-	if (!assign_color(map, letter, rgb))
-		return (KO);
+	if (!assign_color(map, letter, line[i], rgb))
+		return (free(rgb), KO);
 	return (SUCCESS);
 }
 
@@ -47,13 +47,15 @@ int	get_color(char *line, int *i)
 	int		result;
 	int		start;
 
+	if (!ft_isdigit(line[*i]) && *i == 2)
+		return (-1);
 	color = NULL;
 	start = *i;
 	while (line[*i] && line[*i] != ',' && line[*i] != '\n' && line[*i] != '/')
 		*i += 1;
 	if (line[*i] && (line[*i] == ',' || line[*i] == '\n' || line[*i] == '/'))
 	{
-		color = ft_substr(line, start, (*i));
+		color = ft_substr(line, start, (*i) - start);
 		*i += 1;
 		if (line[*i] && (line[*i] == ',' || line[*i] == '/'))
 			return (free(color), map_error(INVALID), -1);
@@ -67,12 +69,21 @@ int	get_color(char *line, int *i)
 	return (result);
 }
 
+static int	color_end_checking(char *line)
+{
+	size_t	len;
+
+	len = ft_strlen(line);
+	if (line[len - 1] == '\n' && !ft_isdigit(line[len - 2]))
+		return (map_error(INVALID));
+	return (SUCCESS);
+}
 char	check_color_symbol(char *line)
 {
 	int		i;
 	char	letter;
 
-	if (!line)
+	if (!line || !color_end_checking(line))
 		return (0);
 	letter = 0;
 	if (line[0] == 'F' || line[0] == 'C' || line[0] == 'S')
@@ -94,13 +105,14 @@ char	check_color_symbol(char *line)
 	return (letter);
 }
 
-int	assign_color(t_map *map, char letter, int *rgb)
+int	assign_color(t_map *map, char letter, char line, int *rgb)
 {
 	static int	i = 0;
 
-	if (letter == 'F' && map->floor_color == 0)
+	(void)line;
+	if (letter == 'F' && (int)map->floor_color == -1)
 		map->floor_color = convert_hex_color(rgb);
-	else if (letter == 'C' && map->ceilling_color == 0)
+	else if (letter == 'C' && (int)map->ceilling_color == -1)
 		map->ceilling_color = convert_hex_color(rgb);
 	else if (letter == 'S' && !map->color_sequence[i])
 	{
@@ -108,10 +120,7 @@ int	assign_color(t_map *map, char letter, int *rgb)
 		return (SUCCESS);
 	}
 	else
-	{
-		free(rgb);
 		return (map_error(DOUBLE_SYMB));
-	}
 	free(rgb);
 	return (SUCCESS);
 }

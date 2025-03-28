@@ -16,8 +16,8 @@ static unsigned int	ft_atoui(const char *str);
 
 int	ft_atoi(const char *str)
 {
-	if (!*str)
-		return (0);
+	if (!*str || !str || *str == '\n' || *str == ',')
+		return (-1);
 	while (ft_strchr(" \t\n\r\v\f", *str))
 		str++;
 	if (*str == '-')
