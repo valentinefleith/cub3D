@@ -89,6 +89,7 @@ int	draw_picked_color(t_maze *game)
 
 	pos.x = WIDTH / 2;
 	pos.y = HEIGHT / 2;
-	draw_rectangle(game, pos, to_rectangle_characteristics(50, 50, game->map.color_picked));
+	draw_rectangle(game, pos,
+		to_rectangle_characteristics(50, 50, game->map.color_picked));
 	return (SUCCESS);
 }
