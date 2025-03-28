@@ -1,0 +1,25 @@
+NO ./assets/textures/shades/deep_square.xpm
+SO ./assets/textures/shades/deep_square.xpm
+WE ./assets/textures/shades/deep_square.xpm
+EA ./assets/textures/shades/deep_square.xpm
+DO ./assets/textures/shades/door_square.xpm
+
+C 62,70,186
+F 123,131,249
+S 148,0,211/186,85,211/153,50,204
+
+1111111111111
+1001000000001
+1E01000111001
+1001000000001
+1001410001101
+1100100000101
+1000001111131
+1010000010101
+1051100000101
+1000100010001
+1111112111111
+1000000000001
+1111100011111
+1000000000001
+1111111111111

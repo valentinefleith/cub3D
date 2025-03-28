@@ -112,13 +112,10 @@ int	check_maze_edges(char **maze, char *line, int index, int height)
 	len = ft_strlen(line) - 2;
 	if (line[i] != '1' || line[len] != '1')
 		return (KO);
-	while (maze[index - 1][i])
+	while (line[i])
 	{
-		if (!line[i])
-		{
-			if (maze[index - 1][i] && maze[index - 1][i] == '0')
-				return (KO);
-		}
+		if (!line[i] && maze[index - 1][i] && maze[index - 1][i] == '0')
+			return (KO);
 		i++;
 	}
 	return (SUCCESS);

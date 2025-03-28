@@ -14,7 +14,7 @@ SRC_DIR = src
 OBJ_DIR = build
 INC = -Iinclude -Ilibft -I$(MLX_PATH) -I$(GNL_PATH)
 
-GNL_PATH = ./get_next_line
+GNL_PATH = ./libft/get_next_line
 GNL_NAME = get_next_line.a
 GNL = $(GNL_PATH)/$(GNL_NAME)
 
