@@ -69,7 +69,7 @@ int			clean_maze_parsing(char *line, int fd);
 int			parsing_colors(char *line, t_map *map);
 int			get_color(char *line, int *i);
 char		check_color_symbol(char *line);
-int			assign_color(t_map *map, char letter, char line, int *rgb);
+int			assign_color(t_map *map, char letter, int *rgb);
 
 /* COLORS UTILS **************************************************************/
 

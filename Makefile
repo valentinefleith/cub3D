@@ -48,7 +48,8 @@ RAYCASTING_FILES = raycasting/get_direction.c raycasting/get_distance.c \
 			raycasting/get_point.c raycasting/raycasting.c raycasting/utils.c \
 
 RENDERING_FILES = rendering/draw.c rendering/image.c rendering/minimap.c \
-			rendering/mapping_texture.c
+			rendering/mapping_texture.c rendering/rectangle.c \
+			rendering/line.c 
 
 SRCS =  main.c $(PARSING_FILES) $(CONTROL_FILES) $(RAYCASTING_FILES) \
 			 $(RENDERING_FILES)

@@ -36,7 +36,7 @@ int	parsing_colors(char *line, t_map *map)
 			return (free(rgb), KO);
 		index++;
 	}
-	if (!assign_color(map, letter, line[i], rgb))
+	if (!assign_color(map, letter, rgb))
 		return (free(rgb), KO);
 	return (SUCCESS);
 }
@@ -105,11 +105,10 @@ char	check_color_symbol(char *line)
 	return (letter);
 }
 
-int	assign_color(t_map *map, char letter, char line, int *rgb)
+int	assign_color(t_map *map, char letter, int *rgb)
 {
 	static int	i = 0;
 
-	(void)line;
 	if (letter == 'F' && (int)map->floor_color == -1)
 		map->floor_color = convert_hex_color(rgb);
 	else if (letter == 'C' && (int)map->ceilling_color == -1)
