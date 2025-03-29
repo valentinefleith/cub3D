@@ -6,7 +6,7 @@
 /*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:07:00 by luvallee          #+#    #+#             */
-/*   Updated: 2025/03/27 15:39:15 by luvallee         ###   ########.fr       */
+/*   Updated: 2025/03/29 11:38:39 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ int	check_map_borders_edges(char **maze, char *line, int index)
 		i++;
 	}
 	if (!line[i] && index - 1 > 0 && maze[index - 1][i]
-		&& maze[index - 1][i] == '0')
+		&& (maze[index - 1][i] == '0' 
+		|| maze[index - 1][i] == 'N' || maze[index - 1][i] == 'S'
+		|| maze[index - 1][i] == 'W' || maze[index - 1][i] == 'E'))
 		return (KO);
 	return (SUCCESS);
 }
@@ -114,7 +116,9 @@ int	check_maze_edges(char **maze, char *line, int index, int height)
 		return (KO);
 	while (line[i])
 	{
-		if (!line[i] && maze[index - 1][i] && maze[index - 1][i] == '0')
+		if (!line[i] && maze[index - 1][i] && (maze[index - 1][i] == '0'
+			|| maze[index - 1][i] == 'N' || maze[index - 1][i] == 'S'
+			|| maze[index - 1][i] == 'W' || maze[index - 1][i] == 'E'))
 			return (KO);
 		i++;
 	}

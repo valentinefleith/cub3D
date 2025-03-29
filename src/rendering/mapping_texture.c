@@ -6,7 +6,7 @@
 /*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:19:21 by luvallee          #+#    #+#             */
-/*   Updated: 2025/03/27 18:23:09 by luvallee         ###   ########.fr       */
+/*   Updated: 2025/03/29 11:53:43 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ static t_img	get_wall_texture(t_maze *game, double angle)
 	if (game->horizontal_point)
 	{
 		if (get_horizontal_direction(angle) == facing_up)
-			texture = game->texture[west];
+			texture = game->texture[north];
 		else
-			texture = game->texture[east];
+			texture = game->texture[south];
 	}
 	else
 	{
 		if (get_vertical_direction(angle) == facing_left)
-			texture = game->texture[north];
+			texture = game->texture[west];
 		else
-			texture = game->texture[south];
+			texture = game->texture[east];
 	}
 	return (texture);
 }

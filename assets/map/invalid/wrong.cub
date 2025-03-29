@@ -1,8 +1,8 @@
 F 0,220,100
 
-C 62,70,186
-NO ./assets/map/invalid/folder.xpm
+NO ./assets/textures/shades/deep_square.xpm
 SO ./assets/textures/shades/deep_square.xpm
+C 62,70,186
 EA ./assets/textures/shades/deep_square.xpm
 WE ./assets/textures/shades/deep_square.xpm
 
