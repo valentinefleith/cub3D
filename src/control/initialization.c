@@ -6,7 +6,7 @@
 /*   By: luvallee <luvallee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:57:36 by luvallee          #+#    #+#             */
-/*   Updated: 2025/03/27 15:58:45 by luvallee         ###   ########.fr       */
+/*   Updated: 2025/03/29 11:13:12 by luvallee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ t_map	init_map_struct(void)
 		map_error(ERROR_MAP);
 		exit(1);
 	}
-	map.color_sequence[0] = -1;
-	map.color_sequence[1] = -1;
-	map.color_sequence[2] = -1;
+	map.color_sequence[0] = 0;
+	map.color_sequence[1] = 0;
+	map.color_sequence[2] = 0;
 	map.textures_path = init_tab(TEXTURE_NB);
 	map.color_picked = -1;
 	map.target_color = -1;
