@@ -2,6 +2,10 @@
 # cub3D
 Project : 3D graphical representation of the inside of a maze from a first-person perspective using Ray-Casting.
 
+![cub3d_final](https://github.com/user-attachments/assets/ea55118f-ca4b-4f03-9be6-8f384a8899d4)
+
+
+
 * [Game Loop](#Game_Loop)
 * [Handle movement of the player](#Handle_movement)
 * [Raycasting](#Raycasting)
